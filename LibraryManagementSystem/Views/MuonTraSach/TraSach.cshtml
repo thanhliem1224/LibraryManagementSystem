@@ -1,0 +1,89 @@
+﻿@model LibraryManagementSystem.Models.MuonTraSach
+
+@{
+    ViewBag.Title = "Trả Sách";
+}
+
+<h2>Trả Sách</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Xác nhận thông tin trả sách</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Sach.TenSach, "Tên Sách", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.ValueFor(model => model.Sach.IDandTen)
+                <div hidden="hidden">
+                    @Html.DropDownList("SachID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SachID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HocSinh.TenHS, "Tên Học Sinh", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.ValueFor(model => model.HocSinh.TenHS)
+                <div hidden="hidden">
+                    @Html.DropDownList("HocSinhID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.HocSinhID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NgayMuon, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.ValueFor(model => model.NgayMuon)
+                <div hidden="hidden">
+                    @Html.TextBoxFor(model => model.NgayMuon, new { htmlAttributes = new { @class = "form-control", @Value = Model.NgayMuon.ToString("dd-MM-yyyy") } })
+                    @Html.ValidationMessageFor(model => model.NgayMuon, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HanTra, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.ValueFor(model => model.HanTra)
+                <div hidden="hidden">
+                    @Html.TextBoxFor(model => model.HanTra, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.HanTra, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NgayTra, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.ValueFor(model => model.NgayTra)
+                <div hidden="hidden">
+                    @Html.TextBoxFor(model => model.NgayTra, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NgayTra, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+
+}

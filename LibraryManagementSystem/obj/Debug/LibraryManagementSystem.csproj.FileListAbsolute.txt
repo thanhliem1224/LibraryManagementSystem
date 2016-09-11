@@ -1,0 +1,173 @@
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\ApplicationInsights.config
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\roslyn\csc.exe
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\roslyn\System.Collections.Immutable.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\roslyn\System.Reflection.Metadata.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\roslyn\vbc.exe
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\roslyn\VBCSCompiler.exe
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\roslyn\VBCSCompiler.exe.config
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\LibraryManagementSystem.dll.config
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\LibraryManagementSystem.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\LibraryManagementSystem.pdb
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Antlr3.Runtime.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\EntityFramework.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\EntityFramework.SqlServer.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AI.DependencyCollector.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AI.Web.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AI.WindowsServer.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.ApplicationInsights.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.Google.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Web.Infrastructure.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Newtonsoft.Json.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Owin.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.Helpers.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.Mvc.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.Optimization.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.Razor.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.WebPages.Deployment.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.WebPages.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.WebPages.Razor.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\WebGrease.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AI.DependencyCollector.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AI.Web.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AI.WindowsServer.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.ApplicationInsights.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.Helpers.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.Mvc.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.Optimization.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.Razor.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.WebPages.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.WebPages.Deployment.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.WebPages.Razor.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Antlr3.Runtime.pdb
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Newtonsoft.Json.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\EntityFramework.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\EntityFramework.SqlServer.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.Google.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.pdb
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Excel.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\ICSharpCode.SharpZipLib.dll
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Excel.pdb
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.Migrations.Init.resources
+C:\Tot Nghiep\Project\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.csproj.GenerateResource.Cache
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\ApplicationInsights.config
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\roslyn\csc.exe
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\roslyn\System.Collections.Immutable.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\roslyn\System.Reflection.Metadata.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\roslyn\vbc.exe
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\roslyn\VBCSCompiler.exe
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\roslyn\VBCSCompiler.exe.config
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\LibraryManagementSystem.dll.config
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\LibraryManagementSystem.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\LibraryManagementSystem.pdb
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Antlr3.Runtime.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\EntityFramework.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\EntityFramework.SqlServer.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Excel.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\ICSharpCode.SharpZipLib.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AI.Agent.Intercept.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AI.DependencyCollector.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AI.Web.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AI.WindowsServer.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.ApplicationInsights.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Core.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.Cookies.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.Facebook.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.Google.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.OAuth.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.Twitter.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Web.Infrastructure.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Newtonsoft.Json.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Owin.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.Helpers.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.Mvc.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.Optimization.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.Razor.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.WebPages.Deployment.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.WebPages.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.WebPages.Razor.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\WebGrease.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Excel.pdb
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AI.DependencyCollector.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AI.Web.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AI.WindowsServer.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.ApplicationInsights.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.Helpers.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.Mvc.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.Optimization.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.Razor.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.WebPages.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.WebPages.Deployment.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\System.Web.WebPages.Razor.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Antlr3.Runtime.pdb
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Newtonsoft.Json.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\EntityFramework.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\EntityFramework.SqlServer.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Core.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.Facebook.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.Cookies.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.OAuth.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.Google.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.Twitter.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.csprojResolveAssemblyReference.cache
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.Migrations.Init.resources
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.csproj.GenerateResource.Cache
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.dll
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.pdb

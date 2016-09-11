@@ -1,0 +1,289 @@
+﻿@model LibraryManagementSystem.Models.MuonTraSach
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h2>Tạo mới</h2>
+<div class="form-horizontal">
+    <table class="table">
+        <tr>
+            <td class="col-md-6">
+                @using (Html.BeginForm("TimHocSinhSach", "MuonTraSach"))
+                {
+                    <label class="lblTenHS">Tên học sinh:</label> @Html.TextBox("tenHS", null, new { @id = "txtTenHS" })
+                    <label class="lblTenSach" hidden="hidden">Tên sách: </label>  @Html.TextBox("tenSach", null, new { @id = "txtTenSach", @hidden = "hidden" })
+
+                    <input type="submit" value="Tìm" id="btnTim" />
+                    <br />
+
+                        @Html.TextBox("confirmed", "no", new { @id = "txtconfirmed", @hidden = "hidden" })
+                }
+
+            </td>
+
+            <td class="col-md-6">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.TextBox("confirm", null, new { @id = "confirmed", @hidden = "hidden" })
+
+                    <div class="form-group" id="tdTenHS">
+                        @Html.Label("tenHS_list", "Kết quả:", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("HocSinhID", null, htmlAttributes: new { @id = "dropHSID", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.HocSinhID, "", new { @class = "text-danger" })
+                            <a class="btnXacNhanHS">Xác nhận</a>
+
+                        </div>
+                    </div>
+                    <div class="form-group" id="tdTenSach" hidden="hidden">
+                        @Html.Label("tenSach_list", "Kết quả:", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("SachID", null, htmlAttributes: new { @id = "dropSachID", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.SachID, "", new { @class = "text-danger" })
+
+                            <input id="btnXacNhanSach" type="submit" value="Xác nhận" class="btn btn-default" />
+
+                        </div>
+                        @if (ViewBag.stt == "limited")
+                        {
+                            <p>
+                                <h4 class="text-danger">
+                                    @ViewBag.Limited
+                                </h4>
+                            </p>
+                        }
+                        else if (ViewBag.stt == "expired")
+                        {
+                            <p>
+                                <h4 class="text-danger">@ViewBag.Expired</h4>
+                            </p>
+                        }
+
+                    </div>
+
+
+                        @*Những phần có dữ liệu được tạo tự động \||/*@
+                        <div hidden="hidden">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NgayMuon, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextBox("ngaymuon", DateTime.Now, new { @id = "_fakeNgayMuon", @hidden = "hidden" })
+                                    @Html.TextBoxFor(model => model.NgayMuon, new { @id = "txtNgayMuon", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.NgayMuon, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.HanTra, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextBox("hantra", DateTime.Now.AddDays(7), new { @id = "_fakeHanTra", @hidden = "hidden" })
+                                    @Html.TextBoxFor(model => model.HanTra, new { @id = "txtHanTra", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.HanTra, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        @*------------------------------------------------*@
+                }
+
+            </td>
+
+        </tr>
+        <tr>
+            <td id="tdThongTinMuonSach" hidden="hidden">
+                <h4>Học sinh mượn sách</h4>
+                <ul>
+                    <li><label class="lblThongTinHS" hidden="hidden"></label></li>
+
+                </ul>
+            </td>
+        </tr>
+    </table>
+    <hr />
+    <label id="lblSachMuon" hidden="hidden">Sách đang mượn</label>
+    <hr />
+    <table class="table dataTable" id="muon_SachID" hidden="hidden" title="Sách đang mượn">
+        <thead>
+            <tr>
+                <th>
+                    Tên sách
+                </th>
+                <th>
+                    Ngày mượn
+                </th>
+                <th>
+                    Hạn trả sách
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var std in ViewBag.view_muon_sach)
+            {
+                if (@std.NgayTra == null)
+                {
+                    <tr>
+                        <td>
+                            @std.Sach.TenSach
+                        </td>
+                        <td>
+                            @std.NgayMuon
+                        </td>
+                        <td>
+                            @std.HanTra
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("Trả sách", "TraSach", new { id = std.ID }) |
+                            @Html.ActionLink("Chi tiết", "Details", new { id = std.ID })
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <hr />
+    <label id="lblSachTra" hidden="hidden">Sách đã trả</label>
+    <hr />
+    <table class="table dataTable" id="tra_SachID" hidden="hidden" title="Sách đã trả">
+        <thead>
+            <tr>
+                <th>
+                    Tên sách
+
+                </th>
+                <th>
+                    Ngày mượn
+                </th>
+                <th>
+                    Hạn trả sách
+                </th>
+                <th>
+                    Ngày trả sách
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var std in ViewBag.view_muon_sach)
+            {
+                if (@std.NgayTra != null)
+                {
+                    <tr>
+                        <td>
+                            @std.Sach.TenSach
+                        </td>
+                        <td>
+                            @std.NgayMuon
+                        </td>
+                        <td>
+                            @std.HanTra
+                        </td>
+                        <td>
+                            @std.NgayTra
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("Chi tiết", "Details", new { id = std.ID })
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            {
+                var ngaymuon = $("#_fakeNgayMuon").val();
+                var hantra = $("#_fakeHanTra").val();
+                $("#txtNgayMuon").val(ngaymuon);
+                $("#txtHanTra").val(hantra)
+                $("#txtTrangThai").val("Đã mượn");
+
+            }
+            function showNhapHS() {
+                $("label.lblTenHS").show();
+                $("#txtTenHS").show();
+                $("#tdTenHS").show();
+            }
+            function hideNhapHS() {
+                $("label.lblTenHS").hide();
+                $("#txtTenHS").hide();
+                $("#tdTenHS").hide();
+            }
+            function showNhapSach() {
+                $("label.lblTenSach").show();
+                $("#txtTenSach").show();
+                $("#tdTenSach").show();
+            }
+            function hideNhapSach() {
+                $("label.lblTenSach").hide();
+                $("#txtTenSach").hide();
+                $("#tdTenSach").hide();
+            }
+
+            var isnullTenSach = $("#txtTenSach").val();
+            var isnulltenHS = $("#txtTenHS").val();
+            var confirmed = $("#confirmed").val();
+
+
+
+            if (isnulltenHS == "" && isnullTenSach == "") {
+                showNhapHS();
+                $("#tdTenHS").hide();
+                ////
+                hideNhapSach();
+
+            }
+            if (isnulltenHS != "" && isnullTenSach == "") {
+                showNhapHS();
+                ////
+                hideNhapSach();
+
+            }
+            if (isnulltenHS != "" && confirmed == "yes") {
+                var selectedHS = $("#dropHSID option:selected").text();
+                hideNhapHS();
+                ////
+                showNhapSach();
+                $("#muon_SachID").show();
+                $("#tra_SachID").show();
+                $("#lblSachMuon").show();
+                $("#lblSachTra").show();
+                $("#tdThongTinMuonSach").show();
+                $("label.lblThongTinHS").show().text("Tên học sinh: " + selectedHS);
+            }
+
+            $("a.btnXacNhanHS").click(function () {
+                var selectedHS = $("#dropHSID option:selected").text();
+                $("#txtTenHS").prop('readonly', 'readonly').val(selectedHS);
+
+                location.href = this.href + '?tenHS=' + selectedHS + '&confirmed=yes';
+                $("a.btnXacNhanHS").hide();
+                $("a.btnHuyHS").show();
+                ////
+                showNhapSach();
+                $("#muon_SachID").show();
+                $("#tdThongTinMuonSach").show();
+                $("label.lblThongTinHS").show().text("Tên học sinh: " + selectedHS);
+                ////
+                hideNhapHS();
+                ////
+
+            });
+
+        });
+
+    </script>
+
+}

@@ -1,0 +1,243 @@
+﻿@using LibraryManagementSystem.Models.ViewModel
+@{
+    ViewBag.Title = "Thống Kê";
+}
+<div class="text-center">
+    <h2>Báo Cáo Thống Kê</h2>
+</div>
+<br />
+<div>
+    <div class="row">
+        @using (Html.BeginForm("Index", "BaoCao"))
+        {
+            <div class="form-inline">
+                @Html.TextBox("date", null, new { @type = "month", @class = "form-control", @placeholder = "Tháng" })
+                <button type="submit" class="btn btn-default">Đồng Ý</button>
+            </div>
+        }
+    </div>
+    <br />
+    <div class="text-center">
+        <h3>Báo Cáo @ViewBag.date</h3>
+    </div>
+    <div>
+        <h4>Hoạt động mượn sách</h4>
+        @if (ViewBag.MuonTraSach_Count == 0)
+        {
+            <p>Không có hoạt động mượn sách</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th>
+                            Tên Lớp
+                        </th>
+                        <th>
+                            Tên Học Sinh
+                        </th>
+                        <th>
+                            Mượn sách về nhà
+                        </th>
+                    </tr>
+
+                    @foreach (var item in ViewBag.MuonTraSach)
+                    {
+                        <tr>
+                            <td>
+                                @item.GroupName1
+                            </td>
+                            <td>
+                                @item.GroupName2
+                            </td>
+                            <td>
+                                @item.GroupSoLuong
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td colspan="2">
+                            <strong>Tổng Cộng</strong>
+                        </td>
+                        <td>
+                            <strong>@ViewBag.MuonTraSach_Count</strong>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+    </div>
+    <hr />
+    <div>
+        <h4>Mượn sách quá hạn</h4>
+        @if (ViewBag.MuonQuaHan_Count == 0)
+        {
+            <p>Không có học sinh mượn sách quá hạn</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th>
+                            Tên Học Sinh
+                        </th>
+                        <th>
+                            Số Lượng
+                        </th>
+                        <th>
+                            Tên Sách
+                        </th>
+                    </tr>
+
+                    @foreach (var item in ViewBag.MuonQuaHan)
+                {
+                        <tr>
+                            <td>
+                                @item.GroupName1
+                            </td>
+                            <td>
+                                @item.GroupSoLuong
+                            </td>
+                            <td>
+                                <table class="table">
+                                    @foreach (var dsct in item.GroupDanhSach)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @dsct.Sach.TenSach
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </td>
+
+                        </tr>
+
+                    }
+                    <tr>
+                        <td>
+                            <strong>
+                                Tổng Cộng
+                            </strong>
+                        </td>
+                        <td>
+                            <strong>
+                                @ViewBag.MuonQuaHan_Count
+                            </strong>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+    </div>
+    <hr />
+    <div>
+        <h4>Mượn sách chưa trả</h4>
+        @if (ViewBag.MuonChuaTra_Count == 0)
+        {
+            <p>Không có sách chưa trả</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th>
+                            Tên Học Sinh
+                        </th>
+                        <th>
+                            Số Lượng
+                        </th>
+                        <th>
+                            Tên Sách
+                        </th>
+                    </tr>
+
+                    @foreach (var item in ViewBag.MuonChuaTra)
+                {
+                        <tr>
+                            <td>
+                                @item.TenHS
+                            </td>
+                            <td>
+                                @item.SoLuong
+                            </td>
+                            <td>
+                                <table class="table">
+                                    @foreach (var dsm in item.DanhSachMuon)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @dsm.Sach.TenSach
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </td>
+
+                        </tr>
+
+                    }
+                    <tr>
+                        <td>
+                            <strong>
+                                Tổng Cộng
+                            </strong>
+                        </td>
+                        <td>
+                            <strong>
+                                @ViewBag.MuonChuaTra_Count
+                            </strong>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+    </div>
+    <hr />
+    <div>
+        <h4>Bảng Thống Kê Sách</h4>
+        @if (ViewBag.ThongKeSach_Count == 0)
+        {
+            <p>Thư Viện Không Có Sách</p>
+        }
+        else
+        {
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>
+                        Thể Loại
+                    </th>
+                    <th>
+                        Số Lượng
+                    </th>
+                </tr>
+
+                @foreach (var chude in ViewBag.ThongKeSach)
+                {
+                    <tr>
+                        <td>
+                            @chude.GroupName1
+                        </td>
+                        <td>
+                            @chude.GroupSoLuong
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td>
+                        <strong>Tổng cộng</strong>
+                    </td>
+                    <td>
+                        <strong>@ViewBag.ThongKeSach_Count</strong>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+        }
+    </div>
+</div>

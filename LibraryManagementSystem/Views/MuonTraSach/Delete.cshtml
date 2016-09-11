@@ -1,0 +1,64 @@
+﻿@model LibraryManagementSystem.Models.MuonTraSach
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>MuonTraSach</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HocSinh.TenHS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HocSinh.TenHS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sach.SachID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sach.SachID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayMuon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayMuon)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HanTra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HanTra)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayTra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayTra)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
