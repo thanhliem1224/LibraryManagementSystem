@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using LibraryManagementSystem.DAL;
 using LibraryManagementSystem.Models;
@@ -37,13 +35,24 @@ namespace LibraryManagementSystem.Controllers
             return View(thanhLy);
         }
 
-        // GET: ThanhLy/Create
-        public ActionResult Create()
+        [HttpPost]
+        [Authorize]
+        public ActionResult TimSach(string tenSach)
         {
-            ViewBag.SachID = new SelectList(db.Sach.Where(s => s.TrangThai == TrangThai.CoSan) , "ID", "IDandTen");
-            //ViewBag.SachID = from s in db.Sach
-            //                 where s.TrangThai == TrangThai.CoSan
-            //                 select s;
+            return RedirectToAction("Create", "ThanhLy", new { b = tenSach });
+        }
+
+        // GET: ThanhLy/Create
+        public ActionResult Create(string b)
+        {
+            var ds = db.Sach.Where(s => s.TrangThai == TrangThai.CoSan);
+
+            if(b != null)
+            {
+                ds = ds.Where(s => s.TenSach.Contains(b));
+            }
+
+            ViewBag.SachID = new SelectList(ds, "ID", "IDandTen");
             return View();
         }
 
@@ -65,7 +74,7 @@ namespace LibraryManagementSystem.Controllers
                 thanhLy.Ngay = DateTime.Now;
                 db.ThanhLy.Add(thanhLy);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create");
             }
 
             ViewBag.SachID = new SelectList(db.Sach, "ID", "SachID", thanhLy.SachID);

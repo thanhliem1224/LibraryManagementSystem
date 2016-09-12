@@ -8,11 +8,9 @@
     @Styles.Render("~/Content/DataTables/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/datatable")
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     <script type="text/javascript" src="~/Scripts/jquery-2.2.3.min.js"></script>
-
 </head>
 <body>
     <div class="navbar navbar-default navbar-fixed-top">
@@ -33,9 +31,19 @@
                             <li>@Html.ActionLink("Học sinh", "Index", "HocSinh")</li>
                             <li>@Html.ActionLink("Chủ đề", "Index", "ChuDe")</li>
                             <li>@Html.ActionLink("Sách", "Index", "Sach")</li>
+                            
                         </ul>
                     </li>
-                    <li>@Html.ActionLink("Mượn/Trả sách", "Create", "MuonTraSach")</li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" role="button" aria-expanded="false" aria-haspopup="true" href="#" data-toggle="dropdown">Hoạt Động</a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Mượn/Trả Sách", "Create", "MuonTraSach")</li>
+                            <li>@Html.ActionLink("Đọc Sách Tại Chỗ", "Create", "DocSachTaiCho")</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Thanh Lý Sách", "Create", "ThanhLy")</li>
+                            <li>@Html.ActionLink("Báo Mất Sách", "Index", "MatSach")</li>
+                        </ul>
+                    </li>
                     <li>@Html.ActionLink("Thống Kê", "Index", "BaoCao")</li>
                     <li><a href="https://www.cncf.org/operational-centres.html" target="_blank">Liên Hệ</a></li>
                 </ul>
@@ -50,9 +58,6 @@
             <p>&copy; @DateTime.Now.Year - Thư Viện CNCF</p>
         </footer>
     </div>
-
-
-
 
 
     @RenderSection("Scripts", required: false)

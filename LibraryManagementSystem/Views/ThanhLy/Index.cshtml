@@ -15,6 +15,9 @@
             @Html.DisplayNameFor(model => model.Sach.SachID)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Sach.TenSach)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Ngay)
         </th>
         <th></th>
@@ -24,6 +27,9 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Sach.SachID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sach.TenSach)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Ngay)
