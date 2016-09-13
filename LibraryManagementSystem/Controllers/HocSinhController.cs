@@ -208,7 +208,7 @@ namespace LibraryManagementSystem.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,TenHS,Lop,NgaySinh")] HocSinh hoc_Sinh)
+        public ActionResult Edit([Bind(Include = "ID,MaHS,TenHS,Lop,NgaySinh")] HocSinh hoc_Sinh)
         {
             if (ModelState.IsValid)
             {
