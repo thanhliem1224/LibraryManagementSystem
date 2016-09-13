@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "ThemHocSinhTuFile";
+}
+
+<h2>ThemHocSinhTuFile</h2>
+
+@using (Html.BeginForm("ThemHocSinhTuFile", "HocSinh", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <div class="form-group">
+        <input type="file" id="dataFile" name="upload" />
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Tải lên và Lưu" class="btn btn-default" />
+    </div>
+}

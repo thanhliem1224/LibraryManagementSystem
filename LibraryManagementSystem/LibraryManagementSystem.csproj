@@ -217,9 +217,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201609130416408_Init.cs" />
-    <Compile Include="Migrations\201609130416408_Init.Designer.cs">
-      <DependentUpon>201609130416408_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201609130449201_Init.cs" />
+    <Compile Include="Migrations\201609130449201_Init.Designer.cs">
+      <DependentUpon>201609130449201_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -334,6 +334,7 @@
     <Content Include="Views\DocSach\Details.cshtml" />
     <Content Include="Views\DocSach\Edit.cshtml" />
     <Content Include="Views\DocSach\Index.cshtml" />
+    <Content Include="Views\HocSinh\ThemHocSinhTuFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -347,8 +348,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201609130416408_Init.resx">
-      <DependentUpon>201609130416408_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201609130449201_Init.resx">
+      <DependentUpon>201609130449201_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

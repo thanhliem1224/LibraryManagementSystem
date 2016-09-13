@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<LibraryManagementSystem.Models.HocSinh>
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -23,9 +22,9 @@
             </div>
         }
     </div>
-
-    <div class="col-md-4 text-right">
-        <a href="HocSinh/Create" class="btn btn-primary active" role="button">Tạo Mới</a>
+    <div class="col-md-4 text-right form-inline">
+            <a href="HocSinh/Create" class="btn btn-primary active" role="button">Thêm Mới</a>
+            <a href="HocSinh/ThemHocSinhTuFile" class="btn btn-primary active" role="button">Thêm Từ File</a>
     </div>
 </div>
 <br />
@@ -43,7 +42,6 @@
             </th>
             <th></th>
         </tr>
-
         @foreach (var item in Model)
         {
             <tr>
@@ -63,6 +61,5 @@
                 </td>
             </tr>
         }
-
     </table>
 </div>

@@ -8,6 +8,10 @@ using System.Web;
 using System.Web.Mvc;
 using LibraryManagementSystem.DAL;
 using LibraryManagementSystem.Models;
+using System.IO;
+using Excel;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -90,6 +94,97 @@ namespace LibraryManagementSystem.Controllers
 
             return View(hoc_Sinh);
         }
+
+        public ActionResult ThemHocSinhTuFile()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult ThemHocSinhTuFile(HttpPostedFileBase upload)
+        {
+            if (ModelState.IsValid)
+            {
+
+                if (upload != null && upload.ContentLength > 0)
+                {
+                    // ExcelDataReader works with the binary Excel file, so it needs a FileStream
+                    // to get started. This is how we avoid dependencies on ACE or Interop:
+                    Stream stream = upload.InputStream;
+
+                    // We return the interface, so that
+                    IExcelDataReader reader = null;
+
+
+                    if (upload.FileName.EndsWith(".xls"))
+                    {
+                        reader = ExcelReaderFactory.CreateBinaryReader(stream);
+                    }
+                    else if (upload.FileName.EndsWith(".xlsx"))
+                    {
+                        reader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("File", "Định dạng file không được hỗ trợ.");
+                        return View();
+                    }
+
+                    reader.IsFirstRowAsColumnNames = true;
+
+                    DataSet result = reader.AsDataSet();
+
+                    for (int i = 0; i < result.Tables.Count; i++)
+                    {
+                        foreach (DataRow row in result.Tables[i].Rows)
+                        {
+                            HocSinh hocsinh = new HocSinh
+                            {
+                                MaHS = row[0].ToString(),
+                                TenHS = row[1].ToString(),
+                                Lop = result.Tables[i].TableName,
+                                NgaySinh = DateTime.Parse(row[2].ToString())
+                            };
+
+                            if (db.HocSinh.Any(hs => hs.MaHS == hocsinh.MaHS && hs.TenHS == hocsinh.TenHS))
+                            {
+
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    db.HocSinh.Add(hocsinh);
+                                    db.SaveChanges();
+                                }
+                                catch (DbEntityValidationException dbEx)
+                                {
+                                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                                    {
+                                        foreach (var validationError in validationErrors.ValidationErrors)
+                                        {
+                                            Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                    reader.Close();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("File", "Vui lòng chọn file!");
+                }
+
+            }
+            return View();
+        }
+
 
         // GET: Hoc_Sinh/Edit/5
         [Authorize]
