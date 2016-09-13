@@ -166,7 +166,7 @@ C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.
 C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.Google.xml
 C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.Twitter.xml
 C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.Migrations.Init.resources
-C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.csproj.GenerateResource.Cache
 C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.dll
 C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.pdb
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.Migrations.Init.resources
+C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.csproj.GenerateResource.Cache

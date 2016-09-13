@@ -23,6 +23,7 @@ namespace LibraryManagementSystem.DAL
         public DbSet<MuonTraSach> MuonTraSach { get; set; }
         public DbSet<Sach> Sach { get; set; }
         public DbSet<ThanhLy>ThanhLy { get; set; }
+        public DbSet<DocSachTaiCho> DocSachTaiCho { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             // modelBuilder.Conventions.Remove prevents table names from being pluralized (diễn tả ở số nhiều)

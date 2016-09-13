@@ -19,5 +19,6 @@ namespace LibraryManagementSystem.Models
         public DateTime NgaySinh { get; set; }
 
         public virtual ICollection<MuonTraSach> MuonTraSach { get; set; }
+        public virtual ICollection<DocSachTaiCho>DocSachtaiCho { get; set; }
     }
 }

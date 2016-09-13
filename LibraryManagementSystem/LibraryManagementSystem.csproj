@@ -206,6 +206,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaoCaoController.cs" />
     <Compile Include="Controllers\ChuDeController.cs" />
+    <Compile Include="Controllers\DocSachController.cs" />
     <Compile Include="Controllers\HocSinhController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -216,13 +217,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201609081026370_Init.cs" />
-    <Compile Include="Migrations\201609081026370_Init.Designer.cs">
-      <DependentUpon>201609081026370_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201609130416408_Init.cs" />
+    <Compile Include="Migrations\201609130416408_Init.Designer.cs">
+      <DependentUpon>201609130416408_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ChuDe.cs" />
+    <Compile Include="Models\DocSachTaiCho.cs" />
     <Compile Include="Models\HocSinh.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -248,6 +250,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\thanhliem1224.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -326,6 +329,11 @@
     <Content Include="Views\ThanhLy\Details.cshtml" />
     <Content Include="Views\ThanhLy\Edit.cshtml" />
     <Content Include="Views\ThanhLy\Index.cshtml" />
+    <Content Include="Views\DocSach\Create.cshtml" />
+    <Content Include="Views\DocSach\Delete.cshtml" />
+    <Content Include="Views\DocSach\Details.cshtml" />
+    <Content Include="Views\DocSach\Edit.cshtml" />
+    <Content Include="Views\DocSach\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -339,8 +347,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201609081026370_Init.resx">
-      <DependentUpon>201609081026370_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201609130416408_Init.resx">
+      <DependentUpon>201609130416408_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
