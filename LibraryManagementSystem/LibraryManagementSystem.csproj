@@ -213,6 +213,7 @@
     <Compile Include="Controllers\MuonTraSachController.cs" />
     <Compile Include="Controllers\SachController.cs" />
     <Compile Include="Controllers\ThanhLyController.cs" />
+    <Compile Include="DAL\CNCFClass.cs" />
     <Compile Include="DAL\CNCFContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -338,10 +339,6 @@
     <Content Include="Views\MuonTraSach\Edit.cshtml" />
     <Content Include="Views\MuonTraSach\Index.cshtml" />
     <Content Include="Views\MuonTraSach\TraSach.cshtml" />
-    <Content Include="Views\BaoCao\Create.cshtml" />
-    <Content Include="Views\BaoCao\Delete.cshtml" />
-    <Content Include="Views\BaoCao\Details.cshtml" />
-    <Content Include="Views\BaoCao\Edit.cshtml" />
     <Content Include="Views\BaoCao\Index.cshtml" />
     <Content Include="Views\ThanhLy\Create.cshtml" />
     <Content Include="Views\ThanhLy\Delete.cshtml" />
@@ -354,6 +351,8 @@
     <Content Include="Views\DocSach\Edit.cshtml" />
     <Content Include="Views\DocSach\Index.cshtml" />
     <Content Include="Views\HocSinh\ThemHocSinhTuFile.cshtml" />
+    <Content Include="Views\BaoCao\LuaChon.cshtml" />
+    <Content Include="Views\Shared\SthError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

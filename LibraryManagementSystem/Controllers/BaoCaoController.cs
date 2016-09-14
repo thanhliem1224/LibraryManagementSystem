@@ -3,27 +3,97 @@ using System.Web.Mvc;
 using LibraryManagementSystem.DAL;
 using System;
 using LibraryManagementSystem.Models.ViewModel;
-using System.Web.Helpers;
-using System.Collections;
 
 namespace LibraryManagementSystem.Controllers
 {
     public class BaoCaoController : Controller
     {
+        public enum LOAIBAOCAO
+        {
+            Thang,
+            Nam,
+            KhoanThoiGian
+        }
+
         private CNCFContext db = new CNCFContext();
+
+        private DateTime _end_day_now = CNCFClass.GoToEndOfDay(DateTime.Now);
+
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult LuaChon(LOAIBAOCAO type, DateTime? date_month, DateTime? date_year, DateTime? date_start, DateTime? date_finish)
+        {
+            return RedirectToAction("Index", "BaoCao", new { type = type, d_m = date_month, d_y = date_year, d_s = date_start, d_f = date_finish });
+        }
 
         // GET: BaoCao
         [Authorize]
-        public ActionResult Index(DateTime? date)
+        public ActionResult Index(LOAIBAOCAO? type, DateTime? d_m, DateTime? d_y, DateTime? d_s, DateTime? d_f)
         {
-            int _month = DateTime.Now.Month;
-            int _year = DateTime.Now.Year;
-
-            if (date.HasValue)
+            if (type.HasValue)
             {
-                _month = date.Value.Month;
-                _year = date.Value.Year;
+                switch (type)
+                {
+                    case LOAIBAOCAO.Thang:
+                        {
+                            if (d_m.HasValue)
+                            {
+                                BaoCaoThang(d_m); return View();
+                            }
+                            else
+                            {
+                                return View("SthError");
+                            }
+                        }
+                    case LOAIBAOCAO.Nam:
+                        {
+                            if (d_y.HasValue)
+                            {
+                                BaoCaoNam(d_y); return View();
+                            }
+                            else
+                            {
+                                return View("SthError");
+                            }
+                        }
+                    case LOAIBAOCAO.KhoanThoiGian:
+                        {
+                            if (d_s.HasValue && d_f.HasValue)
+                            {
+                                BaoCaoKTG(d_s,d_f); return View();
+                            }
+                            else
+                            {
+                                return View("SthError");
+                            }
+                        }
+                    default: return View("SthError");
+                }
+
             }
+            else
+            {
+                return View("~/Views/BaoCao/LuaChon.cshtml");
+            }
+        }
+
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        // GET: BaoCao thang
+        [Authorize]
+        private ActionResult BaoCaoThang(DateTime? d)
+        {
+            int _month = d.Value.Month;
+            int _year = d.Value.Year;
 
             // muon tra sach trong thang 
             var muontrasach = from m in db.MuonTraSach
@@ -59,9 +129,9 @@ namespace LibraryManagementSystem.Controllers
 
             // muon sach qua han
             var muonquahan = from m in db.MuonTraSach
-                              where m.NgayMuon.Month == _month && m.NgayMuon.Year == _year && m.NgayTra == null && m.HanTra < DateTime.Now
-                              group m by m.HocSinh.TenHS into g
-                              select new BaoCaoVM { GroupName1 = g.Key, GroupSoLuong = g.Count(), GroupDanhSach = g };
+                             where m.NgayMuon.Month == _month && m.NgayMuon.Year == _year && m.NgayTra == null && m.HanTra < _end_day_now
+                             group m by m.HocSinh.TenHS into g
+                             select new BaoCaoVM { GroupName1 = g.Key, GroupSoLuong = g.Count(), GroupDanhSach = g };
 
             if (muonquahan.Count() > 0)
             {
@@ -88,127 +158,158 @@ namespace LibraryManagementSystem.Controllers
             }
 
             ViewBag.date = _month + "/" + _year;
+            return View("~/Views/BaoCao/Index.cshtml");
 
-
-
-
-
-            return View();
         }
 
-
-        /*
-        // GET: BaoCao/Details/5
-        public ActionResult Details(int? id)
+        // GET: BaoCao Nam
+        [Authorize]
+        private ActionResult BaoCaoNam(DateTime? d)
         {
-            if (id == null)
+            int _year = d.Value.Year;
+
+            // muon tra sach trong thang 
+            var muontrasach = from m in db.MuonTraSach
+                              where m.NgayMuon.Year == _year
+                              group m by new { m.HocSinh.Lop, m.HocSinh.TenHS } into g
+                              select new BaoCaoVM { GroupName1 = g.Key.Lop, GroupName2 = g.Key.TenHS, GroupSoLuong = g.Count() };
+
+            if (muontrasach.Count() > 0)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ViewBag.MuonTraSach_Count = muontrasach.Sum(m => m.GroupSoLuong);
+                ViewBag.MuonTraSach = muontrasach;
             }
-            MuonTraSach muonTraSach = db.MuonTraSach.Find(id);
-            if (muonTraSach == null)
+            else
             {
-                return HttpNotFound();
+                ViewBag.MuonTraSach_Count = 0;
             }
-            return View(muonTraSach);
+
+            // muon sach chua tra
+            var muonchuatra = from m in db.MuonTraSach
+                              where m.NgayMuon.Year == _year && m.NgayTra == null
+                              group m by m.HocSinh.TenHS into g
+                              select new BaoCaoSachChuaTra { TenHS = g.Key, SoLuong = g.Count(), DanhSachMuon = g };
+
+            if (muonchuatra.Count() > 0)
+            {
+                ViewBag.MuonChuaTra = muonchuatra;
+                ViewBag.MuonChuaTra_Count = muonchuatra.Sum(m => m.SoLuong);
+            }
+            else
+            {
+                ViewBag.MuonChuaTra_Count = 0;
+            }
+
+            // muon sach qua han
+
+            var muonquahan = from m in db.MuonTraSach
+                             where m.NgayMuon.Year == _year && m.NgayTra == null && m.HanTra < _end_day_now
+                             group m by m.HocSinh.TenHS into g
+                             select new BaoCaoVM { GroupName1 = g.Key, GroupSoLuong = g.Count(), GroupDanhSach = g };
+
+            if (muonquahan.Count() > 0)
+            {
+                ViewBag.MuonQuaHan = muonquahan;
+                ViewBag.MuonQuaHan_Count = muonquahan.Sum(m => m.GroupSoLuong);
+            }
+            else
+            {
+                ViewBag.MuonQuaHan_Count = 0;
+            }
+
+            // thong ke sach
+            var thongkesach = from s in db.Sach
+                              group s by s.ChuDe.TenChuDe into g
+                              select new BaoCaoVM { GroupName1 = g.Key, GroupSoLuong = g.Count() };
+            if (thongkesach.Count() > 0)
+            {
+                ViewBag.ThongKeSach = thongkesach;
+                ViewBag.ThongKeSach_Count = thongkesach.Sum(t => t.GroupSoLuong);
+            }
+            else
+            {
+                ViewBag.ThongKeSach_Count = 0;
+            }
+
+            ViewBag.date = _year.ToString();
+            return View("~/Views/BaoCao/Index.cshtml");
+
         }
 
-        // GET: BaoCao/Create
-        public ActionResult Create()
+        // GET: BaoCao Nam
+        [Authorize]
+        private ActionResult BaoCaoKTG(DateTime? d_s, DateTime? d_f)
         {
-            ViewBag.HocSinhID = new SelectList(db.HocSinh, "ID", "TenHS");
-            ViewBag.SachID = new SelectList(db.Sach, "ID", "SachID");
-            return View();
-        }
+            int _month_s = d_s.Value.Month;
+            int _year_s = d_s.Value.Year;
+            int _month_f = d_f.Value.Month;
+            int _year_f = d_f.Value.Year;
+            // muon tra sach trong khoang thoi gian
+            var muontrasach = from m in db.MuonTraSach
+                              where (m.NgayMuon.Month >= _month_s && m.NgayMuon.Year >= _year_s) && (m.NgayMuon.Month <= _month_f && m.NgayMuon.Year <= _year_f)
+                              group m by new { m.HocSinh.Lop, m.HocSinh.TenHS } into g
+                              select new BaoCaoVM { GroupName1 = g.Key.Lop, GroupName2 = g.Key.TenHS, GroupSoLuong = g.Count() };
 
-        // POST: BaoCao/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,SachID,HocSinhID,NgayMuon,HanTra,NgayTra")] MuonTraSach muonTraSach)
-        {
-            if (ModelState.IsValid)
+            if (muontrasach.Count() > 0)
             {
-                db.MuonTraSach.Add(muonTraSach);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                ViewBag.MuonTraSach_Count = muontrasach.Sum(m => m.GroupSoLuong);
+                ViewBag.MuonTraSach = muontrasach;
+            }
+            else
+            {
+                ViewBag.MuonTraSach_Count = 0;
             }
 
-            ViewBag.HocSinhID = new SelectList(db.HocSinh, "ID", "TenHS", muonTraSach.HocSinhID);
-            ViewBag.SachID = new SelectList(db.Sach, "ID", "SachID", muonTraSach.SachID);
-            return View(muonTraSach);
-        }
+            // muon sach chua tra
+            var muonchuatra = from m in db.MuonTraSach
+                              where (m.NgayMuon.Month >= _month_s && m.NgayMuon.Year >= _year_s) && (m.NgayMuon.Month <= _month_f && m.NgayMuon.Year <= _year_f) && (m.NgayTra == null)
+                              group m by m.HocSinh.TenHS into g
+                              select new BaoCaoSachChuaTra { TenHS = g.Key, SoLuong = g.Count(), DanhSachMuon = g };
 
-        // GET: BaoCao/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
+            if (muonchuatra.Count() > 0)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ViewBag.MuonChuaTra = muonchuatra;
+                ViewBag.MuonChuaTra_Count = muonchuatra.Sum(m => m.SoLuong);
             }
-            MuonTraSach muonTraSach = db.MuonTraSach.Find(id);
-            if (muonTraSach == null)
+            else
             {
-                return HttpNotFound();
+                ViewBag.MuonChuaTra_Count = 0;
             }
-            ViewBag.HocSinhID = new SelectList(db.HocSinh, "ID", "TenHS", muonTraSach.HocSinhID);
-            ViewBag.SachID = new SelectList(db.Sach, "ID", "SachID", muonTraSach.SachID);
-            return View(muonTraSach);
-        }
 
-        // POST: BaoCao/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,SachID,HocSinhID,NgayMuon,HanTra,NgayTra")] MuonTraSach muonTraSach)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(muonTraSach).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.HocSinhID = new SelectList(db.HocSinh, "ID", "TenHS", muonTraSach.HocSinhID);
-            ViewBag.SachID = new SelectList(db.Sach, "ID", "SachID", muonTraSach.SachID);
-            return View(muonTraSach);
-        }
+            // muon sach qua han
 
-        // GET: BaoCao/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MuonTraSach muonTraSach = db.MuonTraSach.Find(id);
-            if (muonTraSach == null)
-            {
-                return HttpNotFound();
-            }
-            return View(muonTraSach);
-        }
+            var muonquahan = from m in db.MuonTraSach
+                             where (m.NgayMuon.Month >= _month_s && m.NgayMuon.Year >= _year_s) && (m.NgayMuon.Month <= _month_f && m.NgayMuon.Year <= _year_f) && (m.NgayTra > m.HanTra)
+                             group m by m.HocSinh.TenHS into g
+                             select new BaoCaoVM { GroupName1 = g.Key, GroupSoLuong = g.Count(), GroupDanhSach = g };
 
-        // POST: BaoCao/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            MuonTraSach muonTraSach = db.MuonTraSach.Find(id);
-            db.MuonTraSach.Remove(muonTraSach);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-        */
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
+            if (muonquahan.Count() > 0)
             {
-                db.Dispose();
+                ViewBag.MuonQuaHan = muonquahan;
+                ViewBag.MuonQuaHan_Count = muonquahan.Sum(m => m.GroupSoLuong);
             }
-            base.Dispose(disposing);
+            else
+            {
+                ViewBag.MuonQuaHan_Count = 0;
+            }
+
+            // thong ke sach
+            var thongkesach = from s in db.Sach
+                              group s by s.ChuDe.TenChuDe into g
+                              select new BaoCaoVM { GroupName1 = g.Key, GroupSoLuong = g.Count() };
+            if (thongkesach.Count() > 0)
+            {
+                ViewBag.ThongKeSach = thongkesach;
+                ViewBag.ThongKeSach_Count = thongkesach.Sum(t => t.GroupSoLuong);
+            }
+            else
+            {
+                ViewBag.ThongKeSach_Count = 0;
+            }
+
+            ViewBag.date = _month_s + "/" + _year_s + " - " + _month_f + "/" + _year_f;
+            return View("~/Views/BaoCao/Index.cshtml");
+
         }
     }
 }
