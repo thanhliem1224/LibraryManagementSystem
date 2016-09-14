@@ -217,9 +217,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201609131529332_Init.cs" />
-    <Compile Include="Migrations\201609131529332_Init.Designer.cs">
-      <DependentUpon>201609131529332_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201609140315125_Init.cs" />
+    <Compile Include="Migrations\201609140315125_Init.Designer.cs">
+      <DependentUpon>201609140315125_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -237,12 +237,31 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\CNCFLibrary.mdf" />
+    <Content Include="App_Data\CNCFLibrary_log.ldf">
+      <DependentUpon>CNCFLibrary.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Image\11.jpg" />
+    <Content Include="Image\123.gif" />
+    <Content Include="Image\15.jpg" />
+    <Content Include="Image\6.jpg" />
+    <Content Include="Image\9.jpg" />
+    <Content Include="Image\cncf1.jpg" />
+    <Content Include="Image\cncf2.jpg" />
+    <Content Include="Image\cncf3.png" />
+    <Content Include="Image\homebg.jpg" />
+    <Content Include="Image\homebg2.jpg" />
+    <Content Include="Image\homebg3.jpg" />
+    <Content Include="Image\homebg4.jpg" />
+    <Content Include="Image\logo.png" />
+    <Content Include="Image\logo2.gif" />
+    <Content Include="Image\logo3.png" />
     <Content Include="Scripts\ai.0.22.19-build00125.js" />
     <Content Include="Scripts\ai.0.22.19-build00125.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -337,9 +356,6 @@
     <Content Include="Views\HocSinh\ThemHocSinhTuFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
@@ -348,8 +364,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201609131529332_Init.resx">
-      <DependentUpon>201609131529332_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201609140315125_Init.resx">
+      <DependentUpon>201609140315125_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
