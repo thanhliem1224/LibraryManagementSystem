@@ -353,6 +353,9 @@
     <Content Include="Views\HocSinh\ThemHocSinhTuFile.cshtml" />
     <Content Include="Views\BaoCao\LuaChon.cshtml" />
     <Content Include="Views\Shared\SthError.cshtml" />
+    <Content Include="Views\BaoCao\BaoCaoThanhLy.cshtml" />
+    <Content Include="Views\Sach\ThemSachTuFile.cshtml" />
+    <Content Include="Views\BaoCao\BaoCaoMuonSach.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

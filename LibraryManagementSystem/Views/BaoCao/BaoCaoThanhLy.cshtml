@@ -1,0 +1,40 @@
+﻿
+<div>
+    <h4><u>Danh Sách Sách Đã Thanh Lý @ViewBag.date</u></h4>
+    @if (ViewBag.ThanhLy_Count == 0)
+    {
+        <p>Không có sach thanh lý</p>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>
+                        Mã Sách
+                    </th>
+                    <th>
+                        Tên Sách
+                    </th>
+                    <th>
+                        Ngày
+                    </th>
+                </tr>
+                @foreach (var item in ViewBag.ThanhLy)
+                {
+                    <tr>
+                        <td>
+                            @item.Sach.SachID
+                        </td>
+                        <td>
+                            @item.Sach.TenSach
+                        </td>
+                        <td>
+                            @item.Ngay
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
+</div>

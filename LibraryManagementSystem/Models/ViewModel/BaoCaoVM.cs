@@ -13,5 +13,7 @@ namespace LibraryManagementSystem.Models.ViewModel
         public DateTime GroupDatetime { get; set; }
         public int GroupSoLuong { get; set; }
         public IEnumerable<MuonTraSach> GroupDanhSach { get; set; }
+
+        public BaoCaoVM() { }
     }
 }

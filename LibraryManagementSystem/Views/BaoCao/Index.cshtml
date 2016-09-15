@@ -3,65 +3,26 @@
 @Html.Partial("~/Views/BaoCao/LuaChon.cshtml")
 <br />
 <div class="text-center">
+    <hr />
     <h3>Báo Cáo @ViewBag.date</h3>
 </div>
-<div>
-    <h4><u>Bảng Thống Kê Hoạt Động Mượn Sách</u></h4>
-    @if (ViewBag.MuonTraSach_Count == 0)
-    {
-        <p>Không có hoạt động mượn sách</p>
-    }
-    else
-    {
-        <div class="table-responsive">
-            <table class="table">
-                <tr>
-                    <th>
-                        Tên Lớp
-                    </th>
-                    <th>
-                        Tên Học Sinh
-                    </th>
-                    <th>
-                        Ngày Sinh
-                    </th>
-                    <th>
-                        Số Lượng Mượn Sách Về Nhà
-                    </th>
-                </tr>
-                @foreach (var item in ViewBag.MuonTraSach)
-                {
-                    <tr>
-                        <td>
-                            @item.GroupName1
-                        </td>
-                        <td>
-                            @item.GroupName2
-                        </td>
-                        <td>
-                            @item.GroupDatetime.ToShortDateString()
-                        </td>
-                        <td>
-                            @item.GroupSoLuong
-                        </td>
-                    </tr>
-                }
-                <tr>
-                    <td colspan="2">
-                        <strong>Tổng Cộng</strong>
-                    </td>
-                    <td>
-                        <strong>@ViewBag.MuonTraSach_Count</strong>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    }
-</div>
+
+@if (ViewBag.thanhly_stt == true)
+{
+    @Html.Partial("~/Views/BaoCao/BaoCaoThanhLy.cshtml")
+}
+@if (ViewBag.muonsach_stt == true)
+{
+    @Html.Partial("~/Views/BaoCao/BaoCaoMuonSach.cshtml")
+}
+
+<!--
+
+
 <hr />
 <div>
     <h4><u>Bảng Thống Kê Thể Loại Sách Được Mượn Nhiều</u></h4>
-    @if (ViewBag.MuonTraSach_Count == 0)
+    //if (ViewBag.MuonTraSach_Count == 0)
     {
         <p>Không có hoạt động mượn sách</p>
     }
@@ -77,14 +38,14 @@
                         Số Lượng
                     </th>
                 </tr>
-                @foreach (var theloai in ViewBag.TheLoaiYeuThich)
+                //foreach (var theloai in ViewBag.TheLoaiYeuThich)
                 {
                     <tr>
                         <td>
-                            @theloai.GroupName1
+                            //theloai.GroupName1
                         </td>
                         <td>
-                            @theloai.GroupSoLuong
+                            //theloai.GroupSoLuong
                         </td>
                     </tr>
                 }
@@ -95,7 +56,7 @@
 <hr />
 <div>
     <h4><u>Danh Sách Học Sinh Mượn Sách Quá Hạn</u></h4>
-    @if (ViewBag.MuonQuaHan_Count == 0)
+    //if (ViewBag.MuonQuaHan_Count == 0)
     {
         <p>Không có học sinh mượn sách quá hạn</p>
     }
@@ -114,22 +75,22 @@
                         Tên Sách
                     </th>
                 </tr>
-                @foreach (var item in ViewBag.MuonQuaHan)
+                //foreach (var item in ViewBag.MuonQuaHan)
                 {
                     <tr>
                         <td>
-                            @item.GroupName1
+                            //item.GroupName1
                         </td>
                         <td>
-                            @item.GroupSoLuong
+                            //item.GroupSoLuong
                         </td>
                         <td>
                             <table class="table">
-                                @foreach (var dsct in item.GroupDanhSach)
+                                //foreach (var dsct in item.GroupDanhSach)
                                 {
                                     <tr>
                                         <td>
-                                            @dsct.Sach.TenSach
+                                            //dsct.Sach.TenSach
                                         </td>
                                     </tr>
                                 }
@@ -146,7 +107,7 @@
                     </td>
                     <td>
                         <strong>
-                            @ViewBag.MuonQuaHan_Count
+                            //ViewBag.MuonQuaHan_Count
                         </strong>
                     </td>
                 </tr>
@@ -157,7 +118,7 @@
 <hr />
 <div>
     <h4><u>Danh Sách Học Sinh Mượn Sách Chưa Trả</u></h4>
-    @if (ViewBag.MuonChuaTra_Count == 0)
+    //if (ViewBag.MuonChuaTra_Count == 0)
     {
         <p>Không có sách chưa trả</p>
     }
@@ -176,22 +137,22 @@
                         Tên Sách
                     </th>
                 </tr>
-                @foreach (var item in ViewBag.MuonChuaTra)
+                //foreach (var item in ViewBag.MuonChuaTra)
                 {
                     <tr>
                         <td>
-                            @item.GroupName1
+                            //item.GroupName1
                         </td>
                         <td>
-                            @item.GroupSoLuong
+                            //item.GroupSoLuong
                         </td>
                         <td>
                             <table class="table">
-                                @foreach (var dsm in item.GroupDanhSach)
+                                //foreach (var dsm in item.GroupDanhSach)
                                 {
                                     <tr>
                                         <td>
-                                            @dsm.Sach.TenSach
+                                            //dsm.Sach.TenSach
                                         </td>
                                     </tr>
                                 }
@@ -208,7 +169,7 @@
                     </td>
                     <td>
                         <strong>
-                            @ViewBag.MuonChuaTra_Count
+                            //ViewBag.MuonChuaTra_Count
                         </strong>
                     </td>
                 </tr>
@@ -221,7 +182,7 @@
 <hr />
 <div>
     <h4><u>Bảng Thống Kê Sách Có Trong Thư Viện</u></h4>
-    @if (ViewBag.ThongKeSach_Count == 0)
+    //if (ViewBag.ThongKeSach_Count == 0)
     {
         <p>Thư Viện Không Có Sách</p>
     }
@@ -237,14 +198,14 @@
                         Số Lượng
                     </th>
                 </tr>
-                @foreach (var chude in ViewBag.ThongKeSach)
+                //foreach (var chude in ViewBag.ThongKeSach)
                 {
                     <tr>
                         <td>
-                            @chude.GroupName1
+                            //chude.GroupName1
                         </td>
                         <td>
-                            @chude.GroupSoLuong
+                            //chude.GroupSoLuong
                         </td>
                     </tr>
                 }
@@ -253,10 +214,11 @@
                         <strong>Tổng cộng</strong>
                     </td>
                     <td>
-                        <strong>@ViewBag.ThongKeSach_Count</strong>
+                        <strong>//ViewBag.ThongKeSach_Count</strong>
                     </td>
                 </tr>
             </table>
         </div>
     }
 </div>
+    -->
