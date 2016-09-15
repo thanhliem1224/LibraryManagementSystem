@@ -5,116 +5,52 @@
 <div class="text-center">
     <hr />
     <h3>Báo Cáo @ViewBag.date</h3>
+    <br />
 </div>
+
+@if (ViewBag.docsach_stt == true)
+{
+    <hr />
+    @Html.Partial("~/Views/BaoCao/BaoCaoDocSach.cshtml")
+}
+
+@if (ViewBag.muonsach_stt == true)
+{
+    <hr />
+    @Html.Partial("~/Views/BaoCao/BaoCaoMuonSach.cshtml")
+}
+
+@if (ViewBag.theloaiyeuthich_stt == true)
+{
+    <hr />
+    @Html.Partial("~/Views/BaoCao/BaoCaoTheLoaiYeuThich.cshtml")
+}
+
+@if (ViewBag.muonsachquahan_stt == true)
+{
+    <hr />
+    @Html.Partial("~/Views/BaoCao/BaoCaoMuonSachQuaHan.cshtml")
+}
 
 @if (ViewBag.thanhly_stt == true)
 {
+    <hr />
     @Html.Partial("~/Views/BaoCao/BaoCaoThanhLy.cshtml")
 }
-@if (ViewBag.muonsach_stt == true)
+
+@if (ViewBag.sachtrongthuvien_stt == true)
 {
-    @Html.Partial("~/Views/BaoCao/BaoCaoMuonSach.cshtml")
+    <hr />
+    @Html.Partial("~/Views/BaoCao/BaoCaoSachTrongThuVien.cshtml")
 }
+
+
 
 <!--
 
 
 <hr />
-<div>
-    <h4><u>Bảng Thống Kê Thể Loại Sách Được Mượn Nhiều</u></h4>
-    //if (ViewBag.MuonTraSach_Count == 0)
-    {
-        <p>Không có hoạt động mượn sách</p>
-    }
-    else
-    {
-        <div class="table-responsive">
-            <table class="table">
-                <tr>
-                    <th>
-                        Thể Loại
-                    </th>
-                    <th>
-                        Số Lượng
-                    </th>
-                </tr>
-                //foreach (var theloai in ViewBag.TheLoaiYeuThich)
-                {
-                    <tr>
-                        <td>
-                            //theloai.GroupName1
-                        </td>
-                        <td>
-                            //theloai.GroupSoLuong
-                        </td>
-                    </tr>
-                }
-            </table>
-        </div>
-    }
-</div>
-<hr />
-<div>
-    <h4><u>Danh Sách Học Sinh Mượn Sách Quá Hạn</u></h4>
-    //if (ViewBag.MuonQuaHan_Count == 0)
-    {
-        <p>Không có học sinh mượn sách quá hạn</p>
-    }
-    else
-    {
-        <div class="table-responsive">
-            <table class="table">
-                <tr>
-                    <th>
-                        Tên Học Sinh
-                    </th>
-                    <th>
-                        Số Lượng
-                    </th>
-                    <th>
-                        Tên Sách
-                    </th>
-                </tr>
-                //foreach (var item in ViewBag.MuonQuaHan)
-                {
-                    <tr>
-                        <td>
-                            //item.GroupName1
-                        </td>
-                        <td>
-                            //item.GroupSoLuong
-                        </td>
-                        <td>
-                            <table class="table">
-                                //foreach (var dsct in item.GroupDanhSach)
-                                {
-                                    <tr>
-                                        <td>
-                                            //dsct.Sach.TenSach
-                                        </td>
-                                    </tr>
-                                }
-                            </table>
-                        </td>
-                    </tr>
 
-                }
-                <tr>
-                    <td>
-                        <strong>
-                            Tổng Cộng
-                        </strong>
-                    </td>
-                    <td>
-                        <strong>
-                            //ViewBag.MuonQuaHan_Count
-                        </strong>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    }
-</div>
 <hr />
 <div>
     <h4><u>Danh Sách Học Sinh Mượn Sách Chưa Trả</u></h4>
@@ -180,45 +116,5 @@
 <hr />
 
 <hr />
-<div>
-    <h4><u>Bảng Thống Kê Sách Có Trong Thư Viện</u></h4>
-    //if (ViewBag.ThongKeSach_Count == 0)
-    {
-        <p>Thư Viện Không Có Sách</p>
-    }
-    else
-    {
-        <div class="table-responsive">
-            <table class="table">
-                <tr>
-                    <th>
-                        Thể Loại
-                    </th>
-                    <th>
-                        Số Lượng
-                    </th>
-                </tr>
-                //foreach (var chude in ViewBag.ThongKeSach)
-                {
-                    <tr>
-                        <td>
-                            //chude.GroupName1
-                        </td>
-                        <td>
-                            //chude.GroupSoLuong
-                        </td>
-                    </tr>
-                }
-                <tr>
-                    <td>
-                        <strong>Tổng cộng</strong>
-                    </td>
-                    <td>
-                        <strong>//ViewBag.ThongKeSach_Count</strong>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    }
-</div>
+
     -->

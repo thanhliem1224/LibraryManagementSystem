@@ -1,0 +1,53 @@
+﻿<div>
+    <h4><u>Bảng Thống Kê Hoạt Động Đọc Sách Tại Thư Viện (@ViewBag.date)</u></h4>
+    @if (ViewBag.MuonTraSach_Count == 0)
+    {
+        <p>Không có hoạt động đọc sách</p>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>
+                        Tên Lớp
+                    </th>
+                    <th>
+                        Tên Học Sinh
+                    </th>
+                    <th>
+                        Ngày Sinh
+                    </th>
+                    <th>
+                        Số Lượng Mượn Sách Về Nhà
+                    </th>
+                </tr>
+                @foreach (var item in ViewBag.DocSachTaiCho)
+                {
+                    <tr>
+                        <td>
+                            @item.GroupName1
+                        </td>
+                        <td>
+                            @item.GroupName2
+                        </td>
+                        <td>
+                            @item.GroupDatetime.ToShortDateString()
+                        </td>
+                        <td>
+                            @item.GroupSoLuong
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="3">
+                        <strong>Tổng Cộng</strong>
+                    </td>
+                    <td>
+                        <strong>@ViewBag.DocSachTaiCho_Count</strong>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>
