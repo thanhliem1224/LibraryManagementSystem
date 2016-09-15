@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using LibraryManagementSystem.DAL;
 using System;
 using LibraryManagementSystem.Models.ViewModel;
+using System.Collections.Generic;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -61,7 +62,7 @@ namespace LibraryManagementSystem.Controllers
                         {
                             if (d_s.HasValue && d_f.HasValue)
                             {
-                                BaoCaoKTG(d_s,d_f); return View();
+                                BaoCaoKTG(d_s, d_f); return View();
                             }
                             else
                             {
@@ -95,11 +96,12 @@ namespace LibraryManagementSystem.Controllers
             int _month = d.Value.Month;
             int _year = d.Value.Year;
 
-            // muon tra sach trong thang 
+            // muon tra sach trong thang
             var muontrasach = from m in db.MuonTraSach
                               where m.NgayMuon.Month == _month && m.NgayMuon.Year == _year
-                              group m by new { m.HocSinh.Lop, m.HocSinh.TenHS } into g
-                              select new BaoCaoVM { GroupName1 = g.Key.Lop, GroupName2 = g.Key.TenHS, GroupSoLuong = g.Count() };
+                              group m by m.HocSinh into g
+                              orderby g.Key.Lop ascending, g.Key.TenHS ascending
+                              select new BaoCaoVM { GroupName1 = g.Key.Lop, GroupName2 = g.Key.TenHS, GroupDatetime = g.Key.NgaySinh, GroupSoLuong = g.Count() };
 
             if (muontrasach.Count() > 0)
             {
@@ -111,16 +113,28 @@ namespace LibraryManagementSystem.Controllers
                 ViewBag.MuonTraSach_Count = 0;
             }
 
+            //The loai dc yeu thich
+            var theloaiyeuthich = from m in db.MuonTraSach
+                                  where m.NgayMuon.Month == _month && m.NgayMuon.Year == _year
+                                  group m by m.Sach.ChuDe into g
+                                  select new BaoCaoVM { GroupName1 = g.Key.TenChuDe, GroupSoLuong = g.Count() };
+
+            if (theloaiyeuthich.Count() > 0)
+            {
+                ViewBag.TheLoaiYeuThich = theloaiyeuthich;
+            }
+
             // muon sach chua tra
             var muonchuatra = from m in db.MuonTraSach
                               where m.NgayMuon.Month == _month && m.NgayMuon.Year == _year && m.NgayTra == null
-                              group m by m.HocSinh.TenHS into g
-                              select new BaoCaoSachChuaTra { TenHS = g.Key, SoLuong = g.Count(), DanhSachMuon = g };
+                              group m by m.HocSinh into g
+                              orderby g.Key.Lop ascending, g.Key.TenHS ascending
+                              select new BaoCaoVM { GroupName1 = g.Key.TenHS, GroupSoLuong = g.Count(), GroupDanhSach = g };
 
             if (muonchuatra.Count() > 0)
             {
                 ViewBag.MuonChuaTra = muonchuatra;
-                ViewBag.MuonChuaTra_Count = muonchuatra.Sum(m => m.SoLuong);
+                ViewBag.MuonChuaTra_Count = muonchuatra.Sum(m => m.GroupSoLuong);
             }
             else
             {
@@ -128,10 +142,13 @@ namespace LibraryManagementSystem.Controllers
             }
 
             // muon sach qua han
+
             var muonquahan = from m in db.MuonTraSach
                              where m.NgayMuon.Month == _month && m.NgayMuon.Year == _year && m.NgayTra == null && m.HanTra < _end_day_now
-                             group m by m.HocSinh.TenHS into g
-                             select new BaoCaoVM { GroupName1 = g.Key, GroupSoLuong = g.Count(), GroupDanhSach = g };
+                             group m by m.HocSinh into g
+                             orderby g.Key.Lop ascending, g.Key.TenHS ascending
+                             select new BaoCaoVM { GroupName1 = g.Key.TenHS, GroupSoLuong = g.Count(), GroupDanhSach = g };
+
 
             if (muonquahan.Count() > 0)
             {
@@ -168,11 +185,12 @@ namespace LibraryManagementSystem.Controllers
         {
             int _year = d.Value.Year;
 
-            // muon tra sach trong thang 
+            // muon tra sach trong nam 
             var muontrasach = from m in db.MuonTraSach
                               where m.NgayMuon.Year == _year
-                              group m by new { m.HocSinh.Lop, m.HocSinh.TenHS } into g
-                              select new BaoCaoVM { GroupName1 = g.Key.Lop, GroupName2 = g.Key.TenHS, GroupSoLuong = g.Count() };
+                              group m by m.HocSinh into g
+                              orderby g.Key.Lop ascending, g.Key.TenHS ascending
+                              select new BaoCaoVM { GroupName1 = g.Key.Lop, GroupName2 = g.Key.TenHS, GroupDatetime = g.Key.NgaySinh, GroupSoLuong = g.Count() };
 
             if (muontrasach.Count() > 0)
             {
@@ -184,16 +202,28 @@ namespace LibraryManagementSystem.Controllers
                 ViewBag.MuonTraSach_Count = 0;
             }
 
+            //The loai dc yeu thich
+            var theloaiyeuthich = from m in db.MuonTraSach 
+                                  where m.NgayMuon.Year == _year 
+                                  group m by m.Sach.ChuDe into g
+                                  select new BaoCaoVM { GroupName1 = g.Key.TenChuDe, GroupSoLuong = g.Count() };
+
+            if (theloaiyeuthich.Count() > 0)
+            {
+                ViewBag.TheLoaiYeuThich = theloaiyeuthich;
+            }
+
             // muon sach chua tra
             var muonchuatra = from m in db.MuonTraSach
                               where m.NgayMuon.Year == _year && m.NgayTra == null
-                              group m by m.HocSinh.TenHS into g
-                              select new BaoCaoSachChuaTra { TenHS = g.Key, SoLuong = g.Count(), DanhSachMuon = g };
+                              group m by m.HocSinh into g
+                              orderby g.Key.Lop ascending, g.Key.TenHS ascending
+                              select new BaoCaoVM { GroupName1 = g.Key.TenHS, GroupSoLuong = g.Count(), GroupDanhSach = g };
 
             if (muonchuatra.Count() > 0)
             {
                 ViewBag.MuonChuaTra = muonchuatra;
-                ViewBag.MuonChuaTra_Count = muonchuatra.Sum(m => m.SoLuong);
+                ViewBag.MuonChuaTra_Count = muonchuatra.Sum(m => m.GroupSoLuong);
             }
             else
             {
@@ -204,8 +234,10 @@ namespace LibraryManagementSystem.Controllers
 
             var muonquahan = from m in db.MuonTraSach
                              where m.NgayMuon.Year == _year && m.NgayTra == null && m.HanTra < _end_day_now
-                             group m by m.HocSinh.TenHS into g
-                             select new BaoCaoVM { GroupName1 = g.Key, GroupSoLuong = g.Count(), GroupDanhSach = g };
+                             group m by m.HocSinh into g
+                             orderby g.Key.Lop ascending, g.Key.TenHS ascending
+                             select new BaoCaoVM { GroupName1 = g.Key.TenHS, GroupSoLuong = g.Count(), GroupDanhSach = g };
+
 
             if (muonquahan.Count() > 0)
             {
@@ -244,11 +276,12 @@ namespace LibraryManagementSystem.Controllers
             int _year_s = d_s.Value.Year;
             int _month_f = d_f.Value.Month;
             int _year_f = d_f.Value.Year;
-            // muon tra sach trong khoang thoi gian
+            // muon tra sach trong nam 
             var muontrasach = from m in db.MuonTraSach
                               where (m.NgayMuon.Month >= _month_s && m.NgayMuon.Year >= _year_s) && (m.NgayMuon.Month <= _month_f && m.NgayMuon.Year <= _year_f)
-                              group m by new { m.HocSinh.Lop, m.HocSinh.TenHS } into g
-                              select new BaoCaoVM { GroupName1 = g.Key.Lop, GroupName2 = g.Key.TenHS, GroupSoLuong = g.Count() };
+                              group m by m.HocSinh into g
+                              orderby g.Key.Lop ascending, g.Key.TenHS ascending
+                              select new BaoCaoVM { GroupName1 = g.Key.Lop, GroupName2 = g.Key.TenHS, GroupDatetime = g.Key.NgaySinh, GroupSoLuong = g.Count() };
 
             if (muontrasach.Count() > 0)
             {
@@ -260,16 +293,28 @@ namespace LibraryManagementSystem.Controllers
                 ViewBag.MuonTraSach_Count = 0;
             }
 
+            //The loai dc yeu thich
+            var theloaiyeuthich = from m in db.MuonTraSach
+                                  where (m.NgayMuon.Month >= _month_s && m.NgayMuon.Year >= _year_s) && (m.NgayMuon.Month <= _month_f && m.NgayMuon.Year <= _year_f)
+                                  group m by m.Sach.ChuDe into g
+                                  select new BaoCaoVM { GroupName1 = g.Key.TenChuDe, GroupSoLuong = g.Count() };
+
+            if (theloaiyeuthich.Count() > 0)
+            {
+                ViewBag.TheLoaiYeuThich = theloaiyeuthich;
+            }
+
             // muon sach chua tra
             var muonchuatra = from m in db.MuonTraSach
-                              where (m.NgayMuon.Month >= _month_s && m.NgayMuon.Year >= _year_s) && (m.NgayMuon.Month <= _month_f && m.NgayMuon.Year <= _year_f) && (m.NgayTra == null)
-                              group m by m.HocSinh.TenHS into g
-                              select new BaoCaoSachChuaTra { TenHS = g.Key, SoLuong = g.Count(), DanhSachMuon = g };
+                              where (m.NgayMuon.Month >= _month_s && m.NgayMuon.Year >= _year_s) && (m.NgayMuon.Month <= _month_f && m.NgayMuon.Year <= _year_f)
+                              group m by m.HocSinh into g
+                              orderby g.Key.Lop ascending , g.Key.TenHS ascending
+                              select new BaoCaoVM { GroupName1 = g.Key.TenHS, GroupSoLuong = g.Count(), GroupDanhSach = g };
 
             if (muonchuatra.Count() > 0)
             {
                 ViewBag.MuonChuaTra = muonchuatra;
-                ViewBag.MuonChuaTra_Count = muonchuatra.Sum(m => m.SoLuong);
+                ViewBag.MuonChuaTra_Count = muonchuatra.Sum(m => m.GroupSoLuong);
             }
             else
             {
@@ -280,8 +325,10 @@ namespace LibraryManagementSystem.Controllers
 
             var muonquahan = from m in db.MuonTraSach
                              where (m.NgayMuon.Month >= _month_s && m.NgayMuon.Year >= _year_s) && (m.NgayMuon.Month <= _month_f && m.NgayMuon.Year <= _year_f) && (m.NgayTra > m.HanTra)
-                             group m by m.HocSinh.TenHS into g
-                             select new BaoCaoVM { GroupName1 = g.Key, GroupSoLuong = g.Count(), GroupDanhSach = g };
+                             group m by m.HocSinh into g
+                             orderby g.Key.Lop ascending, g.Key.TenHS ascending
+                             select new BaoCaoVM { GroupName1 = g.Key.TenHS, GroupSoLuong = g.Count(), GroupDanhSach = g };
+
 
             if (muonquahan.Count() > 0)
             {

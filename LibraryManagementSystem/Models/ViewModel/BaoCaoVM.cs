@@ -10,8 +10,8 @@ namespace LibraryManagementSystem.Models.ViewModel
         public string GroupName1 { get; set;}
         public string GroupName2 { get; set; }
         public string GroupName3 { get; set; }
+        public DateTime GroupDatetime { get; set; }
         public int GroupSoLuong { get; set; }
         public IEnumerable<MuonTraSach> GroupDanhSach { get; set; }
-        
     }
 }

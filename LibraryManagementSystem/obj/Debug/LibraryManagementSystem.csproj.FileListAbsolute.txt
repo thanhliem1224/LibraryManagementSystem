@@ -170,4 +170,3 @@ C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryMa
 C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.pdb
 C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.Migrations.Init.resources
 C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.csproj.GenerateResource.Cache
-C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.csprojResolveAssemblyReference.cache
