@@ -7,8 +7,6 @@ namespace LibraryManagementSystem.Models
     public class HocSinh
     {
         public int ID { get; set; }
-        [Display(Name = "Mã Học Sinh"), Required(ErrorMessage = "Bạn cần nhập Mã Học Sinh")]
-        public string MaHS { get; set; }
         [Display(Name = "Tên học sinh"), Required(ErrorMessage = "Bạn cần nhập Tên Học Sinh")]
         public string TenHS { get; set; }
         [Display(Name = "Lớp"), Required(ErrorMessage = "Bạn cần nhập Lớp")]

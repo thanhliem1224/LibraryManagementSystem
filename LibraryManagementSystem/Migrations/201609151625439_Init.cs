@@ -53,7 +53,6 @@ namespace LibraryManagementSystem.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        MaHS = c.String(nullable: false),
                         TenHS = c.String(nullable: false),
                         Lop = c.String(nullable: false),
                         NgaySinh = c.DateTime(nullable: false),

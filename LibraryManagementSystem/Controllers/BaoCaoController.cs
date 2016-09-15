@@ -32,24 +32,22 @@ namespace LibraryManagementSystem.Controllers
         {
             if (type.HasValue)
             {
-
-                // get date
-                if(type == LOAIBAOCAO.Thang)
-                {
-                    ViewBag.date = d.Value.Month + "/" + d.Value.Year;
-                }
-                if(type == LOAIBAOCAO.Nam)
-                {
-                    ViewBag.date = d.Value.Year.ToString();
-                }
-                if (type == LOAIBAOCAO.KhoanThoiGian)
-                {
-                    ViewBag.date = d.Value.Month + "/" + d.Value.Year + " - " + d_f.Value.Month + "/" + d_f.Value.Year;
-                }
-
-                
                 if (d.HasValue || (d.HasValue && d_f.HasValue)) // check du lieu ngay
                 {
+                    // get date
+                    if (type == LOAIBAOCAO.Thang)
+                    {
+                        ViewBag.date = d.Value.Month + "/" + d.Value.Year;
+                    }
+                    if (type == LOAIBAOCAO.Nam)
+                    {
+                        ViewBag.date = d.Value.Year.ToString();
+                    }
+                    if (type == LOAIBAOCAO.KhoanThoiGian)
+                    {
+                        ViewBag.date = d.Value.Month + "/" + d.Value.Year + " - " + d_f.Value.Month + "/" + d_f.Value.Year;
+                    }
+
                     // Báo Cáo Mượn sách
                     if (ms.HasValue)
                     {

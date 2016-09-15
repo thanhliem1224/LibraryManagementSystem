@@ -1,13 +1,92 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+
+<section class="slide">
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#slider-demo" data-slide-to="0" class="active"></li>
+            <li data-target="#slider-demo" data-slide-to="1"></li>
+            <li data-target="#slider-demo" data-slide-to="2"></li>
+            <li data-target="#slider-demo" data-slide-to="3"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <img src="~/Image/homebg.jpg" alt="Slider1">
+                <a>
+                    <div class="carousel-caption">
+
+                        <img src="~/Image/logo3.png" alt="logo" />
+                        <h3>
+                            Our Foundation is committed to helping
+                            alleviate child poverty in Vietnam & Mongolia and giving
+                            all children the right to a happy and safe childhood.
+                        </h3>
+                    </div>
+                </a>
+            </div>
+            <div class="item">
+                <img src="~/Image/homebg2.jpg" alt="Slider2" />
+                <a>
+                    <div class="carousel-caption">
+
+                        <img src="~/Image/logo3.png" alt="logo" />
+                        <h3>
+                            Our Foundation is committed to helping
+                            alleviate child poverty in Vietnam & Mongolia and giving
+                            all children the right to a happy and safe childhood.
+                        </h3>
+                    </div>
+                </a>
+            </div>
+            <div class="item">
+                <img src="~/Image/homebg3.jpg" alt="Slider3" />
+                <a>
+                    <div class="carousel-caption">
+
+                        <img src="~/Image/logo3.png" alt="logo" />
+                        <h3>
+                            Our Foundation is committed to helping
+                            alleviate child poverty in Vietnam & Mongolia and giving
+                            all children the right to a happy and safe childhood.
+                        </h3>
+                    </div>
+                </a>
+            </div>
+            <div class="item">
+                <img src="~/Image/homebg4.jpg" alt="Slider4" />
+                <a>
+                    <div class="carousel-caption">
+
+                        <img src="~/Image/logo3.png" alt="logo" />
+                        <h3>
+                            Our Foundation is committed to helping
+                            alleviate child poverty in Vietnam & Mongolia and giving
+                            all children the right to a happy and safe childhood.
+                        </h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+</section>
+
+
 <div class="text-center"><h2>Danh Sách học sinh chưa trả sách ngày @DateTime.Now.ToShortDateString()</h2></div>
 <div class="table-responsive">
     <table class="table">
         <tr>
-            <th>
-                Mã Học Sinh
-            </th>
             <th>
                 Tên Học Sinh
             </th>
@@ -28,9 +107,6 @@
         @foreach (var item in ViewBag.ds_quahan)
         {
             <tr>
-                <td>
-                    @item.HocSinh.MaHS
-                </td>
                 <td>
                     @item.HocSinh.TenHS
                 </td>

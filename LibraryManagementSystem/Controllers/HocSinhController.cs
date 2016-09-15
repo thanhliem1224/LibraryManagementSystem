@@ -142,13 +142,12 @@ namespace LibraryManagementSystem.Controllers
                         {
                             HocSinh hocsinh = new HocSinh
                             {
-                                MaHS = row[0].ToString(),
                                 TenHS = row[1].ToString(),
                                 Lop = result.Tables[i].TableName,
                                 NgaySinh = DateTime.Parse(row[2].ToString())
                             };
 
-                            if (db.HocSinh.Any(hs => hs.MaHS == hocsinh.MaHS && hs.TenHS == hocsinh.TenHS))
+                            if (db.HocSinh.Any(hs => hs.NgaySinh == hocsinh.NgaySinh && hs.TenHS == hocsinh.TenHS))
                             {
 
                             }
