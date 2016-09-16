@@ -360,6 +360,7 @@
     <Content Include="Views\BaoCao\BaoCaoMuonSachQuaHan.cshtml" />
     <Content Include="Views\BaoCao\BaoCaoSachTrongThuVien.cshtml" />
     <Content Include="Views\BaoCao\BaoCaoDocSach.cshtml" />
+    <Content Include="Views\BaoCao\BaoCaoSachYeuThich.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
