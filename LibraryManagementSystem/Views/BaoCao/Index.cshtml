@@ -1,6 +1,4 @@
-﻿
-
-@Html.Partial("~/Views/BaoCao/LuaChon.cshtml")
+﻿@Html.Partial("~/Views/BaoCao/LuaChon.cshtml")
 <br />
 <div class="text-center">
     <hr />
@@ -12,109 +10,41 @@
 {
     <hr />
     @Html.Partial("~/Views/BaoCao/BaoCaoDocSach.cshtml")
+    <br />
 }
 
 @if (ViewBag.muonsach_stt == true)
 {
     <hr />
     @Html.Partial("~/Views/BaoCao/BaoCaoMuonSach.cshtml")
+    <br />
 }
 
 @if (ViewBag.theloaiyeuthich_stt == true)
 {
     <hr />
     @Html.Partial("~/Views/BaoCao/BaoCaoTheLoaiYeuThich.cshtml")
+    <br />
 }
 
 @if (ViewBag.muonsachquahan_stt == true)
 {
     <hr />
     @Html.Partial("~/Views/BaoCao/BaoCaoMuonSachQuaHan.cshtml")
+    <br />
 }
 
 @if (ViewBag.thanhly_stt == true)
 {
     <hr />
     @Html.Partial("~/Views/BaoCao/BaoCaoThanhLy.cshtml")
+    <br />
 }
 
 @if (ViewBag.sachtrongthuvien_stt == true)
 {
     <hr />
     @Html.Partial("~/Views/BaoCao/BaoCaoSachTrongThuVien.cshtml")
+    <br />
 }
 
-
-
-<!--
-
-
-<hr />
-
-<hr />
-<div>
-    <h4><u>Danh Sách Học Sinh Mượn Sách Chưa Trả</u></h4>
-    //if (ViewBag.MuonChuaTra_Count == 0)
-    {
-        <p>Không có sách chưa trả</p>
-    }
-    else
-    {
-        <div class="table-responsive">
-            <table class="table">
-                <tr>
-                    <th>
-                        Tên Học Sinh
-                    </th>
-                    <th>
-                        Số Lượng
-                    </th>
-                    <th>
-                        Tên Sách
-                    </th>
-                </tr>
-                //foreach (var item in ViewBag.MuonChuaTra)
-                {
-                    <tr>
-                        <td>
-                            //item.GroupName1
-                        </td>
-                        <td>
-                            //item.GroupSoLuong
-                        </td>
-                        <td>
-                            <table class="table">
-                                //foreach (var dsm in item.GroupDanhSach)
-                                {
-                                    <tr>
-                                        <td>
-                                            //dsm.Sach.TenSach
-                                        </td>
-                                    </tr>
-                                }
-                            </table>
-                        </td>
-                    </tr>
-
-                }
-                <tr>
-                    <td>
-                        <strong>
-                            Tổng Cộng
-                        </strong>
-                    </td>
-                    <td>
-                        <strong>
-                            //ViewBag.MuonChuaTra_Count
-                        </strong>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    }
-</div>
-<hr />
-
-<hr />
-
-    -->

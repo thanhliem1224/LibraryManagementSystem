@@ -1,6 +1,6 @@
 ﻿<div>
     <h4><u>Bảng Thống Kê Hoạt Động Đọc Sách Tại Thư Viện (@ViewBag.date)</u></h4>
-    @if (ViewBag.MuonTraSach_Count == 0)
+    @if (ViewBag.DocSachTaiCho_Count == 0)
     {
         <p>Không có hoạt động đọc sách</p>
     }
@@ -19,7 +19,7 @@
                         Ngày Sinh
                     </th>
                     <th>
-                        Số Lượng Mượn Sách Về Nhà
+                        Số Lượt Đọc
                     </th>
                 </tr>
                 @foreach (var item in ViewBag.DocSachTaiCho)
