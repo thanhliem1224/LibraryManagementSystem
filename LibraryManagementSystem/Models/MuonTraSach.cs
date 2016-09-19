@@ -19,6 +19,9 @@ namespace LibraryManagementSystem.Models
         [Display(Name = "Ngày Trả Sách"), DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", NullDisplayText = "Chưa trả")]
         public DateTime? NgayTra { get; set; }
 
+        [Display(Name ="Bị Mất")]
+        public bool Mat { get; set; }
+
         public virtual HocSinh HocSinh { get; set; }
         public virtual Sach Sach { get; set; }
     }

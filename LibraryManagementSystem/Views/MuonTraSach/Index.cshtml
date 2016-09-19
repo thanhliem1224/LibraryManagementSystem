@@ -1,58 +1,68 @@
 ﻿@model IEnumerable<LibraryManagementSystem.Models.MuonTraSach>
-
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Muon Tra Sach";
 }
+@if (ViewBag.MuonTraSach_Count > 0)
+{
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.HocSinh.TenHS)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Sach.TenSach)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NgayMuon)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HanTra)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NgayTra)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.HocSinh.TenHS)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sach.IDandTen)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NgayMuon)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HanTra)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NgayTra)
-        </td>
-        <td>
-            @Html.ActionLink("Trả Sách", "TraSach", new { id = item.ID }) |
-            @Html.ActionLink("Chỉnh Sửa", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Chi Tiết", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Xóa", "Delete", new { id=item.ID })
-        </td>
-    </tr>
+    <h2>Danh Sach HS Dang Muon Sach</h2>
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <th>
+                    Tên Lớp
+                </th>
+                <th>
+                    Tên Học Sinh
+                </th>
+                <th>
+                    Ngày Sinh
+                </th>
+                <th>
+                    Tên Sách
+                </th>
+                <th>
+                    Ngày Mượn
+                </th>
+                <th>
+                    Ngày Hạn Trả
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var item in ViewBag.MuonTraSach)
+            {
+                <tr>
+                    <td>
+                        @item.HocSinh.Lop
+                    </td>
+                    <td>
+                        @item.HocSinh.TenHS
+                    </td>
+                    <td>
+                        @item.HocSinh.NgaySinh.ToShortDateString()
+                    </td>
+                    <td>
+                        @item.Sach.TenSach
+                    </td>
+                    <td>
+                        @item.NgayMuon.ToShortDateString()
+                    </td>
+                    <td>
+                        @item.HanTra.ToShortDateString()
+                    </td>
+                    <td>
+                        @Html.ActionLink("Trả Sách", "TraSach", new { id = item.ID }) |
+                        @Html.ActionLink("Báo Mất", "BaoMat", new { id = item.ID }) |
+                        @Html.ActionLink("Chỉnh Sửa", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Chi Tiết", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Xóa", "Delete", new { id = item.ID })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
 }
-
-</table>
+else
+{
+    <p>Không có hoạt động Mượn Sách</p>
+}
