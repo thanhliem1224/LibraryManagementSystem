@@ -48,6 +48,13 @@
     <br />
 }
 
+@if (ViewBag.sachmat_stt == true)
+{
+    <hr />
+    @Html.Partial("~/Views/BaoCao/BaoCaoSachMat.cshtml")
+    <br />
+}
+
 @if (ViewBag.sachtrongthuvien_stt == true)
 {
     <hr />

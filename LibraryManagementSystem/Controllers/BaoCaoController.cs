@@ -21,14 +21,14 @@ namespace LibraryManagementSystem.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult LuaChon(LOAIBAOCAO type, DateTime? date, DateTime? date_finish, bool? thanhly_status, bool? muonsach_status, bool? docsach_status, bool? theloaiyeuthich_status, bool? sachyeuthich_status, bool? muonsachquahan_status, bool? sachthuvien_status)
+        public ActionResult LuaChon(LOAIBAOCAO type, DateTime? date, DateTime? date_finish, bool? thanhly_status, bool? muonsach_status, bool? docsach_status, bool? theloaiyeuthich_status, bool? sachyeuthich_status, bool? sachmat_status, bool? muonsachquahan_status, bool? sachthuvien_status)
         {
-            return RedirectToAction("Index", "BaoCao", new { type = type, d = date, d_f = date_finish, tl = thanhly_status, ms = muonsach_status, ds = docsach_status, tlyt = theloaiyeuthich_status, syt = sachyeuthich_status, msqh = muonsachquahan_status, stv = sachthuvien_status });
+            return RedirectToAction("Index", "BaoCao", new { type = type, d = date, d_f = date_finish, tl = thanhly_status, ms = muonsach_status, ds = docsach_status, tlyt = theloaiyeuthich_status, syt = sachyeuthich_status, sm = sachmat_status, msqh = muonsachquahan_status, stv = sachthuvien_status });
         }
 
         // GET: BaoCao
         [Authorize]
-        public ActionResult Index(LOAIBAOCAO? type, DateTime? d, DateTime? d_f, bool? tl, bool? ms, bool? ds, bool? tlyt, bool? syt, bool? msqh, bool? stv)
+        public ActionResult Index(LOAIBAOCAO? type, DateTime? d, DateTime? d_f, bool? tl, bool? ms, bool? ds, bool? tlyt, bool? sm, bool? syt, bool? msqh, bool? stv)
         {
             if (type.HasValue)
             {
@@ -147,6 +147,31 @@ namespace LibraryManagementSystem.Controllers
                         ViewBag.thanhly_stt = false;
                     }
 
+                    // Báo cáo sách mất
+                    if (sm.HasValue)
+                    {
+                        ViewBag.sachmat_stt = sm;
+
+                        if (sm.Value)
+                        {
+                            var sachmat = BaoCaoSachMat();
+
+                            if (sachmat.Count() > 0)
+                            {
+                                ViewBag.SachMat_Count = sachmat.Sum(m => m.GroupSoLuong);
+                                ViewBag.SachMat = sachmat;
+                            }
+                            else
+                            {
+                                ViewBag.SachMat_Count = 0;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.sachmat_stt = false;
+                    }
+
                     return View();
                 }
                 else
@@ -196,8 +221,6 @@ namespace LibraryManagementSystem.Controllers
                             ViewBag.DocSachTaiCho_Count = 0;
                         }
 
-                        /// Sach yeu thich
-                        var tesst = db.MuonTraSach.GroupBy(m => m.Sach).GroupBy(m2 => m2.Key.ChuDe).SelectMany(g => g.OrderBy(row => row.Count()).Take(5)).Select(result => new BaoCaoVM { GroupName1 = result.Key.ChuDe.TenChuDe, GroupName2 = result.Key.IDandTen, GroupSoLuong = result.Count() });
                     }
                     else // neu ko co du lieu thang
                     {
@@ -618,6 +641,16 @@ namespace LibraryManagementSystem.Controllers
                 ViewBag.MuonQuaHan_Count = 0;
             }
             return View();
+        }
+
+        private IQueryable<BaoCaoVM> BaoCaoSachMat()
+        {
+            var sachmat = from m in db.MuonTraSach
+                          where m.Mat == true
+                          group m by m.HocSinh into g
+                          orderby g.Key.Lop ascending, g.Key.TenHS ascending
+                          select new BaoCaoVM { GroupName1 = g.Key.TenHS, GroupSoLuong = g.Count(), GroupDanhSach = g };
+            return sachmat;
         }
 
         private ActionResult BaoCaoThanhLy(LOAIBAOCAO? type, DateTime? d, DateTime? d_f)

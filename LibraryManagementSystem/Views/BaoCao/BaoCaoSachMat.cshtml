@@ -1,0 +1,61 @@
+﻿<div>
+    <h4><u>Danh Sách Học Sinh Làm Mất Sách (từ trước đến nay)</u></h4>
+    @if (ViewBag.SachMat_Count == 0)
+    {
+        <p>Không có sách bị mất</p>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>
+                        Tên Học Sinh
+                    </th>
+                    <th>
+                        Số Lượng
+                    </th>
+                    <th>
+                        Tên Sách
+                    </th>
+                </tr>
+                @foreach (var item in ViewBag.SachMat)
+                {
+                    <tr>
+                        <td>
+                            @item.GroupName1
+                        </td>
+                        <td>
+                            @item.GroupSoLuong
+                        </td>
+                        <td>
+                            <table class="table">
+                                @foreach (var dsct in item.GroupDanhSach)
+                                {
+                                    <tr>
+                                        <td>
+                                            @dsct.Sach.TenSach
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        </td>
+                    </tr>
+
+                }
+                <tr>
+                    <td>
+                        <strong>
+                            Tổng Cộng
+                        </strong>
+                    </td>
+                    <td colspan="2">
+                        <strong>
+                            @ViewBag.SachMat_Count
+                        </strong>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>
