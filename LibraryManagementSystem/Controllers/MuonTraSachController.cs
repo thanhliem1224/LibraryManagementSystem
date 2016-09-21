@@ -51,99 +51,48 @@ namespace LibraryManagementSystem.Controllers
             return View(muonTraSach);
         }
 
-        // GET: MuonTraSach
-        [HttpPost]
-        [Authorize]
-        public ActionResult TimHocSinhSach(string tenHS, string tenSach, string confirmed)
+        public ActionResult TimHocSinh(string tenHS)
         {
-            ViewBag.tenHS = tenHS;
-            ViewBag.tenSach = tenSach;
-            ViewBag.confirmed = confirmed;
-            return RedirectToAction("Create", "MuonTraSach", new { tenHS = ViewBag.tenHS, tenSach = ViewBag.tenSach, confirmed = ViewBag.confirmed });
-        }
-
-        // GET: MuonTraSach/Create
-        [Authorize]
-        public ActionResult Create(string tenHS, string tenSach, string confirmed, string stt)
-        {
-            string confirmed1;
-            string temp_tenHS = tenHS;
-            string temp_tenSach = tenSach;
-            var hoc_sinh = from h in db.HocSinh
-                           select h;
-
-            var sach = from s in db.Sach
-                       where s.TrangThai == TrangThai.CoSan
-                       select s;
-
-            var muon_Sach = db.MuonTraSach.Include(m => m.HocSinh).Include(m => m.Sach);
-
             if (!string.IsNullOrEmpty(tenHS))
             {
-                hoc_sinh = hoc_sinh.Where(h => h.TenHS.Contains(temp_tenHS));
-                muon_Sach = muon_Sach.Where(h => h.HocSinh.TenHS.Contains(temp_tenHS)); ;
-
+                var hocsinh = db.HocSinh.Where(h => h.TenHS.Contains(tenHS));
+                ViewBag.HocSinh = hocsinh;
             }
-
-            if (!string.IsNullOrEmpty(tenSach))
-            {
-                sach = sach.Where(s => s.TenSach.Contains(temp_tenSach));
-            }
-
-
-            if (confirmed == null)
-            {
-                confirmed1 = "no";
-            }
-            else
-            {
-                confirmed1 = confirmed;
-            }
-
-            if(stt == null)
-            {
-                ViewBag.stt = "OK";
-            }
-            else
-            {
-                ViewBag.stt = stt;
-            }
-
-
-            ViewBag.HocSinhID = new SelectList(hoc_sinh, "ID", "TenHS");
-            ViewBag.SachID = new SelectList(sach, "ID", "IDandTen");
-            ViewBag.confirm = confirmed1;
-            ViewBag.view_muon_sach = muon_Sach;
-            ViewBag.Limited = "Học sinh đã đạt giới hạn mượn 5 cuốn.";
-            ViewBag.Expired = "Học sinh đã đến hạn trả sách nhưng chưa trả.";
-            return View();
+                return View();
         }
 
-        // POST: MuonTraSach/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,SachID,HocSinhID,NgayMuon,HanTra,NgayTra")] MuonTraSach muonTraSach, string tenHS, string tenSach)
+        public ActionResult HocSinh(int? id, string tenSach)
         {
-            string temp_tenHS = tenHS;
-            string temp_tenSach = tenSach;
-            var hoc_sinh = from h in db.HocSinh
-                           select h;
-
-            var sach = from s in db.Sach
-                       select s;
-
-            if (!string.IsNullOrEmpty(tenHS))
+            if (id == null)
             {
-                hoc_sinh = hoc_sinh.Where(h => h.TenHS.Contains(temp_tenHS));
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            HocSinh hocsinh = db.HocSinh.Find(id);
+            if (hocsinh == null)
+            {
+                return HttpNotFound();
             }
 
+            var sachdangmuon = db.MuonTraSach.Where(m => m.HocSinhID == id).Where(m => m.NgayTra == null);
+            var sachdamuon = db.MuonTraSach.Where(m => m.HocSinhID == id).Where(m => m.NgayTra != null);
+            var sachmat = sachdamuon.Where(m => m.Mat == true);
+
+            var dssach = db.Sach.Where(s => s.TrangThai == TrangThai.CoSan);
             if (!string.IsNullOrEmpty(tenSach))
             {
-                sach = sach.Where(s => s.TenSach.Contains(temp_tenSach));
+                dssach = dssach.Where(s => s.TenSach.Contains(tenSach));
             }
+            ViewBag.SachID = new SelectList(dssach, "ID", "IDandTen");
 
+            ViewBag.SachDangMuon = sachdangmuon;
+            ViewBag.SachDaMuon = sachdamuon;
+            ViewBag.SachMat = sachmat;
+            return View(hocsinh);
+        }
+
+        [HttpPost]
+        public ActionResult Create([Bind(Include = "SachID,HocSinhID")] MuonTraSach muonTraSach)
+        {
 
             if (ModelState.IsValid)
             {
@@ -159,34 +108,38 @@ namespace LibraryManagementSystem.Controllers
                                select m;
                     if (mts2.Count() > 0) //có sách quá hạn trả
                     {
-                        return RedirectToAction("Create", new { tenHS = temp_tenHS, confirmed = "yes", stt = "expired" });
+                        // thông báo
+                        TempData["Message"] = "Học Sinh Vẫn Chưa Trả Sách";
                     }
                     else //không có sách đến hạn trả, đc phếp mượn
                     {
+                        // cho mượn
+                        muonTraSach.NgayMuon = DateTime.Now;
+                        muonTraSach.HanTra = CNCFClass.GoToEndOfDay(DateTime.Now.AddDays(7));
+                        db.MuonTraSach.Add(muonTraSach);
+                        db.SaveChanges();
+
                         // update trạng thái sach
                         Sach s = db.Sach.Single(c => c.ID == muonTraSach.SachID);
                         s.TrangThai = TrangThai.DangMuon;
                         db.SaveChanges();
 
-                        // cho mượn
-                        db.MuonTraSach.Add(muonTraSach);
-                        db.SaveChanges();
-                        return RedirectToAction("Create", new { tenHS = temp_tenHS, confirmed = "yes" });
-                        
                     }
                 }
-                else
+                else  // nếu đã mượn 5 cuốn sách
                 {
-                    return RedirectToAction("Create", new { tenHS = temp_tenHS, confirmed = "yes", stt = "limited" });
+                    // thông báo
+                    TempData["Message"] = "Học Sinh Vượt Quá Số Lượng Mượn Sách";
                 }
+                return RedirectToAction("HocSinh", new { id = muonTraSach.HocSinhID });
             }
-
-            ViewBag.HocSinhID = new SelectList(db.HocSinh, "ID", "TenHS", muonTraSach.HocSinhID);
-            ViewBag.SachID = new SelectList(db.Sach, "ID", "SachID", muonTraSach.SachID);
-            return View(muonTraSach);
+            else
+            {
+                return View("SthError");
+            }
         }
 
-        // GET: MuonTraSach/Edit/5
+        // GET: MuonTraSach/Tra Sach/5
         public ActionResult TraSach(int? id)
         {
             if (id == null)
@@ -301,8 +254,6 @@ namespace LibraryManagementSystem.Controllers
             ViewBag.SachID = new SelectList(db.Sach, "ID", "SachID", muonTraSach.SachID);
             return View(muonTraSach);
         }
-
-
 
         // GET: MuonTraSach/Delete/5
         public ActionResult Delete(int? id)

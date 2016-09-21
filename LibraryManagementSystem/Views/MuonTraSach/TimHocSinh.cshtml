@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "TimHocSinh";
+}
+<div class="text-center">
+    <h2>Tìm Học Sinh Mượn Sách</h2>
+</div>
+<br />
+<div>
+    @using (Html.BeginForm(FormMethod.Get))
+    {
+        <div class="form-inline" role="form">
+            <div class="form-group">
+                <input name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh">
+            </div>
+            <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+        </div>
+    }
+</div>
+@if (ViewBag.HocSinh != null)
+{
+    <br />
+    <h2>Kết Quả</h2>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <tr>
+                <th></th>
+                <th>
+                    Tên học sinh
+                </th>
+                <th>
+                    Lớp
+                </th>
+                <th>
+                    Ngày Sinh
+                </th>
+            </tr>
+
+            @foreach (var item in ViewBag.HocSinh)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink("Chọn", "HocSinh", new { id = item.ID })
+                    </td>
+                    <td>
+                        @item.TenHS
+                    </td>
+                    <td>
+                        @item.Lop
+                    </td>
+                    <td>
+                        @item.NgaySinh.ToShortDateString()
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+}

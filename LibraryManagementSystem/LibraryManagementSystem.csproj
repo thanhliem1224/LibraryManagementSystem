@@ -329,7 +329,6 @@
     <Content Include="Views\Sach\Edit.cshtml" />
     <Content Include="Views\Sach\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
-    <Content Include="Views\MuonTraSach\Create.cshtml" />
     <Content Include="Views\MuonTraSach\Delete.cshtml" />
     <Content Include="Views\MuonTraSach\Details.cshtml" />
     <Content Include="Views\MuonTraSach\Edit.cshtml" />
@@ -360,6 +359,8 @@
     <Content Include="Views\MuonTraSach\DanhSach.cshtml" />
     <Content Include="Views\MuonTraSach\BaoMat.cshtml" />
     <Content Include="Views\BaoCao\BaoCaoSachMat.cshtml" />
+    <Content Include="Views\MuonTraSach\TimHocSinh.cshtml" />
+    <Content Include="Views\MuonTraSach\HocSinh.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
