@@ -18,7 +18,7 @@ namespace LibraryManagementSystem.Controllers
         // GET: MuonTraSach
         public ActionResult Index()
         {
-            var muontrasach = db.MuonTraSach.Where(m => m.NgayTra == null);
+            var muontrasach = db.MuonTraSach.Where(m => m.NgayTra == null).OrderBy(m => m.HanTra);
             if (muontrasach.Count() > 0)
             {
                 ViewBag.MuonTraSach = muontrasach;

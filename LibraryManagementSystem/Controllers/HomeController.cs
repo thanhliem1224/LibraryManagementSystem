@@ -13,11 +13,6 @@ namespace LibraryManagementSystem.Controllers
         private CNCFContext db = new CNCFContext();
         public ActionResult Index()
         {
-            DateTime _dt_now = CNCFClass.GoToEndOfDay(DateTime.Now);
-            ViewBag.ds_quahan = from m in db.MuonTraSach
-                              where m.HanTra <= _dt_now && m.NgayTra == null
-                              orderby m.HanTra ascending
-                              select m;
             return View();
         }
 

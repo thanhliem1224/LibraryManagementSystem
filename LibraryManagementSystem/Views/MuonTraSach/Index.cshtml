@@ -40,38 +40,71 @@
             </tr>
             @foreach (var item in ViewBag.MuonTraSach)
             {
-                <tr>
-                    <td>
-                        @item.HocSinh.Lop
-                    </td>
-                    <td>
-                        @item.HocSinh.TenHS
-                    </td>
-                    <td>
-                        @item.HocSinh.NgaySinh.ToShortDateString()
-                    </td>
-                    <td>
-                        @item.Sach.TenSach
-                    </td>
-                    <td>
-                        @item.NgayMuon.ToShortDateString()
-                    </td>
-                    <td>
-                        @item.HanTra.ToShortDateString()
-                    </td>
-                    <td>
-                        @Html.ActionLink("Trả Sách", "TraSach", new { id = item.ID }) |
-                        @Html.ActionLink("Báo Mất", "BaoMat", new { id = item.ID }) |
-                        @Html.ActionLink("Chỉnh Sửa", "Edit", new { id = item.ID }) |
-                        @Html.ActionLink("Chi Tiết", "Details", new { id = item.ID }) |
-                        @Html.ActionLink("Xóa", "Delete", new { id = item.ID })
-                    </td>
-                </tr>
+                if (@item.HanTra.Date < DateTime.Now.Date)
+                {
+                    <tr class="text-danger">
+                        <td>
+                            @item.HocSinh.Lop
+                        </td>
+                        <td>
+                            @item.HocSinh.TenHS
+                        </td>
+                        <td>
+                            @item.HocSinh.NgaySinh.ToShortDateString()
+                        </td>
+                        <td>
+                            @item.Sach.TenSach
+                        </td>
+                        <td>
+                            @item.NgayMuon.ToShortDateString()
+                        </td>
+                        <td>
+                            @item.HanTra.ToShortDateString()
+                        </td>
+                        <td>
+                            @Html.ActionLink("Trả Sách", "TraSach", new { id = item.ID }) |
+                            @Html.ActionLink("Báo Mất", "BaoMat", new { id = item.ID }) |
+                            @Html.ActionLink("Chỉnh Sửa", "Edit", new { id = item.ID }) |
+                            @Html.ActionLink("Chi Tiết", "Details", new { id = item.ID }) |
+                            @Html.ActionLink("Xóa", "Delete", new { id = item.ID })
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td>
+                            @item.HocSinh.Lop
+                        </td>
+                        <td>
+                            @item.HocSinh.TenHS
+                        </td>
+                        <td>
+                            @item.HocSinh.NgaySinh.ToShortDateString()
+                        </td>
+                        <td>
+                            @item.Sach.TenSach
+                        </td>
+                        <td>
+                            @item.NgayMuon.ToShortDateString()
+                        </td>
+                        <td>
+                            @item.HanTra.ToShortDateString()
+                        </td>
+                        <td>
+                            @Html.ActionLink("Trả Sách", "TraSach", new { id = item.ID }) |
+                            @Html.ActionLink("Báo Mất", "BaoMat", new { id = item.ID }) |
+                            @Html.ActionLink("Chỉnh Sửa", "Edit", new { id = item.ID }) |
+                            @Html.ActionLink("Chi Tiết", "Details", new { id = item.ID }) |
+                            @Html.ActionLink("Xóa", "Delete", new { id = item.ID })
+                        </td>
+                    </tr>
+                }
             }
         </table>
     </div>
 }
 else
 {
-    <p>Không có hoạt động mượn sách</p>
+    < p > Không có hoạt động mượn sách </ p >
 }
