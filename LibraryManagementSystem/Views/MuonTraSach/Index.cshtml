@@ -62,11 +62,16 @@
                             @item.HanTra.ToShortDateString()
                         </td>
                         <td>
-                            @Html.ActionLink("Trả Sách", "TraSach", new { id = item.ID }) |
-                            @Html.ActionLink("Báo Mất", "BaoMat", new { id = item.ID }) |
-                            @Html.ActionLink("Chỉnh Sửa", "Edit", new { id = item.ID }) |
-                            @Html.ActionLink("Chi Tiết", "Details", new { id = item.ID }) |
-                            @Html.ActionLink("Xóa", "Delete", new { id = item.ID })
+                            <div class="btn-group navbar-btn">
+                                @Html.ActionLink("Trả Sách", "TraSach", new { id = item.ID }, new { @class = "btn btn-default btn-xs" })
+                                <button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle"><span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Báo Mất", "BaoMat", new { id = item.ID })</li>
+                                    <li>@Html.ActionLink("Chỉnh Sửa", "Edit", new { id = item.ID })</li>
+                                    <li>@Html.ActionLink("Chi Tiết", "Details", new { id = item.ID })</li>
+                                    <li>@Html.ActionLink("Xóa", "Delete", new { id = item.ID })</li>
+                                </ul>
+                            </div>
                         </td>
                     </tr>
                 }
@@ -92,11 +97,16 @@
                             @item.HanTra.ToShortDateString()
                         </td>
                         <td>
-                            @Html.ActionLink("Trả Sách", "TraSach", new { id = item.ID }) |
-                            @Html.ActionLink("Báo Mất", "BaoMat", new { id = item.ID }) |
-                            @Html.ActionLink("Chỉnh Sửa", "Edit", new { id = item.ID }) |
-                            @Html.ActionLink("Chi Tiết", "Details", new { id = item.ID }) |
-                            @Html.ActionLink("Xóa", "Delete", new { id = item.ID })
+                            <div class="btn-group navbar-btn">
+                                @Html.ActionLink("Trả Sách", "TraSach", new { id = item.ID }, new { @class = "btn btn-default btn-xs" })
+                                <button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle"><span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Báo Mất", "BaoMat", new { id = item.ID })</li>
+                                    <li>@Html.ActionLink("Chỉnh Sửa", "Edit", new { id = item.ID })</li>
+                                    <li>@Html.ActionLink("Chi Tiết", "Details", new { id = item.ID })</li>
+                                    <li>@Html.ActionLink("Xóa", "Delete", new { id = item.ID })</li>
+                                </ul>
+                            </div>
                         </td>
                     </tr>
                 }
