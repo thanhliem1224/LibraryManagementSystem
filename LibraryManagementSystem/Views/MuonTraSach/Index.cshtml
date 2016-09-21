@@ -1,11 +1,20 @@
 ﻿@model IEnumerable<LibraryManagementSystem.Models.MuonTraSach>
 @{
-    ViewBag.Title = "Muon Tra Sach";
+    ViewBag.Title = "Danh Sách Học Sinh Mượn Sách";
 }
+<h2 class="text-center">Danh Sách Học Sinh Mượn Sách</h2>
+<br />
+<div class="row">
+    <div class="col-md-8">
+        @Html.ActionLink("Lịch Sử Mượn Trả Sách", "LichSu")
+    </div>
+    <div class="col-md-4 text-right form-inline">
+        <a href="~/MuonTraSach/TimHocSinh" class="btn btn-primary active" role="button">Thêm Mới</a>
+    </div>
+</div>
+<br />
 @if (ViewBag.MuonTraSach_Count > 0)
 {
-
-    <h2>Danh Sach HS Dang Muon Sach</h2>
     <div class="table-responsive">
         <table class="table">
             <tr>
@@ -64,5 +73,5 @@
 }
 else
 {
-    <p>Không có hoạt động Mượn Sách</p>
+    <p>Không có hoạt động mượn sách</p>
 }

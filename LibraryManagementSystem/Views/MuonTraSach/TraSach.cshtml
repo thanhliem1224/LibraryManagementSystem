@@ -4,8 +4,8 @@
     ViewBag.Title = "Trả Sách";
 }
 
-<h2>Trả Sách</h2>
-
+<h2 class="text-center">Trả Sách</h2>
+<br />
 
 @using (Html.BeginForm())
 {
@@ -48,12 +48,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Xác Nhận" class="btn btn-default" />
+                <input type="submit" value="Xác Nhận Trả" class="btn btn-success" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Danh Sách Học Sinh Đang Mượn Sách", "Index")
 </div>

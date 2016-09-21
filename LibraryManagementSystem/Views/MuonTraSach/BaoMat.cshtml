@@ -2,8 +2,8 @@
 @{
     ViewBag.Title = "Báo Mất Sách";
 }
-<h2>Báo Mất Sách</h2>
-
+<h2 class="text-center">Báo Mất Sách</h2>
+<br />
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -40,11 +40,11 @@
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Xác Nhận" class="btn btn-default" />
+                <input type="submit" value="Xác Nhận Mất" class="btn btn-danger" />
             </div>
         </div>
     </div>
 }
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Danh Sách Học Sinh Đang Mượn Sách", "Index")
 </div>

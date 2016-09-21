@@ -30,7 +30,7 @@ namespace LibraryManagementSystem.Controllers
             }
             return View();
         }
-        public ActionResult DanhSach()
+        public ActionResult LichSu()
         {
             var muonTraSach = db.MuonTraSach.Include(m => m.HocSinh).Include(m => m.Sach).OrderByDescending(m => m.NgayMuon);
             return View(muonTraSach.ToList());

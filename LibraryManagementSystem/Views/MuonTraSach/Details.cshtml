@@ -1,13 +1,12 @@
 ﻿@model LibraryManagementSystem.Models.MuonTraSach
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Thông Tin Hoạt Động Mượn Trả Sách";
 }
 
-<h2>Details</h2>
+<h2 class="text-center">Thông Tin Hoạt Động Mượn Trả Sách</h2>
 
 <div>
-    <h4>MuonTraSach</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -53,6 +52,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Danh Sách Học Sinh Đang Mượn Sách", "Index")
 </p>

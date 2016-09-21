@@ -356,7 +356,7 @@
     <Content Include="Views\BaoCao\BaoCaoSachTrongThuVien.cshtml" />
     <Content Include="Views\BaoCao\BaoCaoDocSach.cshtml" />
     <Content Include="Views\BaoCao\BaoCaoSachYeuThich.cshtml" />
-    <Content Include="Views\MuonTraSach\DanhSach.cshtml" />
+    <Content Include="Views\MuonTraSach\LichSu.cshtml" />
     <Content Include="Views\MuonTraSach\BaoMat.cshtml" />
     <Content Include="Views\BaoCao\BaoCaoSachMat.cshtml" />
     <Content Include="Views\MuonTraSach\TimHocSinh.cshtml" />
