@@ -1,9 +1,31 @@
 ﻿@Html.Partial("~/Views/BaoCao/LuaChon.cshtml")
 <br />
-<div class="text-center">
+<div class="row">
     <hr />
-    <h3>Báo Cáo @ViewBag.date</h3>
-    <br />
+    <div class="col-md-10">
+        <h3 class="text-center">Báo Cáo @ViewBag.date</h3>
+    </div>
+    <div class="col-md-2 text-right">
+        @using (Html.BeginForm("XuatBaoCao", "BaoCao"))
+        {
+
+            <div hidden>
+                <input type="text" name="docsach" value="@ViewBag.docsach_stt" />
+                <input type="checkbox" name="muonsach" value="@ViewBag.muonsach_stt" />
+                <input type="checkbox" name="theloaiyt" value="@ViewBag.theloaiyeuthich_stt" />
+                <input type="checkbox" name="sachyt" value="@ViewBag.sachyeuthich_stt" />
+                <input type="checkbox" name="quahan" value="@ViewBag.muonsachquahan_stt" />
+                <input type="checkbox" name="thanhly" value="@ViewBag.thanhly_stt" />
+                <input type="checkbox" name="sachmat" value="@ViewBag.sachmat_stt" />
+                <input type="checkbox" name="sachtv" value="@ViewBag.sachtrongthuvien_stt" />
+                <input type="text" name="date" value="@ViewBag.date" />
+            </div>
+
+
+            <input type="submit" value="Tải Về" class="btn btn-success" />
+
+        }
+    </div>
 </div>
 
 @if (ViewBag.docsach_stt == true)

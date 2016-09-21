@@ -4,6 +4,7 @@ using LibraryManagementSystem.DAL;
 using System;
 using LibraryManagementSystem.Models.ViewModel;
 using LibraryManagementSystem.Models;
+using System.IO;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -47,7 +48,7 @@ namespace LibraryManagementSystem.Controllers
                     }
                     if (type == LOAIBAOCAO.KhoanThoiGian)
                     {
-                        ViewBag.date = d.Value.Month + "/" + d.Value.Year + " - " + d_f.Value.Month + "/" + d_f.Value.Year;
+                        ViewBag.date = d.Value.Month + "/" + d.Value.Year + " ‒ " + d_f.Value.Month + "/" + d_f.Value.Year;
                     }
                     #endregion
                     #region Muon Sach Ve Nha
@@ -379,7 +380,7 @@ namespace LibraryManagementSystem.Controllers
                     }
                     else // neu ko co du lieu nam
                     {
-                        return null; 
+                        return null;
                     }
                 }
                 else if (type == LOAIBAOCAO.KhoanThoiGian)
@@ -679,6 +680,23 @@ namespace LibraryManagementSystem.Controllers
                               group s by s.ChuDe into g
                               select new BaoCaoVM { GroupName1 = g.Key.TenChuDe, GroupSoLuong = g.Count() };
             return thongkesach;
+        }
+
+        // Xuat Bao Cao ra file word
+        [HttpPost]
+        [Authorize]
+        public ActionResult XuatBaoCao(bool? docsach, bool? muonsach, bool? theloaiyt, bool? sachyt, bool? quahan, bool? thanhly, bool? sachmat, bool? sachtv, string date)
+        {
+
+
+            MemoryStream stream = new MemoryStream();
+            //DocX doc = DocX.Create(stream);
+
+            //doc.InsertParagraph();
+            //doc.Save();
+
+            string filename = "BaoCao_" + date.Replace('/', '.');
+            return File(stream.ToArray(), "application/octet-stream", filename);
         }
     }
 }
