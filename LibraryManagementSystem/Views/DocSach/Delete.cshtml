@@ -4,11 +4,10 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<h2 class="text-center">Xóa Thông Tin Đọc Sách</h2>
+<br />
+<h4>Xác Nhận Thông Tin Xóa </h4>
 <div>
-    <h4>DocSachTaiCho</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -33,8 +32,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Xác Nhận Xóa" class="btn btn-danger" /> |
+            @Html.ActionLink("Danh Sách Học Sinh Đọc Sách", "Index")
         </div>
     }
 </div>

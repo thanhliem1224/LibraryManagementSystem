@@ -4,15 +4,13 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
-
+<h2>Sửa Học Sinh Đọc Sách</h2>
+<br />
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+    <hr />
     <div class="form-horizontal">
-        <h4>DocSachTaiCho</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ID)
 
@@ -44,12 +42,11 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Xác Nhận Sửa" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
-
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Danh Sách Học Sinh Đọc Sách", "Index")
 </div>

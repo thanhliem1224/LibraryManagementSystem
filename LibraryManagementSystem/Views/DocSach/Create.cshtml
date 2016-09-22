@@ -4,88 +4,86 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2 class="text-center">Thêm Học Sinh Đọc Sách</h2>
+<br />
 <div>
-    <div>
-        @using (Html.BeginForm("TimHS", "DocSach"))
-        {
-            <div class="form-horizontal">
-                <h4>Tìm Kiếm</h4>
-                <hr />
-                <div class="form-group">
-                    <div class="control-label col-md-2"> <strong>Tên Học Sinh</strong> </div>
-                    <div class="col-md-10">
+    <div class="form-horizontal">
+        <div class="form-group">
+            @using (Html.BeginForm("TimHS", "DocSach"))
+            {
+                <div class="form-inline">
+
+                    <div class="control-label col-md-4"><strong>Học Sinh</strong></div>
+                    <div class="col-md-4">
                         @Html.TextBox("tenHS", null, new { @class = "form-control" })
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Tìm Học Sinh" class="btn btn-default" />
+
+                    <div class="col-md-4">
+                        <input type="submit" value="Tìm" class="btn btn-default" />
                     </div>
+
                 </div>
-            </div>
-        }
-    </div>
-
-    <div>
-
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-
-            <div class="form-horizontal">
-                <h4>Ghi Danh</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    <div class="control-label col-md-2"> <strong>Tên Học Sinh</strong> </div>
-                    <div class="col-md-10">
+            }
+        </div>
+        <div class="form-group">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-inline">
+                    <div class="control-label col-md-4"><strong>Tên Học Sinh</strong></div>
+                    <div class="col-md-4">
                         @Html.DropDownList("HocSinhID", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.HocSinhID, "", new { @class = "text-danger" })
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <input type="submit" value="Xác Nhận" class="btn btn-default" />
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
-                    </div>
-                </div>
+            }
+            <div>
+                @if (TempData["Message_Fa"] != null)
+                {
+                    <p class="col-md-offset-4 col-md-8 text-danger">@TempData["Message_Fa"]</p>
+                }
+                @if (TempData["Message_Su"] != null)
+                {
+                    <p class="col-md-offset-4 col-md-8 text-success">@TempData["Message_Su"]</p>
+                }
             </div>
-        }
-        <div>
-            <p>@ViewBag.Mess</p>
         </div>
     </div>
 </div>
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Danh Sách Học Sinh Đọc Sách", "Index")
 </div>
 <hr />
-<div class="text-center"><h3>Danh Sách Học Sinh Đọc Sách Hôm Nay</h3></div>
+<div class="text-center"><h3>Danh Sách Học Sinh Đọc Sách Hôm Nay (@DateTime.Now.ToShortDateString())</h3></div>
 <div class="table-responsive">
     <table class="table table-hover">
         <tr>
             <th>
-                Tên Học Sinh
-            </th>
-            <th>
                 Lớp
             </th>
             <th>
-                Ngày
+                Tên Học Sinh
+            </th>
+            <th>
+                Ngày Sinh
             </th>
         </tr>
         @foreach (var item in ViewBag.DSDocSach)
         {
             <tr>
                 <td>
-                    @item.HocSinh.TenHS
-                </td>
-                <td>
                     @item.HocSinh.Lop
                 </td>
                 <td>
-                    @item.Ngay
+                    @item.HocSinh.TenHS
+                </td>
+                <td>
+                    @item.HocSinh.NgaySinh.ToShortDateString()
                 </td>
             </tr>
         }

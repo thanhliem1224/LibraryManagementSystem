@@ -65,21 +65,36 @@ namespace LibraryManagementSystem.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,HocSinhID")] DocSachTaiCho docSachTaiCho)
+        public ActionResult Create([Bind(Include = "ID,HocSinhID,TenHS")] DocSachTaiCho docSachTaiCho)
         {
             if (ModelState.IsValid)
             {
                 if (docSachTaiCho.HocSinhID > 0)
                 {
-                    docSachTaiCho.Ngay = DateTime.Now;
-                    db.DocSachTaiCho.Add(docSachTaiCho);
-                    db.SaveChanges();
-                    
-                    return RedirectToAction("Create");
+                    var kiemtra = from d in db.DocSachTaiCho   //.Where(d => d.HocSinhID == docSachTaiCho.HocSinhID).Where(d => d.Ngay.Day == DateTime.Now.Day && d.Ngay.Month == DateTime.Now.Month && d.Ngay.Year == DateTime.Now.Year);
+                                  where d.HocSinhID == docSachTaiCho.HocSinhID && (d.Ngay.Day == DateTime.Now.Day && d.Ngay.Month == DateTime.Now.Month && d.Ngay.Year == DateTime.Now.Year)
+                                  select d;
+                    if (kiemtra.Count()>0)
+                    {
+                        string tenhs = db.HocSinh.Find(docSachTaiCho.HocSinhID).TenHS;
+                        TempData["Message_Fa"] = "Học Sinh " + tenhs + " đã đọc sách hôm nay.";
+                        return RedirectToAction("Create");
+                    }
+                    else
+                    {
+                        docSachTaiCho.Ngay = DateTime.Now;
+                        db.DocSachTaiCho.Add(docSachTaiCho);
+                        db.SaveChanges();
+
+                        string tenhs = db.HocSinh.Find(docSachTaiCho.HocSinhID).TenHS;
+                        TempData["Message_Su"] = "Thêm Thành Công " + tenhs;
+
+                        return RedirectToAction("Create");
+                    }
                 }
                 else
                 {
-                    return HttpNotFound();
+                    return View("SthError");
                 }
             }
 
