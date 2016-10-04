@@ -1,0 +1,33 @@
+﻿<div>
+    <h4><u>Bảng Thống Kê Thể Loại Sách Được Mượn Nhiều (@ViewBag.date)</u></h4>
+    @if (ViewBag.TheLoaiYeuThich_Count == 0)
+    {
+    <p>Không có hoạt động mượn sách</p>
+    }
+    else
+    {
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <th>
+                    Thể Loại
+                </th>
+                <th>
+                    Số Lượng
+                </th>
+            </tr>
+            @foreach (var theloai in ViewBag.TheLoaiYeuThich)
+            {
+            <tr>
+                <td>
+                    @theloai.GroupName1
+                </td>
+                <td>
+                    @theloai.GroupSoLuong
+                </td>
+            </tr>
+            }
+        </table>
+    </div>
+    }
+</div>

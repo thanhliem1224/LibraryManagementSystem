@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "Thống Kê";
+}
+<div class="text-center">
+    <h2>Báo Cáo Thống Kê</h2>
+</div>
+<br />
+<div class="form-horizontal">
+    @using (Html.BeginForm("LuaChon", "BaoCao"))
+    {
+        <div class="form-group">
+            <div class="form-inline">
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        <label><input type="checkbox" value="true" name="muonsach_status" checked>Hoạt Động Mượn Sách Về Nhà</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        <label><input type="checkbox" value="true" name="docsach_status" checked>Hoạt Động Đọc Sách Tại Thư Viện</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        <label><input type="checkbox" value="true" name="theloaiyeuthich_status" checked>Thể Loại Sách Được Mượn Nhiều</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        <label><input type="checkbox" value="true" name="sachyeuthich_status" checked>Sách Được Mượn Nhiều</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        <label><input type="checkbox" value="true" name="muonsachquahan_status" checked>Học Sinh Mượn Sách Quá Hạn</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        <label><input type="checkbox" value="true" name="thanhly_status" checked>Sách Đã Thanh Lý</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        <label><input type="checkbox" value="true" name="sachmat_status" checked>Sách Bị Mất</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        <label><input type="checkbox" value="true" name="sachthuvien_status" checked>Sách Có Trong Thư Viện</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-inline">
+                <div class="col-md-2">
+                    <select name="type" class="form-control">
+                        <option value="0">Tháng</option>
+                        <option value="1">Năm</option>
+                        <option value="2">Khoảng Thời Gian</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <input type="month" name="date" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <input type="month" name="date_finish" class="form-control" />
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" value="Xác nhận" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+</div>

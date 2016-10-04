@@ -5,6 +5,10 @@ using System;
 using LibraryManagementSystem.Models.ViewModel;
 using LibraryManagementSystem.Models;
 using System.IO;
+using Novacode;
+using System.Drawing;
+using System.Collections.Generic;
+using System.Text;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -17,6 +21,9 @@ namespace LibraryManagementSystem.Controllers
             KhoanThoiGian
         }
 
+        public static LOAIBAOCAO thisistype;
+        public static DateTime thisisD;
+        public static DateTime thisisD_F;
         private CNCFContext db = new CNCFContext();
 
         private DateTime _end_day_now = CNCFClass.GoToEndOfDay(DateTime.Now);
@@ -25,6 +32,13 @@ namespace LibraryManagementSystem.Controllers
         [Authorize]
         public ActionResult LuaChon(LOAIBAOCAO type, DateTime? date, DateTime? date_finish, bool? thanhly_status, bool? muonsach_status, bool? docsach_status, bool? theloaiyeuthich_status, bool? sachyeuthich_status, bool? sachmat_status, bool? muonsachquahan_status, bool? sachthuvien_status)
         {
+            thisistype = type;
+            thisisD = date.Value;
+            if (date_finish != null)
+            {
+                thisisD_F = date_finish.Value;
+            }
+
             return RedirectToAction("Index", "BaoCao", new { type = type, d = date, d_f = date_finish, tl = thanhly_status, ms = muonsach_status, ds = docsach_status, tlyt = theloaiyeuthich_status, syt = sachyeuthich_status, sm = sachmat_status, msqh = muonsachquahan_status, stv = sachthuvien_status });
         }
 
@@ -32,10 +46,12 @@ namespace LibraryManagementSystem.Controllers
         [Authorize]
         public ActionResult Index(LOAIBAOCAO? type, DateTime? d, DateTime? d_f, bool? tl, bool? ms, bool? ds, bool? tlyt, bool? sm, bool? syt, bool? msqh, bool? stv)
         {
+
             if (type.HasValue)
             {
                 if (d.HasValue || (d.HasValue && d_f.HasValue)) // check du lieu ngay
                 {
+
                     #region Set Du Lieu Thoi Gian
                     // get date
                     if (type == LOAIBAOCAO.Thang)
@@ -271,6 +287,12 @@ namespace LibraryManagementSystem.Controllers
 
         private IQueryable<BaoCaoVM> BaoCaoDocSach(LOAIBAOCAO? type, DateTime? d, DateTime? d_f)
         {
+            thisistype = type.Value;
+            thisisD = d.Value;
+            if (d_f != null)
+            {
+                thisisD_F = d_f.Value;
+            }
             if (type.HasValue)
             {
                 if (type == LOAIBAOCAO.Thang)
@@ -282,9 +304,10 @@ namespace LibraryManagementSystem.Controllers
 
                         var danhsachdoc = from dsd in db.DocSachTaiCho
                                           where dsd.Ngay.Month == _month && dsd.Ngay.Year == _year
-                                          group dsd by dsd.HocSinh into g
-                                          orderby g.Key.Lop ascending, g.Key.TenHS ascending
-                                          select new BaoCaoVM { GroupName1 = g.Key.Lop, GroupName2 = g.Key.TenHS, GroupDatetime = g.Key.NgaySinh, GroupSoLuong = g.Count() };
+                                          group dsd by dsd.HocSinh.Lop into g
+                                          orderby g.Key ascending
+                                          select new BaoCaoVM { GroupName1 = g.Key, GroupSoLuong = g.Count() };
+
                         return danhsachdoc;
                     }
                     else // neu ko co du lieu thang
@@ -300,9 +323,9 @@ namespace LibraryManagementSystem.Controllers
 
                         var danhsachdoc = from dsd in db.DocSachTaiCho
                                           where dsd.Ngay.Year == _year
-                                          group dsd by dsd.HocSinh into g
-                                          orderby g.Key.Lop ascending, g.Key.TenHS ascending
-                                          select new BaoCaoVM { GroupName1 = g.Key.Lop, GroupName2 = g.Key.TenHS, GroupDatetime = g.Key.NgaySinh, GroupSoLuong = g.Count() };
+                                          group dsd by dsd.HocSinh.Lop into g
+                                          orderby g.Key ascending
+                                          select new BaoCaoVM { GroupName1 = g.Key, GroupSoLuong = g.Count() };
                         return danhsachdoc;
                     }
                     else // neu ko co du lieu nam
@@ -320,9 +343,9 @@ namespace LibraryManagementSystem.Controllers
                         int _year_f = d_f.Value.Year;
                         var danhsachdoc = from dsd in db.DocSachTaiCho
                                           where (dsd.Ngay.Month >= _month_s && dsd.Ngay.Year >= _year_s) && (dsd.Ngay.Month <= _month_f && dsd.Ngay.Year <= _year_f)
-                                          group dsd by dsd.HocSinh into g
-                                          orderby g.Key.Lop ascending, g.Key.TenHS ascending
-                                          select new BaoCaoVM { GroupName1 = g.Key.Lop, GroupName2 = g.Key.TenHS, GroupDatetime = g.Key.NgaySinh, GroupSoLuong = g.Count() };
+                                          group dsd by dsd.HocSinh.Lop into g
+                                          orderby g.Key ascending
+                                          select new BaoCaoVM { GroupName1 = g.Key, GroupSoLuong = g.Count() };
                         return danhsachdoc;
                     }
                     else // neu ko co du lieu khoang thoi gian
@@ -590,7 +613,7 @@ namespace LibraryManagementSystem.Controllers
                              where m.NgayTra == null && m.HanTra < _end_day_now
                              group m by m.HocSinh into g
                              orderby g.Key.Lop ascending, g.Key.TenHS ascending
-                             select new BaoCaoVM { GroupName1 = g.Key.TenHS, GroupSoLuong = g.Count(), GroupDanhSach = g };
+                             select new BaoCaoVM { GroupName1 = g.Key.TenHS, GroupName2 = g.Key.Lop, GroupSoLuong = g.Count(), GroupDanhSach = g };
 
             return muonquahan;
         }
@@ -687,15 +710,201 @@ namespace LibraryManagementSystem.Controllers
         [Authorize]
         public ActionResult XuatBaoCao(bool? docsach, bool? muonsach, bool? theloaiyt, bool? sachyt, bool? quahan, bool? thanhly, bool? sachmat, bool? sachtv, string date)
         {
-
-
+            Dictionary<string, int> aoe = new Dictionary<string, int>();
+            // Khoi tao bo nho
             MemoryStream stream = new MemoryStream();
-            //DocX doc = DocX.Create(stream);
+            // Khoi tao file Word
+            DocX doc = DocX.Create(stream);
+            // Tao Font su dung
+            FontFamily TNR = new FontFamily("Times New Roman");
+            doc.InsertParagraph("Thư viện Trường TH Ánh Sáng").FontSize(13).Font(new FontFamily("Times New Roman")).Bold();
+            // Hang tieu de
+            Paragraph p_Title = doc.InsertParagraph();
+            p_Title.Append("BÁO CÁO HOẠT ĐỘNG THƯ VIỆN\n").FontSize(13).Font(new FontFamily("Times New Roman")).Bold();
+            if (date != null)
+            {
+                string KhoanThoiGian = string.Format("(Từ tháng {0})\n", date);
+                p_Title.Append(KhoanThoiGian).FontSize(13).Font(new FontFamily("Times New Roman"));
+            }
+            // Dinh dang tieu de
+            p_Title.Alignment = Alignment.center;
 
-            //doc.InsertParagraph();
-            //doc.Save();
+            Paragraph heading = doc.InsertParagraph();
+            heading.StyleName = "Heading1";
 
-            string filename = "BaoCao_" + date.Replace('/', '.');
+            #region Bao Cao Muon Sach + Doc Tai Cho
+            ///
+            ///Bao cao muon sach
+            ///
+            // Check neu muon tao bao cao Muon sach
+            var bcMuonsach = BaoCaoMuonSach(thisistype, thisisD, thisisD_F);
+            int value = 0;
+            Dictionary<string, int> bc_muonsachFilter = new Dictionary<string, int>();
+            heading.AppendLine("1. Hoạt động đọc sách:");
+            heading.FontSize(13).Font(TNR);
+            //Loc ra theo lop
+            foreach (var v in bcMuonsach)
+            {
+                if (bc_muonsachFilter.TryGetValue(v.GroupName1, out value))
+                {
+                    bc_muonsachFilter[v.GroupName1] += v.GroupSoLuong;
+                }
+                else
+                {
+                    bc_muonsachFilter.Add(v.GroupName1, v.GroupSoLuong);
+                }
+            }
+            Paragraph p_bcDocsach = doc.InsertParagraph();
+
+            p_bcDocsach.AppendLine("Bảng kê số lượt mượn sách về nhà:").FontSize(13).Font(TNR).Bold();
+            int CellIndex = bc_muonsachFilter.Count();
+
+            ///Check so sanh voi bcDocSach
+
+
+            //if (docsach != null)
+            //{
+            CellIndex += 2;
+            //}
+            //else
+            //{
+            //    CellIndex += 1;
+            //}
+
+            Table t_Muonsach = doc.AddTable(2, CellIndex);
+            t_Muonsach.Design = TableDesign.TableGrid;
+            int Row = 0;
+            int Cell = 0;
+            {
+                int tc_luot = 0;
+                // Xuat so luong tung lop
+                foreach (KeyValuePair<string, int> lop in bc_muonsachFilter)
+                {
+
+                    t_Muonsach.Rows[Row].Cells[Cell].Paragraphs[0].Append(string.Format("{0}", lop.Key)).FontSize(13).Font(TNR);
+                        t_Muonsach.Rows[Row + 1].Cells[Cell].Paragraphs[0].Append(string.Format("{0}", lop.Value)).FontSize(13).Font(TNR);
+                    tc_luot += lop.Value;
+                        Cell++;
+                }
+                //Xuat tong so luon cac lop
+                t_Muonsach.Rows[Row].Cells[Cell].Paragraphs[0].Append(string.Format("Tổng số lượt mượn sách")).FontSize(13).Font(TNR);
+                t_Muonsach.Rows[Row + 1].Cells[Cell].Paragraphs[0].Append(string.Format("{0}", tc_luot)).FontSize(13).Font(TNR);
+                Cell++;
+                //So sanh voi doc sach tai cho (Neu co)
+                //if (docsach != null)
+                //{
+                var bcDocsach = BaoCaoDocSach(thisistype, thisisD, thisisD_F);
+                int tc_luotDoc = 0;
+                foreach (var v in bcDocsach)
+                {
+                    tc_luotDoc += v.GroupSoLuong;
+                }
+                t_Muonsach.Rows[Row].Cells[Cell].Paragraphs[0].Append(string.Format("Tổng số lượt đọc sách tại chỗ")).FontSize(13).Font(TNR);
+                t_Muonsach.Rows[Row + 1].Cells[Cell].Paragraphs[0].Append(string.Format("{0}", tc_luotDoc)).FontSize(13).Font(TNR);
+                //}
+            }
+            t_Muonsach.Alignment = Alignment.center;
+            //In ra file
+            p_bcDocsach.InsertTableAfterSelf(t_Muonsach);
+            p_bcDocsach.AppendLine("");
+            #region Bao Cao Sach Qua Han
+            // Sach muon chua tra
+            Paragraph heading2 = doc.InsertParagraph();
+            heading2.StyleName = "Heading1";
+            heading2.AppendLine("2. Sách mượn quá hạn:").FontSize(13).Font(TNR);
+
+            var bc_Quahang = BaoCaoMuonSachQuaHan();
+            Dictionary<string, int> filter_quahang = new Dictionary<string, int>();
+
+            foreach (var v in bc_Quahang)
+            {
+                if (filter_quahang.TryGetValue(v.GroupName2, out value))
+                {
+                    filter_quahang[v.GroupName2] += v.GroupSoLuong;
+                }
+                else
+                {
+                    filter_quahang.Add(v.GroupName2, v.GroupSoLuong);
+                }
+                
+            }
+            // Filter sach qua han
+
+
+
+            Paragraph bc_Trasach = doc.InsertParagraph();
+            bc_Trasach.AppendLine("Trường Ánh Sáng").FontSize(13).Font(TNR).Italic();
+            foreach (KeyValuePair<string, int> lop in filter_quahang)
+            {
+                bc_Trasach.AppendLine(string.Format("{0}:", lop.Key)).FontSize(14).Font(TNR).Bold();
+                foreach (var v in bc_Quahang)
+                {
+                    if (lop.Key == v.GroupName2)
+                    {
+                        StringBuilder moihs = new StringBuilder();
+                        moihs.AppendFormat(" - {0}:", v.GroupName1);
+                        foreach (var vs in v.GroupDanhSach)
+                        {
+                            moihs.AppendFormat(" {0},", vs.Sach.TenSach);
+                        }
+                        moihs[moihs.Length - 1] = '.';
+                        bc_Trasach.AppendLine(moihs.ToString()).FontSize(13).Font(TNR);
+                    }
+                }
+            }
+            bc_Trasach.AppendLine("");
+
+            #endregion
+
+            // Sach bi mat
+            bc_Trasach.AppendLine("Sách học sinh làm mất:").FontSize(14).Font(TNR).Bold().UnderlineColor(Color.Black);
+            var bcMatsach = BaoCaoSachMat();
+            foreach (var v in bcMatsach)
+            {
+                string sen = string.Format("{0}:", v.GroupName1);
+                foreach (var vs in v.GroupDanhSach)
+                {
+                    sen += string.Format(" {0},", vs.Sach.TenSach);
+                }
+                StringBuilder text = new StringBuilder(sen);
+                text[text.Length - 1] = '.';
+                sen = text.ToString();
+                bc_Trasach.AppendLine(sen).FontSize(13).Font(TNR);
+            }
+            #endregion
+            #region Sach cua thu vien
+            Paragraph heading3 = doc.InsertParagraph();
+            heading3.StyleName = "Heading1";
+            heading3.AppendLine("3. Sách của thư viện").FontSize(13).Font(TNR);
+
+            Paragraph p_bcSach = doc.InsertParagraph();
+            p_bcSach.AppendLine("Bảng thống kê sách:").FontSize(13).Font(TNR).Bold();
+
+            Paragraph t_Sach = doc.InsertParagraph();
+            var bcSach = BaoCaoSachTrongThuVien();
+            int soCD = bcSach.Count();
+            Table t_bcSach = doc.AddTable(soCD + 2, 2);
+            t_bcSach.Design = TableDesign.TableGrid;
+            int tCell = 0;
+            int tRow = 0;
+            int tc_sach = 0;
+            t_bcSach.Rows[tRow].Cells[tCell].Paragraphs[0].Append("THỂ LOẠI SÁCH").FontSize(13).Font(TNR);
+            t_bcSach.Rows[tRow].Cells[tCell + 1].Paragraphs[0].Append("SỐ LƯỢNG").FontSize(13).Font(TNR);
+            tRow++;
+            foreach (var v in bcSach)
+            {
+                t_bcSach.Rows[tRow].Cells[tCell].Paragraphs[0].Append(string.Format("{0}", v.GroupName1)).FontSize(13).Font(TNR);
+                t_bcSach.Rows[tRow].Cells[tCell + 1].Paragraphs[0].Append(string.Format("{0}", v.GroupSoLuong)).FontSize(13).Font(TNR);
+                tc_sach += v.GroupSoLuong;
+                tRow++;
+            }
+            t_bcSach.Rows[tRow].Cells[tCell].Paragraphs[0].Append(string.Format("Tổng cộng")).FontSize(13).Font(TNR).Italic();
+            t_bcSach.Rows[tRow].Cells[tCell + 1].Paragraphs[0].Append(string.Format("{0}", tc_sach)).FontSize(13).Font(TNR);
+            t_bcSach.Alignment = Alignment.left;
+            t_Sach.InsertTableAfterSelf(t_bcSach);
+            #endregion
+            doc.Save();
+            string filename = "BaoCao_" + date.Replace('/', '.') + ".doc";
             return File(stream.ToArray(), "application/octet-stream", filename);
         }
     }

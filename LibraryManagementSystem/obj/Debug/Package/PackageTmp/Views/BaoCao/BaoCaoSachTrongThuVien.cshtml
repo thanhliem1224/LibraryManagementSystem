@@ -1,0 +1,41 @@
+﻿<div>
+    <h4><u>Bảng Thống Kê Sách Có Trong Thư Viện</u></h4>
+    @if (ViewBag.ThongKeSach_Count == 0)
+    {
+    <p>Thư Viện Không Có Sách</p>
+    }
+    else
+    {
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <th>
+                    Thể Loại
+                </th>
+                <th>
+                    Số Lượng
+                </th>
+            </tr>
+            @foreach (var chude in ViewBag.ThongKeSach)
+            {
+            <tr>
+                <td>
+                    @chude.GroupName1
+                </td>
+                <td>
+                    @chude.GroupSoLuong
+                </td>
+            </tr>
+            }
+            <tr>
+                <td>
+                    <strong>Tổng cộng</strong>
+                </td>
+                <td>
+                    <strong>@ViewBag.ThongKeSach_Count</strong>
+                </td>
+            </tr>
+        </table>
+    </div>
+    }
+</div>

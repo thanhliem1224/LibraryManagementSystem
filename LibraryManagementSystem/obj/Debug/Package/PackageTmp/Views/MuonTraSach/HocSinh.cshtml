@@ -1,0 +1,211 @@
+﻿@model LibraryManagementSystem.Models.HocSinh
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2 class="text-center">Mượn Sách</h2>
+<br />
+<div>
+    <div class="row">
+        <div class="col-md-4">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.TenHS)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TenHS)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Lop)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Lop)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.NgaySinh)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.NgaySinh)
+                </dd>
+
+            </dl>
+        </div>
+        <div class="col-md-8">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    @using (Html.BeginForm())
+                    {
+                        <div class="form-inline">
+
+                            <div class="control-label col-md-4"> <strong>Tìm Tên Sách</strong> </div>
+                            <div class="col-md-6">
+                                @Html.TextBox("tenSach", null, new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-2">
+                                <input type="submit" value="Tìm Sách" class="btn btn-default" />
+                            </div>
+
+                        </div>
+                    }
+                </div>
+                <div class="form-group">
+                    @using (Html.BeginForm("Create", "MuonTraSach"))
+                    {
+                        <div class="form-inline">
+                            <div class="control-label col-md-4"> <strong>Tên Sách</strong></div>
+                            <div class="col-md-6">
+                                @Html.DropDownList("SachID", null, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            <input class="form-control" name="HocSinhID" type="hidden" value="@Model.ID" />
+                            <div class="col-md-2">
+                                <input type="submit" value="Xác Nhận" class="btn btn-default" />
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div>
+                    @if (TempData["Message"] != null)
+                    {
+                        <p class="col-md-offset-4 col-md-10 text-danger">@TempData["Message"]</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div>
+    @Html.ActionLink("Tìm Học Sinh Khác", "TimHocSinh") |
+    @Html.ActionLink("Danh Sách Học Sinh Đang Mượn Sách", "Index")
+</div>
+<br />
+<div>
+    @if (ViewBag.SachDangMuon != null)
+    {
+        <br />
+        <h3>Sách Đang Mượn</h3>
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>
+                        Mã Sách
+                    </th>
+                    <th>
+                        Tên Sách
+                    </th>
+                    <th>
+                        Ngày Mượn
+                    </th>
+                    <th>
+                        Hạn Trả
+                    </th>
+                    <th></th>
+                </tr>
+                @foreach (var item in ViewBag.SachDangMuon)
+                {
+                    <tr>
+                        <td>
+                            @item.Sach.SachID
+                        </td>
+                        <td>
+                            @item.Sach.TenSach
+                        </td>
+                        <td>
+                            @item.NgayMuon.ToShortDateString()
+                        </td>
+                        <td>
+                            @item.HanTra.ToShortDateString()
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("Trả Sách", "TraSach", "MuonTraSach", new { id = item.ID }, null)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
+
+    @if (ViewBag.SachDaMuon != null)
+    {
+        <br />
+        <h3>Sách Đã Mượn</h3>
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>
+                        Mã Sách
+                    </th>
+                    <th>
+                        Tên Sách
+                    </th>
+                    <th>
+                        Ngày Mượn
+                    </th>
+                    <th>
+                        Ngày Trả
+                    </th>
+                </tr>
+                @foreach (var item in ViewBag.SachDaMuon)
+                {
+                    <tr>
+                        <td>
+                            @item.Sach.SachID
+                        </td>
+                        <td>
+                            @item.Sach.TenSach
+                        </td>
+                        <td>
+                            @item.NgayMuon.ToShortDateString()
+                        </td>
+                        <td>
+                            @item.NgayTra.ToShortDateString()
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
+
+    @if (ViewBag.SachMat != null)
+    {
+        <br />
+        <h3>Sách Làm Mất</h3>
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>
+                        Mã Sách
+                    </th>
+                    <th>
+                        Tên Sách
+                    </th>
+                    <th>
+                        Ngày Báo Mất
+                    </th>
+                </tr>
+                @foreach (var item in ViewBag.SachMat)
+                {
+                    <tr>
+                        <td>
+                            @item.Sach.SachID
+                        </td>
+                        <td>
+                            @item.Sach.TenSach
+                        </td>
+                        <td>
+                            @item.NgayTra.ToShortDateString()
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
+
+</div>

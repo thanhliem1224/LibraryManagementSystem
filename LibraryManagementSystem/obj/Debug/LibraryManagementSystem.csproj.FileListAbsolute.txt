@@ -170,3 +170,512 @@ C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryMa
 C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.pdb
 C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.Migrations.Init.resources
 C:\TotNghiep\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.csproj.GenerateResource.Cache
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\ApplicationInsights.config
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\csc.exe
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\System.Collections.Immutable.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\System.Reflection.Metadata.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\vbc.exe
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\VBCSCompiler.exe
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\VBCSCompiler.exe.config
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\LibraryManagementSystem.dll.config
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\LibraryManagementSystem.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\LibraryManagementSystem.pdb
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Antlr3.Runtime.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\EntityFramework.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\EntityFramework.SqlServer.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Excel.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\ICSharpCode.SharpZipLib.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.Agent.Intercept.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.DependencyCollector.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.Web.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.WindowsServer.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.ApplicationInsights.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Core.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Owin.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.Cookies.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.Facebook.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.Google.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.OAuth.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.Twitter.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Web.Infrastructure.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Newtonsoft.Json.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Owin.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.Helpers.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.Mvc.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.Optimization.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.Razor.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.WebPages.Deployment.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.WebPages.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.WebPages.Razor.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\WebGrease.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Excel.pdb
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.DependencyCollector.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.Web.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.WindowsServer.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.ApplicationInsights.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.Helpers.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.Mvc.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.Optimization.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.Razor.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.WebPages.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.WebPages.Deployment.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.WebPages.Razor.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Antlr3.Runtime.pdb
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Newtonsoft.Json.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\EntityFramework.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\EntityFramework.SqlServer.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Core.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Owin.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.Facebook.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.Cookies.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.OAuth.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.Google.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.Twitter.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.csprojResolveAssemblyReference.cache
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.Migrations.Init.resources
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.csproj.GenerateResource.Cache
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.pdb
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\csc.exe.config
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\csc.rsp
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\csi.exe
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\csi.rsp
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\System.AppContext.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\System.IO.FileSystem.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\vbc.exe.config
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\vbc.rsp
+D:\My Computer\Downloads\Compressed\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\DocX.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\ApplicationInsights.config
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\csc.exe
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\csc.exe.config
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\csc.rsp
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\csi.exe
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\csi.rsp
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\System.AppContext.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\vbc.exe
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\vbc.exe.config
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\vbc.rsp
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\VBCSCompiler.exe
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\LibraryManagementSystem.dll.config
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\LibraryManagementSystem.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\LibraryManagementSystem.pdb
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Antlr3.Runtime.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\DocX.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\EntityFramework.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\EntityFramework.SqlServer.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Excel.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\ICSharpCode.SharpZipLib.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.Web.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.ApplicationInsights.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Newtonsoft.Json.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Owin.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.Helpers.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.Mvc.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.Optimization.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.Razor.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.WebPages.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.WebPages.Razor.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\WebGrease.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Antlr3.Runtime.pdb
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Excel.pdb
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.Web.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.ApplicationInsights.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Newtonsoft.Json.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.Helpers.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.Mvc.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.Optimization.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.Razor.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.WebPages.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.WebPages.Razor.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\EntityFramework.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\EntityFramework.SqlServer.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.Migrations.Init.resources
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.csproj.GenerateResource.Cache
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.5\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.pdb
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\ApplicationInsights.config
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\csc.exe
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\csc.exe.config
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\csc.rsp
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\csi.exe
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\csi.rsp
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\System.AppContext.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\System.Collections.Immutable.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\System.IO.FileSystem.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\System.Reflection.Metadata.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\vbc.exe
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\vbc.exe.config
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\vbc.rsp
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\VBCSCompiler.exe
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\roslyn\VBCSCompiler.exe.config
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\LibraryManagementSystem.dll.config
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\LibraryManagementSystem.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\LibraryManagementSystem.pdb
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Antlr3.Runtime.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\DocX.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\EntityFramework.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\EntityFramework.SqlServer.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Excel.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\ICSharpCode.SharpZipLib.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.Agent.Intercept.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.DependencyCollector.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.Web.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.WindowsServer.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.ApplicationInsights.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Core.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Owin.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.Cookies.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.Facebook.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.Google.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.OAuth.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.Twitter.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Web.Infrastructure.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Newtonsoft.Json.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Owin.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.Helpers.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.Mvc.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.Optimization.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.Razor.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.WebPages.Deployment.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.WebPages.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.WebPages.Razor.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\WebGrease.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Antlr3.Runtime.pdb
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Excel.pdb
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.DependencyCollector.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.Web.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AI.WindowsServer.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.ApplicationInsights.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Newtonsoft.Json.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.Helpers.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.Mvc.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.Optimization.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.Razor.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.WebPages.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.WebPages.Deployment.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\System.Web.WebPages.Razor.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\EntityFramework.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\EntityFramework.SqlServer.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Core.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Owin.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.Facebook.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.Cookies.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.OAuth.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.Google.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.Twitter.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.csprojResolveAssemblyReference.cache
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.Migrations.Init.resources
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.csproj.GenerateResource.Cache
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.dll
+D:\My Computer\Documents\Visual Studio\HTQLS_B_Ver1.5\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.pdb
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\ApplicationInsights.config
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\csc.exe
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\csc.exe.config
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\csc.rsp
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\csi.exe
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\csi.rsp
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\System.AppContext.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\vbc.exe
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\vbc.exe.config
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\vbc.rsp
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\VBCSCompiler.exe
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\LibraryManagementSystem.dll.config
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\LibraryManagementSystem.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\LibraryManagementSystem.pdb
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Antlr3.Runtime.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\DocX.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\EntityFramework.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\EntityFramework.SqlServer.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Excel.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\ICSharpCode.SharpZipLib.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.AI.Web.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.ApplicationInsights.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.Owin.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.Owin.Security.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Newtonsoft.Json.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Owin.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\System.Web.Helpers.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\System.Web.Mvc.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\System.Web.Optimization.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\System.Web.Razor.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\System.Web.WebPages.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\System.Web.WebPages.Razor.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\WebGrease.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Antlr3.Runtime.pdb
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Excel.pdb
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.AI.Web.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.ApplicationInsights.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Newtonsoft.Json.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\System.Web.Helpers.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\System.Web.Mvc.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\System.Web.Optimization.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\System.Web.Razor.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\System.Web.WebPages.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\System.Web.WebPages.Razor.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\EntityFramework.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\EntityFramework.SqlServer.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.Owin.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.Owin.Security.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.csprojResolveAssemblyReference.cache
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.Migrations.Init.resources
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.csproj.GenerateResource.Cache
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.dll
+C:\Users\Senakira\Desktop\HTQLS_B_Ver1.6\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.pdb
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\ApplicationInsights.config
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\csc.exe
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\csc.exe.config
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\csc.rsp
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\csi.exe
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\csi.rsp
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\System.AppContext.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\vbc.exe
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\vbc.exe.config
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\vbc.rsp
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\VBCSCompiler.exe
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\LibraryManagementSystem.dll.config
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\LibraryManagementSystem.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\LibraryManagementSystem.pdb
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Antlr3.Runtime.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\DocX.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\EntityFramework.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\EntityFramework.SqlServer.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Excel.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\ICSharpCode.SharpZipLib.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.AI.Web.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.ApplicationInsights.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.Owin.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.Owin.Security.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Newtonsoft.Json.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Owin.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\System.Web.Helpers.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\System.Web.Mvc.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\System.Web.Optimization.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\System.Web.Razor.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\System.Web.WebPages.Deployment.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\System.Web.WebPages.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\System.Web.WebPages.Razor.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\WebGrease.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Antlr3.Runtime.pdb
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Excel.pdb
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.AI.Web.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.ApplicationInsights.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Newtonsoft.Json.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\System.Web.Helpers.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\System.Web.Mvc.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\System.Web.Optimization.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\System.Web.Razor.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\System.Web.WebPages.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\System.Web.WebPages.Deployment.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\System.Web.WebPages.Razor.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\EntityFramework.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\EntityFramework.SqlServer.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.Owin.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.Owin.Security.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.csprojResolveAssemblyReference.cache
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.Migrations.Init.resources
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.csproj.GenerateResource.Cache
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.dll
+C:\Users\thanhliem1224\Downloads\HTQLS_B_Ver1.7\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.pdb
