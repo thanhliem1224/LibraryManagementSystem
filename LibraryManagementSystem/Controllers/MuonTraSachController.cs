@@ -8,21 +8,35 @@ using System.Web;
 using System.Web.Mvc;
 using LibraryManagementSystem.DAL;
 using LibraryManagementSystem.Models;
+using LibraryManagementSystem.Models.ViewModel;
 
 namespace LibraryManagementSystem.Controllers
 {
     public class MuonTraSachController : Controller
     {
         private CNCFContext db = new CNCFContext();
+        private DateTime _end_day_now = CNCFClass.GoToEndOfDay(DateTime.Now);
 
         // GET: MuonTraSach
         public ActionResult Index()
         {
-            var muontrasach = db.MuonTraSach.Where(m => m.NgayTra == null).OrderBy(m => m.HanTra);
-            if (muontrasach.Count() > 0)
+            var muonsach = db.MuonTraSach
+                .Where(m => m.NgayTra == null)
+                .GroupBy(m => m.HocSinh)
+                .OrderBy(m => m.Key.Lop)
+                .OrderBy(m => m.Key.TenHS)
+                .Select(result => new BaoCaoVM
+                {
+                    GroupName1 = result.Key.Lop,
+                    GroupName2 = result.Key.TenHS,
+                    GroupDatetime = result.Key.NgaySinh,
+                    GroupSoLuong = result.Count(),
+                    GroupDanhSach = result
+                });
+            if (muonsach.Count() > 0)
             {
-                ViewBag.MuonTraSach = muontrasach;
-                ViewBag.MuonTraSach_Count = muontrasach.Count();
+                ViewBag.MuonTraSach = muonsach;
+                ViewBag.MuonTraSach_Count = muonsach.Count();
             }
             else
             {

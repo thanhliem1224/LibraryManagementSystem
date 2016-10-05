@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<LibraryManagementSystem.Models.MuonTraSach>
 @{
-    ViewBag.Title = "Danh Sách Học Sinh Mượn Sách";
+    ViewBag.Title = "Mượn Trả Sách";
 }
-<h2 class="text-center">Danh Sách Học Sinh Mượn Sách</h2>
+<h2 class="text-center">Mượn Trả Sách</h2>
 <br />
 <div class="row">
     <div class="col-md-8">
@@ -13,13 +13,16 @@
     </div>
 </div>
 <br />
+
 @if (ViewBag.MuonTraSach_Count > 0)
 {
+    <h3 class="text-center">Danh Sách Học Sinh Đang Mượn Sách</h3>
+    <br />
     <div class="table-responsive">
         <table class="table">
             <tr>
                 <th>
-                    Tên Lớp
+                    Lớp
                 </th>
                 <th>
                     Tên Học Sinh
@@ -28,87 +31,67 @@
                     Ngày Sinh
                 </th>
                 <th>
-                    Tên Sách
+                    Tên sách
                 </th>
                 <th>
-                    Ngày Mượn
+                    Ngày mượn
                 </th>
                 <th>
-                    Ngày Hạn Trả
+                    Hạn trả
                 </th>
-                <th></th>
+                <th>
+                </th>
             </tr>
             @foreach (var item in ViewBag.MuonTraSach)
             {
-                if (@item.HanTra.Date < DateTime.Now.Date)
+                int _count = 0;
+                foreach (var muontrasach in item.GroupDanhSach)
                 {
-                    <tr class="text-danger">
+                    string _tr_class = "";
+                    if (muontrasach.HanTra <= DateTime.Now)
+                    {
+                        _tr_class = "danger";
+                    }
+                    else
+                    {
+                        _tr_class = "";
+                    }
+                    <tr class="@_tr_class">
+                        @if (_count == 0)
+                        {
+                            <td rowspan="@item.GroupSoLuong">
+                                @item.GroupName1
+                            </td>
+                            <td rowspan="@item.GroupSoLuong">
+                                @item.GroupName2
+                            </td>
+                            <td rowspan="@item.GroupSoLuong">
+                                @item.GroupDatetime.ToShortDateString()
+                            </td>
+                        }
                         <td>
-                            @item.HocSinh.Lop
+                            @muontrasach.Sach.IDandTen
                         </td>
                         <td>
-                            @item.HocSinh.TenHS
+                            @muontrasach.NgayMuon.ToShortDateString()
                         </td>
                         <td>
-                            @item.HocSinh.NgaySinh.ToShortDateString()
-                        </td>
-                        <td>
-                            @item.Sach.TenSach
-                        </td>
-                        <td>
-                            @item.NgayMuon.ToShortDateString()
-                        </td>
-                        <td>
-                            @item.HanTra.ToShortDateString()
+                            @muontrasach.HanTra.ToShortDateString()
                         </td>
                         <td>
                             <div class="btn-group navbar-btn">
-                                @Html.ActionLink("Trả Sách", "TraSach", new { id = item.ID }, new { @class = "btn btn-default btn-xs" })
+                                @Html.ActionLink("Trả Sách", "TraSach", new { id = muontrasach.ID }, new { @class = "btn btn-default btn-xs" })
                                 <button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle"><span class="caret"></span></button>
                                 <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Báo Mất", "BaoMat", new { id = item.ID })</li>
-                                    <li>@Html.ActionLink("Chỉnh Sửa", "Edit", new { id = item.ID })</li>
-                                    <li>@Html.ActionLink("Chi Tiết", "Details", new { id = item.ID })</li>
-                                    <li>@Html.ActionLink("Xóa", "Delete", new { id = item.ID })</li>
+                                    <li>@Html.ActionLink("Báo Mất", "BaoMat", new { id = muontrasach.ID })</li>
+                                    <li>@Html.ActionLink("Chỉnh Sửa", "Edit", new { id = muontrasach.ID })</li>
+                                    <li>@Html.ActionLink("Chi Tiết", "Details", new { id = muontrasach.ID })</li>
+                                    <li>@Html.ActionLink("Xóa", "Delete", new { id = muontrasach.ID })</li>
                                 </ul>
                             </div>
                         </td>
                     </tr>
-                }
-                else
-                {
-                    <tr>
-                        <td>
-                            @item.HocSinh.Lop
-                        </td>
-                        <td>
-                            @item.HocSinh.TenHS
-                        </td>
-                        <td>
-                            @item.HocSinh.NgaySinh.ToShortDateString()
-                        </td>
-                        <td>
-                            @item.Sach.TenSach
-                        </td>
-                        <td>
-                            @item.NgayMuon.ToShortDateString()
-                        </td>
-                        <td>
-                            @item.HanTra.ToShortDateString()
-                        </td>
-                        <td>
-                            <div class="btn-group navbar-btn">
-                                @Html.ActionLink("Trả Sách", "TraSach", new { id = item.ID }, new { @class = "btn btn-default btn-xs" })
-                                <button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle"><span class="caret"></span></button>
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Báo Mất", "BaoMat", new { id = item.ID })</li>
-                                    <li>@Html.ActionLink("Chỉnh Sửa", "Edit", new { id = item.ID })</li>
-                                    <li>@Html.ActionLink("Chi Tiết", "Details", new { id = item.ID })</li>
-                                    <li>@Html.ActionLink("Xóa", "Delete", new { id = item.ID })</li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
+                    _count++;
                 }
             }
         </table>
@@ -116,5 +99,5 @@
 }
 else
 {
-    < p > Không có hoạt động mượn sách </ p >
+            < p > Không có hoạt động mượn sách </ p >
 }
