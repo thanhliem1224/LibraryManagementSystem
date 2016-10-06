@@ -39,24 +39,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.NgaySinh)
             </th>
-            <th></th>
         </tr>
         @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TenHS)
+                    @Html.ActionLink(@item.TenHS, "Edit", new { id = item.ID }) 
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Lop)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NgaySinh)
-                </td>
-                <td>
-                    @Html.ActionLink("Sửa", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Chi tiết", "Details", new { id = item.ID }) |
-                    @Html.ActionLink("Xóa", "Delete", new { id = item.ID })
                 </td>
             </tr>
         }

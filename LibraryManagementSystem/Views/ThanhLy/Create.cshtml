@@ -1,56 +1,64 @@
 ﻿@model LibraryManagementSystem.Models.ThanhLy
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Thanh Lý Sách";
 }
 
-<h2>Create</h2>
+<h2 class="text-center">Thanh Lý Sách</h2>
+<br />
 <div>
-    <div>
-        @using (Html.BeginForm("TimSach", "ThanhLy"))
-        {
-            <div class="form-horizontal">
-                <h4>Tìm Kiếm</h4>
-                <hr />
-                <div class="form-group">
-                    <div class="control-label col-md-2"> <strong>Tên Sách</strong> </div>
-                    <div class="col-md-10">
+    <div class="form-horizontal">
+        <div class="form-group">
+            @using (Html.BeginForm("TimSach", "ThanhLy"))
+            {
+                <div class="form-inline">
+
+                    <div class="control-label col-md-4"><strong>Tìm Tên Sách</strong></div>
+                    <div class="col-md-4">
                         @Html.TextBox("tenSach", null, new { @class = "form-control" })
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Tìm Sách" class="btn btn-default" />
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
-    <div>
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
 
-            <div class="form-horizontal">
-                <h4>Thanh Lý</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    <div class="control-label col-md-2"> <strong>Tên Sách</strong></div>
-                    <div class="col-md-10">
-                        @Html.DropDownList("SachID", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Sach.IDandTen, "", new { @class = "text-danger" })
+                    <div class="col-md-4">
+                        <input type="submit" value="Tìm" class="btn btn-default" />
                     </div>
+
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Xác Nhận" class="btn btn-default" />
+            }
+            <div>
+                @if (TempData["Message_Fa"] != null)
+                {
+                    <p class="col-md-offset-4 col-md-8 text-danger">@TempData["Message_Fa"]</p>
+                }
+                @if (TempData["Message_Su"] != null)
+                {
+                    <p class="col-md-offset-4 col-md-8 text-success">@TempData["Message_Su"]</p>
+                }
+            </div>
+        </div>
+        @if (ViewBag.SachID != null)
+        {
+            <div class="form-group">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-inline">
+                        <div class="control-label col-md-4"><strong>Tên Sách</strong></div>
+                        <div class="col-md-4">
+                            @Html.DropDownList("SachID", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <input type="submit" value="Xác Nhận" class="btn btn-default" />
+                        </div>
                     </div>
-                </div>
+                }
+
             </div>
         }
     </div>
 </div>
+
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Lịch Sử Thanh Lý", "Index")
 </div>

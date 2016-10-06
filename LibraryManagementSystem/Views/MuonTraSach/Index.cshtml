@@ -13,85 +13,121 @@
     </div>
 </div>
 <br />
-
+<div>
+    @using (Html.BeginForm("Index", "MuonTraSach", FormMethod.Get))
+    {
+        <div class="form-inline" role="form">
+            <div>
+                <input id="lopHS" name="lopHS" type="text" class="form-control" placeholder="Tìm Lớp">
+            </div>
+            <div>
+                <input id="tenHS" name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh">
+            </div>
+            <div>
+                <input id="maSach" name="maSach" type="text" class="form-control" placeholder="Tìm Mã Sách">
+            </div>
+            <div>
+                <input id="tenSach" name="tenSach" type="text" class="form-control" placeholder="Tìm Tên Sách">
+            </div>
+            <div>
+                <label>ngày mượn</label>
+                <input name="ngayMuonFrom" type="date" class="form-control" />
+                <label>đến ngày</label>
+                <input name="ngayMuonTo" type="date" class="form-control" />
+            </div>
+            <div>
+                <select name="type" class="form-control">
+                    <option value="0">Sách Đang Mượn</option>
+                    <option value="1">Sách Quá Hạn</option>
+                </select>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+    }
+</div>
+<br />
 @if (ViewBag.MuonTraSach_Count > 0)
 {
-    <h3 class="text-center">Danh Sách Học Sinh Đang Mượn Sách</h3>
+    <h3 class="text-center">@TempData["Title"]</h3>
     <br />
+
     <div class="table-responsive">
         <table class="table">
-            <tr>
-                <th>
-                    Lớp
-                </th>
-                <th>
-                    Tên Học Sinh
-                </th>
-                <th>
-                    Ngày Sinh
-                </th>
-                <th>
-                    Tên sách
-                </th>
-                <th>
-                    Ngày mượn
-                </th>
-                <th>
-                    Hạn trả
-                </th>
-                <th>
-                </th>
-            </tr>
-            @foreach (var item in ViewBag.MuonTraSach)
-            {
-                int _count = 0;
-                foreach (var muontrasach in item.GroupDanhSach)
+            @{
+                int count = 1;
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Lớp
+                    </th>
+                    <th>
+                        Tên Học Sinh
+                    </th>
+                    <th>
+                        Ngày Sinh
+                    </th>
+                    <th>
+                        Tên sách
+                    </th>
+                    <th>
+                        Ngày mượn
+                    </th>
+                    <th>
+                        Hạn trả
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+
+                foreach (var item in ViewBag.MuonTraSach)
                 {
-                    string _tr_class = "";
-                    if (muontrasach.HanTra <= DateTime.Now)
+                    string _class = "";
+                    if (item.HanTra.Date < DateTime.Now.Date)
                     {
-                        _tr_class = "danger";
+                        _class = "danger";
                     }
-                    else
+                    else if (item.HanTra.Date == DateTime.Now.Date)
                     {
-                        _tr_class = "";
+                        _class = "warning";
                     }
-                    <tr class="@_tr_class">
-                        @if (_count == 0)
-                        {
-                            <td rowspan="@item.GroupSoLuong">
-                                @item.GroupName1
-                            </td>
-                            <td rowspan="@item.GroupSoLuong">
-                                @item.GroupName2
-                            </td>
-                            <td rowspan="@item.GroupSoLuong">
-                                @item.GroupDatetime.ToShortDateString()
-                            </td>
-                        }
+                    <tr class="@_class">
                         <td>
-                            @muontrasach.Sach.IDandTen
+                            @Html.ActionLink(@count.ToString(), "Edit", new { id = item.ID })
                         </td>
                         <td>
-                            @muontrasach.NgayMuon.ToShortDateString()
+                            @item.HocSinh.Lop
                         </td>
                         <td>
-                            @muontrasach.HanTra.ToShortDateString()
+                            @item.HocSinh.TenHS
+                        </td>
+                        <td>
+                            @item.HocSinh.NgaySinh.ToShortDateString()
+                        </td>
+                        <td>
+                            @item.Sach.IDandTen
+                        </td>
+                        <td>
+                            @item.NgayMuon.ToShortDateString()
+                        </td>
+                        <td>
+                            @item.HanTra.ToShortDateString()
                         </td>
                         <td>
                             <div class="btn-group navbar-btn">
-                                @Html.ActionLink("Trả Sách", "TraSach", new { id = muontrasach.ID }, new { @class = "btn btn-default btn-xs" })
+                                @Html.ActionLink("Trả Sách", "TraSach", new { id = item.ID }, new { @class = "btn btn-default btn-xs" })
                                 <button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle"><span class="caret"></span></button>
                                 <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Báo Mất", "BaoMat", new { id = muontrasach.ID })</li>
-                                    <li>@Html.ActionLink("Chỉnh Sửa", "Edit", new { id = muontrasach.ID })</li>
-                                    <li>@Html.ActionLink("Chi Tiết", "Details", new { id = muontrasach.ID })</li>
-                                    <li>@Html.ActionLink("Xóa", "Delete", new { id = muontrasach.ID })</li>
+                                    <li>@Html.ActionLink("Gia Hạn", "GiaHan", new { id = item.ID })</li>
+                                    <li>@Html.ActionLink("Báo Mất", "BaoMat", new { id = item.ID })</li>
                                 </ul>
                             </div>
                         </td>
                     </tr>
-                    _count++;
+                    count++;
                 }
             }
         </table>
@@ -99,5 +135,5 @@
 }
 else
 {
-            < p > Không có hoạt động mượn sách </ p >
+    <p>Không có hoạt động mượn sách</p>
 }

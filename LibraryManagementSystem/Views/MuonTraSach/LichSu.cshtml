@@ -17,7 +17,13 @@
     <table class="table">
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.HocSinh.Lop)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.HocSinh.TenHS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HocSinh.NgaySinh)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Sach.TenSach)
@@ -31,13 +37,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.NgayTra)
             </th>
-            <th></th>
         </tr>
         @foreach (var item in Model)
         {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.HocSinh.Lop)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.HocSinh.TenHS)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HocSinh.NgaySinh)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Sach.IDandTen)
@@ -50,18 +61,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NgayTra)
-                </td>
-                <td>
-                    <div class="btn-group navbar-btn">
-                        @Html.ActionLink("Trả Sách", "TraSach", new { id = item.ID }, new { @class = "btn btn-default btn-xs" })
-                        <button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle"><span class="caret"></span></button>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Báo Mất", "BaoMat", new { id = item.ID })</li>
-                            <li>@Html.ActionLink("Chỉnh Sửa", "Edit", new { id = item.ID })</li>
-                            <li>@Html.ActionLink("Chi Tiết", "Details", new { id = item.ID })</li>
-                            <li>@Html.ActionLink("Xóa", "Delete", new { id = item.ID })</li>
-                        </ul>
-                    </div>
                 </td>
             </tr>
         }

@@ -19,7 +19,7 @@ namespace LibraryManagementSystem.Controllers
             var thanhLy = db.ThanhLy.Include(t => t.Sach);
             return View(thanhLy.ToList());
         }
-
+        /*
         // GET: ThanhLy/Details/5
         public ActionResult Details(int? id)
         {
@@ -34,7 +34,7 @@ namespace LibraryManagementSystem.Controllers
             }
             return View(thanhLy);
         }
-
+        */
         [HttpPost]
         [Authorize]
         public ActionResult TimSach(string tenSach)
@@ -45,14 +45,23 @@ namespace LibraryManagementSystem.Controllers
         // GET: ThanhLy/Create
         public ActionResult Create(string b)
         {
-            var ds = db.Sach.Where(s => s.TrangThai == TrangThai.CoSan);
-
             if(b != null)
             {
+                var ds = db.Sach.Where(s => s.TrangThai == TrangThai.CoSan);
                 ds = ds.Where(s => s.TenSach.Contains(b));
+
+                if (ds.Count() > 0)
+                {
+                    ViewBag.SachID = new SelectList(ds, "ID", "IDandTen");
+                }
+                else
+                {
+                    TempData["Message_Fa"] = "Không có sách tên " + b;
+                }
+
+                
             }
 
-            ViewBag.SachID = new SelectList(ds, "ID", "IDandTen");
             return View();
         }
 
@@ -66,14 +75,23 @@ namespace LibraryManagementSystem.Controllers
             if (ModelState.IsValid)
             {
                 // update trạng thái sach
-                Sach s = db.Sach.Single(c => c.ID == thanhLy.SachID);
-                s.TrangThai = TrangThai.ThanhLy;
-                db.SaveChanges();
+                Sach s = db.Sach.Find(thanhLy.SachID); // tim sach
 
+                if (s == null)
+                {
+                    return HttpNotFound();  // bao ko tim thay sach
+                }
+                else
+                {
+                    s.TrangThai = TrangThai.ThanhLy;
+                    db.SaveChanges();
+                }
                 // update thanh ly
                 thanhLy.Ngay = DateTime.Now;
                 db.ThanhLy.Add(thanhLy);
                 db.SaveChanges();
+                // thông báo
+                TempData["Message_Su"] = "Đã Thanh Lý " + s.IDandTen;
                 return RedirectToAction("Create");
             }
 
@@ -93,7 +111,7 @@ namespace LibraryManagementSystem.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.SachID = new SelectList(db.Sach, "ID", "SachID", thanhLy.SachID);
+            ViewBag.SachID = new SelectList(db.Sach, "ID", "IDandTen", thanhLy.SachID);
             return View(thanhLy);
         }
 
@@ -113,7 +131,7 @@ namespace LibraryManagementSystem.Controllers
             ViewBag.SachID = new SelectList(db.Sach, "ID", "SachID", thanhLy.SachID);
             return View(thanhLy);
         }
-
+        /*
         // GET: ThanhLy/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -139,7 +157,7 @@ namespace LibraryManagementSystem.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        */
         protected override void Dispose(bool disposing)
         {
             if (disposing)

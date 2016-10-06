@@ -53,28 +53,36 @@
 
                         </div>
                     }
+                    <div>
+                        @if (TempData["Message"] != null)
+                        {
+                            <p class="col-md-offset-4 col-md-10 text-danger">@TempData["Message"]</p>
+                        }
+                        @if (TempData["Success"] != null)
+                        {
+                            <p class="col-md-offset-4 col-md-10 text-success">@TempData["Success"]</p>
+                        }
+                    </div>
                 </div>
-                <div class="form-group">
-                    @using (Html.BeginForm("Create", "MuonTraSach"))
-                    {
-                        <div class="form-inline">
-                            <div class="control-label col-md-4"> <strong>Tên Sách</strong></div>
-                            <div class="col-md-6">
-                                @Html.DropDownList("SachID", null, htmlAttributes: new { @class = "form-control" })
+                @if (ViewBag.SachID != null)
+                {
+                    <div class="form-group">
+                        @using (Html.BeginForm("Create", "MuonTraSach"))
+                        {
+                            <div class="form-inline">
+                                <div class="control-label col-md-4"> <strong>Tên Sách</strong></div>
+                                <div class="col-md-6">
+                                    @Html.DropDownList("SachID", null, htmlAttributes: new { @class = "form-control" })
+                                </div>
+                                <input class="form-control" name="HocSinhID" type="hidden" value="@Model.ID" />
+                                <div class="col-md-2">
+                                    <input type="submit" value="Xác Nhận" class="btn btn-default" />
+                                </div>
                             </div>
-                            <input class="form-control" name="HocSinhID" type="hidden" value="@Model.ID" />
-                            <div class="col-md-2">
-                                <input type="submit" value="Xác Nhận" class="btn btn-default" />
-                            </div>
-                        </div>
-                    }
-                </div>
-                <div>
-                    @if (TempData["Message"] != null)
-                    {
-                        <p class="col-md-offset-4 col-md-10 text-danger">@TempData["Message"]</p>
-                    }
-                </div>
+                        }
+                    </div>
+                }
+
             </div>
         </div>
     </div>
@@ -109,7 +117,16 @@
                 </tr>
                 @foreach (var item in ViewBag.SachDangMuon)
                 {
-                    <tr>
+                    string _class = "";
+                    if(item.HanTra.Date < DateTime.Now.Date)
+                    {
+                        _class = "danger";
+                    }
+                    else if (item.HanTra.Date == DateTime.Now.Date)
+                    {
+                        _class = "warning";
+                    }
+                    <tr class="@_class">
                         <td>
                             @item.Sach.SachID
                         </td>

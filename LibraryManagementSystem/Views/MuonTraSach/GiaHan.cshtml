@@ -1,0 +1,79 @@
+﻿@model LibraryManagementSystem.Models.MuonTraSach
+
+@{
+    ViewBag.Title = "Gia Hạn Mượn Sách";
+}
+
+<h2 class="text-center">Gia Hạn Mượn Sách</h2>
+<br />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Sach.TenSach, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Sach.IDandTen)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HocSinh.TenHS, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.HocSinh.TenHS)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NgayMuon, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @{
+                    string _year_muon = Model.NgayMuon.Year.ToString();
+                    string _month_muon = Model.NgayMuon.Month.ToString();
+                    string _day_muon = Model.NgayMuon.Day.ToString();
+
+                    string _date_muon = _day_muon.PadLeft(2, '0') + "-" + _month_muon.PadLeft(2, '0') + "-" + _year_muon.PadLeft(4, '0');
+
+                }
+                @_date_muon
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HanTra, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @{
+                    string _year_hantra = Model.HanTra.Year.ToString();
+                    string _month_hantra = Model.HanTra.Month.ToString();
+                    string _day_hantra = Model.HanTra.Day.ToString();
+
+                    string _date_hantra = _year_hantra.PadLeft(4, '0') + "-" + _month_hantra.PadLeft(2, '0') + "-" + _day_hantra.PadLeft(2, '0');
+
+                }
+                <input class="form-control" name="HanTra" type="date" value="@_date_hantra" />
+                @Html.HiddenFor(model => model.HanTra, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.HanTra, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="col-md-8">
+                    @Html.ActionLink("Danh Sách Học Sinh Đang Mượn Sách", "Index")
+                </div>
+                <div class="col-md-4">
+                    <input type="submit" value="Gia Hạn Trả" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    </div>
+                        }
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,45 +1,55 @@
 ﻿@model IEnumerable<LibraryManagementSystem.Models.ThanhLy>
-
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lịch Sử Thanh Lý Sách";
 }
 
-<h2>Index</h2>
+<h2 class="text-center">Lịch Sử Thanh Lý Sách</h2>
+<br />
+<div class="row">
+    <div class="col-md-8">
+    </div>
+    <div class="col-md-4 text-right form-inline">
+        <a href="~/ThanhLy/Create" class="btn btn-primary active" role="button">Thanh Lý Sách</a>
+    </div>
+</div>
+<br />
+<div class="table-responsive">
+    <table class="table">
+        @{
+            int count = 1; // đếm số thứ tự
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sach.SachID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sach.TenSach)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ngay)
+                </th>
+            </tr>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Sach.SachID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Sach.TenSach)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ngay)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sach.SachID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sach.TenSach)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ngay)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
-</table>
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(count.ToString(), "Edit", new { id = item.ID })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sach.SachID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sach.TenSach)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ngay)
+                    </td>
+                </tr>
+                count++;
+            }
+        }
+    </table>
+</div>

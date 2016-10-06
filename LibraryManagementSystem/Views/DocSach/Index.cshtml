@@ -1,59 +1,62 @@
 ﻿@model IEnumerable<LibraryManagementSystem.Models.DocSachTaiCho>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lịch Sử Đọc Sách";
 }
 
-<h2 class="text-center">Danh Sách Học Sinh Đọc Sách</h2>
+<h2 class="text-center">Lịch Sử Đọc Sách</h2>
 <br />
 <div class="row">
     <div class="col-md-8">
     </div>
     <div class="col-md-4 text-right form-inline">
-        <a href="~/DocSach/Create" class="btn btn-primary active" role="button">Thêm Mới</a>
+        <a href="~/DocSach/Create" class="btn btn-primary active" role="button">Thêm Học Sinh Đọc Sách</a>
     </div>
 </div>
 <br />
 <div class="table-responsive">
     <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.HocSinh.Lop)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HocSinh.TenHS)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HocSinh.NgaySinh)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ngay)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
+        @{
+            int count = 1; // đếm số thứ tự
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HocSinh.Lop)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HocSinh.TenHS)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HocSinh.NgaySinh)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Ngay)
-                </td>
-                <td>
-                    @Html.ActionLink("Sửa", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Chi Tiết", "Details", new { id = item.ID }) |
-                    @Html.ActionLink("Xóa", "Delete", new { id = item.ID })
-                </td>
+                <th>
+                    #
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HocSinh.Lop)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HocSinh.TenHS)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HocSinh.NgaySinh)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ngay)
+                </th>
             </tr>
-        }
 
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(count.ToString(), "Edit", new { id = item.ID })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HocSinh.Lop)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HocSinh.TenHS)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HocSinh.NgaySinh)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ngay)
+                    </td>
+                </tr>
+                count++;
+            }
+        }
     </table>
 </div>

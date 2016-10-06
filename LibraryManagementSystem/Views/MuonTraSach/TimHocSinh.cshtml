@@ -27,7 +27,6 @@
     <div class="table-responsive">
         <table class="table table-hover">
             <tr>
-                <th></th>
                 <th>
                     Tên học sinh
                 </th>
@@ -41,12 +40,10 @@
 
             @foreach (var item in ViewBag.HocSinh)
             {
+                string tenHS = item.TenHS;
                 <tr>
                     <td>
-                        @Html.ActionLink("Chọn", "HocSinh", new { id = item.ID })
-                    </td>
-                    <td>
-                        @item.TenHS
+                        @Html.ActionLink(@tenHS, "HocSinh", new { id = item.ID })
                     </td>
                     <td>
                         @item.Lop

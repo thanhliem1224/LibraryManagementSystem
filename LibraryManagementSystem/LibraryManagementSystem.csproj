@@ -335,35 +335,22 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\HocSinh\Create.cshtml" />
-    <Content Include="Views\HocSinh\Delete.cshtml" />
-    <Content Include="Views\HocSinh\Details.cshtml" />
     <Content Include="Views\HocSinh\Edit.cshtml" />
     <Content Include="Views\HocSinh\Index.cshtml" />
     <Content Include="Views\ChuDe\Create.cshtml" />
-    <Content Include="Views\ChuDe\Delete.cshtml" />
-    <Content Include="Views\ChuDe\Details.cshtml" />
     <Content Include="Views\ChuDe\Edit.cshtml" />
     <Content Include="Views\ChuDe\Index.cshtml" />
     <Content Include="Views\Sach\Create.cshtml" />
-    <Content Include="Views\Sach\Delete.cshtml" />
-    <Content Include="Views\Sach\Details.cshtml" />
     <Content Include="Views\Sach\Edit.cshtml" />
     <Content Include="Views\Sach\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
-    <Content Include="Views\MuonTraSach\Delete.cshtml" />
-    <Content Include="Views\MuonTraSach\Details.cshtml" />
-    <Content Include="Views\MuonTraSach\Edit.cshtml" />
     <Content Include="Views\MuonTraSach\Index.cshtml" />
     <Content Include="Views\MuonTraSach\TraSach.cshtml" />
     <Content Include="Views\BaoCao\Index.cshtml" />
     <Content Include="Views\ThanhLy\Create.cshtml" />
-    <Content Include="Views\ThanhLy\Delete.cshtml" />
-    <Content Include="Views\ThanhLy\Details.cshtml" />
     <Content Include="Views\ThanhLy\Edit.cshtml" />
     <Content Include="Views\ThanhLy\Index.cshtml" />
     <Content Include="Views\DocSach\Create.cshtml" />
-    <Content Include="Views\DocSach\Delete.cshtml" />
-    <Content Include="Views\DocSach\Details.cshtml" />
     <Content Include="Views\DocSach\Edit.cshtml" />
     <Content Include="Views\DocSach\Index.cshtml" />
     <Content Include="Views\HocSinh\ThemHocSinhTuFile.cshtml" />
@@ -384,6 +371,7 @@
     <Content Include="Views\MuonTraSach\HocSinh.cshtml" />
     <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.0.min.map" />
+    <Content Include="Views\MuonTraSach\GiaHan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

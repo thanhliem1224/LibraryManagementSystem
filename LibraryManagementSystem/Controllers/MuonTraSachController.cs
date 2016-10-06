@@ -18,21 +18,63 @@ namespace LibraryManagementSystem.Controllers
         private DateTime _end_day_now = CNCFClass.GoToEndOfDay(DateTime.Now);
 
         // GET: MuonTraSach
-        public ActionResult Index()
+        public ActionResult Index(string lopHS, string tenHS, string maSach, string tenSach, DateTime? ngayMuonFrom, DateTime? ngayMuonTo, int? type)
         {
-            var muonsach = db.MuonTraSach
-                .Where(m => m.NgayTra == null)
-                .GroupBy(m => m.HocSinh)
-                .OrderBy(m => m.Key.Lop)
-                .OrderBy(m => m.Key.TenHS)
-                .Select(result => new BaoCaoVM
-                {
-                    GroupName1 = result.Key.Lop,
-                    GroupName2 = result.Key.TenHS,
-                    GroupDatetime = result.Key.NgaySinh,
-                    GroupSoLuong = result.Count(),
-                    GroupDanhSach = result
-                });
+            var muonsach = from m in db.MuonTraSach
+                           where m.NgayTra == null
+                           orderby m.HocSinh.Lop ascending
+                           select m;
+
+
+            if (lopHS != null)
+            {
+                muonsach = from m in muonsach
+                           where m.HocSinh.Lop.Contains(lopHS)
+                           orderby m.HocSinh.Lop ascending
+                           select m;
+            }
+            if (tenHS != null)
+            {
+                muonsach = from m in muonsach
+                           where m.HocSinh.TenHS.Contains(tenHS)
+                           orderby m.HocSinh.Lop ascending
+                           select m;
+            }
+            if (maSach != null)
+            {
+                muonsach = from m in muonsach
+                           where m.Sach.SachID.Contains(maSach)
+                           orderby m.HocSinh.Lop ascending
+                           select m;
+            }
+            if (tenSach != null)
+            {
+                muonsach = from m in muonsach
+                           where m.Sach.TenSach.Contains(tenSach)
+                           orderby m.HocSinh.Lop ascending
+                           select m;
+            }
+            if (ngayMuonFrom != null && ngayMuonTo != null)
+            {
+                // muonsach.Where(m => m.NgayMuon >= ngayMuonFrom).Where(m => m.NgayMuon <= ngayMuonTo).Select(m => m);
+                muonsach = from m in muonsach
+                           where m.NgayMuon >= ngayMuonFrom && m.NgayMuon <= ngayMuonTo
+                           orderby m.HocSinh.Lop ascending
+                           select m;
+            }
+            if (type == 1) // nếu loại là 1: mượn sách quá hạn
+            {
+                // muonsach.Where(m => m.HanTra <= _end_day_now);
+                muonsach = from m in muonsach
+                           where m.HanTra <= _end_day_now
+                           orderby m.HocSinh.Lop ascending
+                           select m;
+                TempData["Title"] = "Danh Sách Học Sinh Mượn Sách Quá Hạn";
+            }
+            if (type == 0 || type == null) // nếu loại là 1: sách đang mượn
+            {
+                TempData["Title"] = "Danh Sách Học Sinh Đang Mượn Sách";
+            }
             if (muonsach.Count() > 0)
             {
                 ViewBag.MuonTraSach = muonsach;
@@ -50,21 +92,6 @@ namespace LibraryManagementSystem.Controllers
             return View(muonTraSach.ToList());
         }
 
-        // GET: MuonTraSach/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MuonTraSach muonTraSach = db.MuonTraSach.Find(id);
-            if (muonTraSach == null)
-            {
-                return HttpNotFound();
-            }
-            return View(muonTraSach);
-        }
-
         public ActionResult TimHocSinh(string tenHS)
         {
             if (!string.IsNullOrEmpty(tenHS))
@@ -72,7 +99,7 @@ namespace LibraryManagementSystem.Controllers
                 var hocsinh = db.HocSinh.Where(h => h.TenHS.Contains(tenHS));
                 ViewBag.HocSinh = hocsinh;
             }
-                return View();
+            return View();
         }
 
         public ActionResult HocSinh(int? id, string tenSach)
@@ -91,16 +118,34 @@ namespace LibraryManagementSystem.Controllers
             var sachdamuon = db.MuonTraSach.Where(m => m.HocSinhID == id).Where(m => m.NgayTra != null);
             var sachmat = sachdamuon.Where(m => m.Mat == true);
 
-            var dssach = db.Sach.Where(s => s.TrangThai == TrangThai.CoSan);
+
             if (!string.IsNullOrEmpty(tenSach))
             {
+                var dssach = db.Sach.Where(s => s.TrangThai == TrangThai.CoSan);
                 dssach = dssach.Where(s => s.TenSach.Contains(tenSach));
-            }
-            ViewBag.SachID = new SelectList(dssach, "ID", "IDandTen");
 
-            ViewBag.SachDangMuon = sachdangmuon;
-            ViewBag.SachDaMuon = sachdamuon;
-            ViewBag.SachMat = sachmat;
+                if (dssach.Count() > 0)// neu có kết quả tìm kiếm sách
+                {
+                    ViewBag.SachID = new SelectList(dssach, "ID", "IDandTen");
+                }
+                else
+                {
+                    TempData["Message"] = "Không có sách tên " + tenSach;
+                }
+            }
+
+            if (sachdangmuon.Count() > 0)
+            {
+                ViewBag.SachDangMuon = sachdangmuon;
+            }
+            if (sachdamuon.Count() > 0)
+            {
+                ViewBag.SachDaMuon = sachdamuon;
+            }
+            if (sachmat.Count() > 0)
+            {
+                ViewBag.SachMat = sachmat;
+            }
             return View(hocsinh);
         }
 
@@ -137,7 +182,7 @@ namespace LibraryManagementSystem.Controllers
                         Sach s = db.Sach.Single(c => c.ID == muonTraSach.SachID);
                         s.TrangThai = TrangThai.DangMuon;
                         db.SaveChanges();
-
+                        TempData["Success"] = "Thêm thành công " + s.IDandTen;
                     }
                 }
                 else  // nếu đã mượn 5 cuốn sách
@@ -168,7 +213,7 @@ namespace LibraryManagementSystem.Controllers
             return View(muonTraSach);
         }
 
-        // POST: MuonTraSach/Edit/5
+        // POST: MuonTraSach/TraSach/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -178,21 +223,34 @@ namespace LibraryManagementSystem.Controllers
             if (ModelState.IsValid)
             {
                 // update trạng thái sach
-                Sach s = db.Sach.Single(c => c.ID == muonTraSach.SachID);
-                s.TrangThai = TrangThai.CoSan;
-                db.SaveChanges();
-
+                Sach s = db.Sach.Find(muonTraSach.SachID); // tìm sách
+                if (s == null) // nếu tìm không thấy sách
+                {
+                    return HttpNotFound();
+                }
+                else // nếu tìm thấy sách
+                {
+                    if (s.TrangThai == TrangThai.CoSan)  // nếu sách đã dc trả
+                    {
+                        return View("SthError");
+                    }
+                    else // nếu sách chưa dc trả
+                    {
+                        s.TrangThai = TrangThai.CoSan; // trả sách
+                        db.SaveChanges(); // lưu
+                    }
+                }
                 // update muontrasach
                 MuonTraSach mts = db.MuonTraSach.First(m => m.ID == muonTraSach.ID);
                 mts.NgayTra = DateTime.Now;
                 db.SaveChanges();
-                
+
                 return RedirectToAction("Index");
             }
             return View(muonTraSach);
         }
 
-        // GET: MuonTraSach/Edit/5
+        // GET: MuonTraSach/BaoMat/5
         public ActionResult BaoMat(int? id)
         {
             if (id == null)
@@ -207,7 +265,7 @@ namespace LibraryManagementSystem.Controllers
             return View(muonTraSach);
         }
 
-        // POST: MuonTraSach/Edit/5
+        // POST: MuonTraSach/BaoMat/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -231,6 +289,40 @@ namespace LibraryManagementSystem.Controllers
             }
             ViewBag.HocSinhID = new SelectList(db.HocSinh, "ID", "TenHS", muonTraSach.HocSinhID);
             ViewBag.SachID = new SelectList(db.Sach, "ID", "IDandTen", muonTraSach.SachID);
+            return View(muonTraSach);
+        }
+
+
+        // GET: MuonTraSach/GiaHan/5
+        public ActionResult GiaHan(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            MuonTraSach muonTraSach = db.MuonTraSach.Find(id);
+            if (muonTraSach == null)
+            {
+                return HttpNotFound();
+            }
+            return View(muonTraSach);
+        }
+
+        // POST: MuonTraSach/GiaHan/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult GiaHan([Bind(Include = "ID,HanTra")] MuonTraSach muonTraSach)
+        {
+            if (ModelState.IsValid)
+            {
+                // update muontrasach
+                MuonTraSach mts = db.MuonTraSach.First(m => m.ID == muonTraSach.ID);
+                mts.HanTra = muonTraSach.HanTra;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
             return View(muonTraSach);
         }
 
@@ -268,7 +360,23 @@ namespace LibraryManagementSystem.Controllers
             ViewBag.SachID = new SelectList(db.Sach, "ID", "SachID", muonTraSach.SachID);
             return View(muonTraSach);
         }
-
+        /*
+        // GET: MuonTraSach/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            MuonTraSach muonTraSach = db.MuonTraSach.Find(id);
+            if (muonTraSach == null)
+            {
+                return HttpNotFound();
+            }
+            return View(muonTraSach);
+        }
+        */
+        /*
         // GET: MuonTraSach/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -294,7 +402,7 @@ namespace LibraryManagementSystem.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        */
         protected override void Dispose(bool disposing)
         {
             if (disposing)

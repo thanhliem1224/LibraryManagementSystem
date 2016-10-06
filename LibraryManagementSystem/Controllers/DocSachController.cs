@@ -17,25 +17,11 @@ namespace LibraryManagementSystem.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            var docSachTaiCho = db.DocSachTaiCho.Include(d => d.HocSinh);
+            var docSachTaiCho = db.DocSachTaiCho.Include(d => d.HocSinh).OrderByDescending(d => d.Ngay);
             return View(docSachTaiCho.ToList());
         }
 
-        // GET: DocSach/Details/5
-        [Authorize]
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DocSachTaiCho docSachTaiCho = db.DocSachTaiCho.Find(id);
-            if (docSachTaiCho == null)
-            {
-                return HttpNotFound();
-            }
-            return View(docSachTaiCho);
-        }
+        
 
         [HttpPost]
         [Authorize]
@@ -48,12 +34,22 @@ namespace LibraryManagementSystem.Controllers
         [Authorize]
         public ActionResult Create(string s)
         {
-            var ds = db.HocSinh.Select(hs => hs);
+
             if (s != null)
             {
+                var ds = db.HocSinh.Select(hs => hs);
                 ds = db.HocSinh.Where(hs => hs.TenHS.Contains(s));
+                
+                if (ds.Count() > 0) // nếu có kết quả
+                {
+                    ViewBag.HocSinhID = new SelectList(ds, "ID", "TenHS");
+                }
+                else 
+                {
+                    TempData["Message_Fa"] = "Không tìm thấy học sinh tên \"" + s + "\"";
+                }
             }
-            ViewBag.HocSinhID = new SelectList(ds, "ID", "TenHS");
+            
 
             ViewBag.DSDocSach = db.DocSachTaiCho.Where(dstc => dstc.Ngay.Day == DateTime.Now.Day && dstc.Ngay.Month == DateTime.Now.Month && dstc.Ngay.Year == DateTime.Now.Year).OrderByDescending(dstc => dstc.Ngay);
             return View();
@@ -101,7 +97,7 @@ namespace LibraryManagementSystem.Controllers
             ViewBag.HocSinhID = new SelectList(db.HocSinh, "ID", "TenHS", docSachTaiCho.HocSinhID);
             return View(docSachTaiCho);
         }
-
+        
         // GET: DocSach/Edit/5
         [Authorize]
         public ActionResult Edit(int? id)
@@ -136,7 +132,7 @@ namespace LibraryManagementSystem.Controllers
             ViewBag.HocSinhID = new SelectList(db.HocSinh, "ID", "TenHS", docSachTaiCho.HocSinhID);
             return View(docSachTaiCho);
         }
-
+        /*
         // GET: DocSach/Delete/5
         [Authorize]
         public ActionResult Delete(int? id)
@@ -164,6 +160,23 @@ namespace LibraryManagementSystem.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        // GET: DocSach/Details/5
+        [Authorize]
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            DocSachTaiCho docSachTaiCho = db.DocSachTaiCho.Find(id);
+            if (docSachTaiCho == null)
+            {
+                return HttpNotFound();
+            }
+            return View(docSachTaiCho);
+        }
+        */
 
         protected override void Dispose(bool disposing)
         {

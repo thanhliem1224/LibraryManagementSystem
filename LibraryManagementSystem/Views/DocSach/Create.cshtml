@@ -13,7 +13,7 @@
             {
                 <div class="form-inline">
 
-                    <div class="control-label col-md-4"><strong>Học Sinh</strong></div>
+                    <div class="control-label col-md-4"><strong>Tên Học Sinh</strong></div>
                     <div class="col-md-4">
                         @Html.TextBox("tenHS", null, new { @class = "form-control" })
                     </div>
@@ -22,23 +22,6 @@
                         <input type="submit" value="Tìm" class="btn btn-default" />
                     </div>
 
-                </div>
-            }
-        </div>
-        <div class="form-group">
-            @using (Html.BeginForm())
-            {
-                @Html.AntiForgeryToken()
-                <div class="form-inline">
-                    <div class="control-label col-md-4"><strong>Tên Học Sinh</strong></div>
-                    <div class="col-md-4">
-                        @Html.DropDownList("HocSinhID", null, htmlAttributes: new { @class = "form-control" })
-                    </div>
-
-
-                    <div class="col-md-4">
-                        <input type="submit" value="Xác Nhận" class="btn btn-default" />
-                    </div>
                 </div>
             }
             <div>
@@ -52,40 +35,72 @@
                 }
             </div>
         </div>
+        @if (ViewBag.HocSinhID != null)
+        {
+            <div class="form-group">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-inline">
+                        <div class="control-label col-md-4"><strong>Tên Học Sinh</strong></div>
+                        <div class="col-md-4">
+                            @Html.DropDownList("HocSinhID", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <input type="submit" value="Xác Nhận" class="btn btn-default" />
+                        </div>
+                    </div>
+                }
+
+            </div>
+        }
     </div>
 </div>
 
 <div>
-    @Html.ActionLink("Danh Sách Học Sinh Đọc Sách", "Index")
+    @Html.ActionLink("Lịch Sử Đọc Sách", "Index")
 </div>
 <hr />
 <div class="text-center"><h3>Danh Sách Học Sinh Đọc Sách Hôm Nay (@DateTime.Now.ToShortDateString())</h3></div>
 <div class="table-responsive">
     <table class="table table-hover">
-        <tr>
-            <th>
-                Lớp
-            </th>
-            <th>
-                Tên Học Sinh
-            </th>
-            <th>
-                Ngày Sinh
-            </th>
-        </tr>
-        @foreach (var item in ViewBag.DSDocSach)
-        {
+        @{
+            int count = 1;
             <tr>
-                <td>
-                    @item.HocSinh.Lop
-                </td>
-                <td>
-                    @item.HocSinh.TenHS
-                </td>
-                <td>
-                    @item.HocSinh.NgaySinh.ToShortDateString()
-                </td>
+                <th>
+                    #
+                </th>
+                <th>
+                    Lớp
+                </th>
+                <th>
+                    Tên Học Sinh
+                </th>
+                <th>
+                    Ngày Sinh
+                </th>
             </tr>
+            foreach (var item in ViewBag.DSDocSach)
+            {
+
+                <tr>
+                    <td>
+                        @Html.ActionLink(count.ToString(), "Edit", new { id = item.ID })
+                    </td>
+                    <td>
+                        @item.HocSinh.Lop
+                    </td>
+                    <td>
+                        @item.HocSinh.TenHS
+                    </td>
+                    <td>
+                        @item.HocSinh.NgaySinh.ToShortDateString()
+                    </td>
+                </tr>
+                count++;
+            }
         }
     </table>
 </div>

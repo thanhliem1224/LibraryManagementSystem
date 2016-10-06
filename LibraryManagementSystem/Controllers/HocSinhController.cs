@@ -53,7 +53,7 @@ namespace LibraryManagementSystem.Controllers
 
             return View(hoc_sinh);
         }
-
+        /*
         // GET: Hoc_Sinh/Details/5
         [Authorize]
         public ActionResult Details(int? id)
@@ -69,7 +69,7 @@ namespace LibraryManagementSystem.Controllers
             }
             return View(hoc_Sinh);
         }
-
+        */
         // GET: Hoc_Sinh/Create
         [Authorize]
         public ActionResult Create()
@@ -184,7 +184,7 @@ namespace LibraryManagementSystem.Controllers
             return View();
         }
 
-
+        
         // GET: Hoc_Sinh/Edit/5
         [Authorize]
         public ActionResult Edit(int? id)
@@ -217,7 +217,7 @@ namespace LibraryManagementSystem.Controllers
             }
             return View(hoc_Sinh);
         }
-
+        /*
         // GET: Hoc_Sinh/Delete/5
         [Authorize]
         public ActionResult Delete(int? id)
@@ -245,7 +245,7 @@ namespace LibraryManagementSystem.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        */
         protected override void Dispose(bool disposing)
         {
             if (disposing)

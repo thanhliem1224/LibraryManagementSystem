@@ -87,22 +87,22 @@ namespace LibraryManagementSystem.Controllers
             //return View(applicationDbContext.ToList());
         }
 
-
-        // GET: Saches/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Sach sach = db.Sach.Find(id);
-            if (sach == null)
-            {
-                return HttpNotFound();
-            }
-            return View(sach);
-        }
-
+        
+        //// GET: Saches/Details/5
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Sach sach = db.Sach.Find(id);
+        //    if (sach == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(sach);
+        //}
+        
         // GET: Saches/Create
         public ActionResult Create()
         {
@@ -286,32 +286,32 @@ namespace LibraryManagementSystem.Controllers
             return View(sach);
         }
 
-        // GET: Saches/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Sach sach = db.Sach.Find(id);
-            if (sach == null)
-            {
-                return HttpNotFound();
-            }
-            return View(sach);
-        }
+        //// GET: Saches/Delete/5
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Sach sach = db.Sach.Find(id);
+        //    if (sach == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(sach);
+        //}
 
-        // POST: Saches/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [Authorize]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Sach sach = db.Sach.Find(id);
-            db.Sach.Remove(sach);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //// POST: Saches/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[Authorize]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Sach sach = db.Sach.Find(id);
+        //    db.Sach.Remove(sach);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {
