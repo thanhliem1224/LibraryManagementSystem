@@ -15,9 +15,43 @@ namespace LibraryManagementSystem.Controllers
 
         // GET: DocSach
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(string lopHS, string tenHS, DateTime? ngayFrom, DateTime? ngayTo)
         {
-            var docSachTaiCho = db.DocSachTaiCho.Include(d => d.HocSinh).OrderByDescending(d => d.Ngay);
+            var docSachTaiCho = db.DocSachTaiCho.Include(d => d.HocSinh);
+            if (lopHS != null)
+            {
+                docSachTaiCho = from d in docSachTaiCho
+                                where d.HocSinh.Lop.Contains(lopHS)
+                              select d;
+            }
+            if (tenHS != null)
+            {
+                docSachTaiCho = from d in docSachTaiCho
+                                where d.HocSinh.TenHS.Contains(tenHS)
+                              select d;
+            }
+            if (ngayFrom != null)
+            {
+                // chỉnh lại đầu ngày
+                ngayFrom = CNCFClass.GoToBeginOfDay(ngayFrom.Value);
+                docSachTaiCho = from d in docSachTaiCho
+                                where d.Ngay >= ngayFrom
+                                select d;
+            }
+            if (ngayTo != null)
+            {
+                // chỉnh lại cuối ngày
+                ngayTo = CNCFClass.GoToEndOfDay(ngayTo.Value);
+                docSachTaiCho = from d in docSachTaiCho
+                                where d.Ngay <= ngayTo
+                              select d;
+            }
+
+            // sắp xếp theo ngày giảm dần
+            docSachTaiCho = from d in docSachTaiCho
+                            orderby d.Ngay descending
+                            select d;
+
             return View(docSachTaiCho.ToList());
         }
 

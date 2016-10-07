@@ -378,9 +378,9 @@ namespace LibraryManagementSystem.Controllers
 
                         var danhsachmuonsach = from dsms in db.MuonTraSach
                                                where dsms.NgayMuon.Month == _month && dsms.NgayMuon.Year == _year
-                                               group dsms by dsms.HocSinh into g
-                                               orderby g.Key.Lop ascending, g.Key.TenHS ascending
-                                               select new BaoCaoVM { GroupName1 = g.Key.Lop, GroupName2 = g.Key.TenHS, GroupDatetime = g.Key.NgaySinh, GroupSoLuong = g.Count() };
+                                               group dsms by dsms.HocSinh.Lop into g
+                                               orderby g.Key
+                                               select new BaoCaoVM { GroupName1 = g.Key, GroupSoLuong = g.Count() };
                         return danhsachmuonsach;
                     }
                     else // neu ko co du lieu thang
@@ -396,9 +396,9 @@ namespace LibraryManagementSystem.Controllers
 
                         var danhsachmuonsach = from dsms in db.MuonTraSach
                                                where dsms.NgayMuon.Year == _year
-                                               group dsms by dsms.HocSinh into g
-                                               orderby g.Key.Lop ascending, g.Key.TenHS ascending
-                                               select new BaoCaoVM { GroupName1 = g.Key.Lop, GroupName2 = g.Key.TenHS, GroupDatetime = g.Key.NgaySinh, GroupSoLuong = g.Count() };
+                                               group dsms by dsms.HocSinh.Lop into g
+                                               orderby g.Key
+                                               select new BaoCaoVM { GroupName1 = g.Key, GroupSoLuong = g.Count() };
                         return danhsachmuonsach;
                     }
                     else // neu ko co du lieu nam
@@ -416,9 +416,9 @@ namespace LibraryManagementSystem.Controllers
                         int _year_f = d_f.Value.Year;
                         var danhsachmuonsach = from dsms in db.MuonTraSach
                                                where (dsms.NgayMuon.Month >= _month_s && dsms.NgayMuon.Year >= _year_s) && (dsms.NgayMuon.Month <= _month_f && dsms.NgayMuon.Year <= _year_f)
-                                               group dsms by dsms.HocSinh into g
-                                               orderby g.Key.Lop ascending, g.Key.TenHS ascending
-                                               select new BaoCaoVM { GroupName1 = g.Key.Lop, GroupName2 = g.Key.TenHS, GroupDatetime = g.Key.NgaySinh, GroupSoLuong = g.Count() };
+                                               group dsms by dsms.HocSinh.Lop into g
+                                               orderby g.Key
+                                               select new BaoCaoVM { GroupName1 = g.Key, GroupSoLuong = g.Count() };
                         return danhsachmuonsach;
                     }
                     else // neu ko co du lieu khoang thoi gian

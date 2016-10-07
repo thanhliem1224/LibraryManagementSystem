@@ -13,6 +13,35 @@
     </div>
 </div>
 <br />
+<div>
+    @using (Html.BeginForm("LichSu", "MuonTraSach", FormMethod.Get))
+    {
+        <div class="form-inline" role="form">
+            <div>
+                <input id="lopHS" name="lopHS" type="text" class="form-control" placeholder="Tìm Lớp">
+            </div>
+            <div>
+                <input id="tenHS" name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh">
+            </div>
+            <div>
+                <input id="maSach" name="maSach" type="text" class="form-control" placeholder="Tìm Mã Sách">
+            </div>
+            <div>
+                <input id="tenSach" name="tenSach" type="text" class="form-control" placeholder="Tìm Tên Sách">
+            </div>
+            <div>
+                <label>Ngày mượn</label>
+                <input name="ngayFrom" type="date" class="form-control" />
+                <label>Đến ngày</label>
+                <input name="ngayTo" type="date" class="form-control" />
+            </div>
+            <div>
+                <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+    }
+</div>
+<br />
 <div class="table-responsive">
     <table class="table">
         <tr>

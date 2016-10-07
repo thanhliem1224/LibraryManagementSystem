@@ -18,11 +18,10 @@ namespace LibraryManagementSystem.Controllers
         private DateTime _end_day_now = CNCFClass.GoToEndOfDay(DateTime.Now);
 
         // GET: MuonTraSach
-        public ActionResult Index(string lopHS, string tenHS, string maSach, string tenSach, DateTime? ngayMuonFrom, DateTime? ngayMuonTo, int? type)
+        public ActionResult Index(string lopHS, string tenHS, string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo, int? type)
         {
             var muonsach = from m in db.MuonTraSach
                            where m.NgayTra == null
-                           orderby m.HocSinh.Lop ascending
                            select m;
 
 
@@ -30,36 +29,40 @@ namespace LibraryManagementSystem.Controllers
             {
                 muonsach = from m in muonsach
                            where m.HocSinh.Lop.Contains(lopHS)
-                           orderby m.HocSinh.Lop ascending
                            select m;
             }
             if (tenHS != null)
             {
                 muonsach = from m in muonsach
                            where m.HocSinh.TenHS.Contains(tenHS)
-                           orderby m.HocSinh.Lop ascending
                            select m;
             }
             if (maSach != null)
             {
                 muonsach = from m in muonsach
                            where m.Sach.SachID.Contains(maSach)
-                           orderby m.HocSinh.Lop ascending
                            select m;
             }
             if (tenSach != null)
             {
                 muonsach = from m in muonsach
                            where m.Sach.TenSach.Contains(tenSach)
-                           orderby m.HocSinh.Lop ascending
                            select m;
             }
-            if (ngayMuonFrom != null && ngayMuonTo != null)
+            if (ngayFrom != null)// && ngayMuonTo != null)
             {
-                // muonsach.Where(m => m.NgayMuon >= ngayMuonFrom).Where(m => m.NgayMuon <= ngayMuonTo).Select(m => m);
+                // chỉnh lại ngày
+                ngayFrom = CNCFClass.GoToBeginOfDay(ngayFrom.Value);
                 muonsach = from m in muonsach
-                           where m.NgayMuon >= ngayMuonFrom && m.NgayMuon <= ngayMuonTo
-                           orderby m.HocSinh.Lop ascending
+                           where m.NgayMuon >= ngayFrom
+                           select m;
+            }
+            if (ngayTo != null)
+            {
+                // chỉnh lại ngày
+                ngayTo = CNCFClass.GoToEndOfDay(ngayTo.Value);
+                muonsach = from m in muonsach
+                           where m.NgayMuon <= ngayTo
                            select m;
             }
             if (type == 1) // nếu loại là 1: mượn sách quá hạn
@@ -67,7 +70,6 @@ namespace LibraryManagementSystem.Controllers
                 // muonsach.Where(m => m.HanTra <= _end_day_now);
                 muonsach = from m in muonsach
                            where m.HanTra <= _end_day_now
-                           orderby m.HocSinh.Lop ascending
                            select m;
                 TempData["Title"] = "Danh Sách Học Sinh Mượn Sách Quá Hạn";
             }
@@ -86,9 +88,53 @@ namespace LibraryManagementSystem.Controllers
             }
             return View();
         }
-        public ActionResult LichSu()
+        public ActionResult LichSu(string lopHS, string tenHS, string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo)
         {
-            var muonTraSach = db.MuonTraSach.Include(m => m.HocSinh).Include(m => m.Sach).OrderByDescending(m => m.NgayMuon);
+            var muonTraSach = db.MuonTraSach.Include(m => m.HocSinh).Include(m => m.Sach);
+            
+            if (lopHS != null)
+            {
+                muonTraSach = from m in muonTraSach
+                              where m.HocSinh.Lop.Contains(lopHS)
+                           select m;
+            }
+            if (tenHS != null)
+            {
+                muonTraSach = from m in muonTraSach
+                              where m.HocSinh.TenHS.Contains(tenHS)
+                              select m;
+            }
+            if (maSach != null)
+            {
+                muonTraSach = from m in muonTraSach
+                              where m.Sach.SachID.Contains(maSach)
+                              select m;
+            }
+            if (tenSach != null)
+            {
+                muonTraSach = from m in muonTraSach
+                              where m.Sach.TenSach.Contains(tenSach)
+                              select m;
+            }
+            if (ngayFrom != null)// && ngayMuonTo != null)
+            {
+                // chỉnh lại ngày
+                ngayFrom = CNCFClass.GoToBeginOfDay(ngayFrom.Value);
+                muonTraSach = from m in muonTraSach
+                              where m.NgayMuon >= ngayFrom
+                              select m;
+            }
+            if (ngayTo != null)
+            {
+                // chỉnh lại cuối ngày
+                ngayTo = CNCFClass.GoToEndOfDay(ngayTo.Value);
+                muonTraSach = from m in muonTraSach
+                              where m.NgayMuon <= ngayTo
+                              select m;
+            }
+            muonTraSach = from m in muonTraSach
+                          orderby m.NgayMuon descending
+                          select m;
             return View(muonTraSach.ToList());
         }
 
@@ -360,6 +406,7 @@ namespace LibraryManagementSystem.Controllers
             ViewBag.SachID = new SelectList(db.Sach, "ID", "SachID", muonTraSach.SachID);
             return View(muonTraSach);
         }
+        
         /*
         // GET: MuonTraSach/Details/5
         public ActionResult Details(int? id)

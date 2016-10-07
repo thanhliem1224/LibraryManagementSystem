@@ -12,11 +12,45 @@ namespace LibraryManagementSystem.Controllers
     public class ThanhLyController : Controller
     {
         private CNCFContext db = new CNCFContext();
-
         // GET: ThanhLy
-        public ActionResult Index()
+        public ActionResult Index(string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo)
         {
             var thanhLy = db.ThanhLy.Include(t => t.Sach);
+
+            if (maSach != null)
+            {
+                thanhLy = from m in thanhLy
+                          where m.Sach.SachID.Contains(maSach)
+                           select m;
+            }
+            if (tenSach != null)
+            {
+                thanhLy = from m in thanhLy
+                           where m.Sach.TenSach.Contains(tenSach)
+                           select m;
+            }
+            if (ngayFrom != null)// && ngayMuonTo != null)
+            {
+                // chỉnh lại ngày
+                ngayFrom = CNCFClass.GoToBeginOfDay(ngayFrom.Value);
+
+                thanhLy = from m in thanhLy
+                          where m.Ngay >= ngayFrom
+                           select m;
+            }
+            if (ngayTo != null)
+            {
+                // chỉnh lại ngày
+                ngayTo = CNCFClass.GoToEndOfDay(ngayTo.Value);
+                thanhLy = from m in thanhLy
+                          where m.Ngay <= ngayTo
+                           select m;
+            }
+
+            thanhLy = from t in thanhLy
+                      orderby t.Ngay descending
+                      select t;
+
             return View(thanhLy.ToList());
         }
         /*

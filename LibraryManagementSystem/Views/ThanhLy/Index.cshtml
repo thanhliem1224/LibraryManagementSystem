@@ -13,6 +13,26 @@
     </div>
 </div>
 <br />
+@using (Html.BeginForm("Index", "ThanhLy", FormMethod.Get))
+{
+    <div class="form-inline" role="form">
+        <div>
+            <input id="maSach" name="maSach" type="text" class="form-control" placeholder="Tìm Mã Sách">
+        </div>
+        <div>
+            <input id="tenSach" name="tenSach" type="text" class="form-control" placeholder="Tìm Tên Sách">
+        </div>
+        <div>
+            <label>Từ ngày</label>
+            <input name="ngayFrom" type="date" class="form-control" />
+            <label>đến ngày</label>
+            <input name="ngayTo" type="date" class="form-control" />
+        </div>
+        <div>
+            <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+        </div>
+    </div>
+}
 <div class="table-responsive">
     <table class="table">
         @{
