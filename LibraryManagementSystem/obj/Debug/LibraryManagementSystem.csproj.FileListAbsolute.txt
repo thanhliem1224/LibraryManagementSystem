@@ -781,3 +781,7 @@ C:\Project\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryMana
 C:\Project\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.csproj.GenerateResource.Cache
 C:\Project\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.dll
 C:\Project\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.pdb
+C:\Project\LibraryManagementSystem\LibraryManagementSystem\bin\PagedList.dll
+C:\Project\LibraryManagementSystem\LibraryManagementSystem\bin\PagedList.Mvc.dll
+C:\Project\LibraryManagementSystem\LibraryManagementSystem\bin\PagedList.xml
+C:\Project\LibraryManagementSystem\LibraryManagementSystem\bin\PagedList.Mvc.xml

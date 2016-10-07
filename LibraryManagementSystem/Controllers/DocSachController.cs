@@ -6,6 +6,7 @@ using System.Net;
 using System.Web.Mvc;
 using LibraryManagementSystem.DAL;
 using LibraryManagementSystem.Models;
+using PagedList;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -15,7 +16,7 @@ namespace LibraryManagementSystem.Controllers
 
         // GET: DocSach
         [Authorize]
-        public ActionResult Index(string lopHS, string tenHS, DateTime? ngayFrom, DateTime? ngayTo)
+        public ActionResult Index(string lopHS, string tenHS, DateTime? ngayFrom, DateTime? ngayTo, int? page)
         {
             var docSachTaiCho = db.DocSachTaiCho.Include(d => d.HocSinh);
             if (lopHS != null)
@@ -52,7 +53,17 @@ namespace LibraryManagementSystem.Controllers
                             orderby d.Ngay descending
                             select d;
 
-            return View(docSachTaiCho.ToList());
+            // lưu dữ liệu search hiện tại
+            ViewBag.CurrentLopHS = lopHS;
+            ViewBag.CurrentTenHS = tenHS;
+            ViewBag.CurrentNgayFrom = ngayFrom;
+            ViewBag.CurrentNgayTo = ngayTo;
+
+            // khu vực page
+            int pageSize = 50; // số dòng trong 1 trang
+            int pageNumber = (page ?? 1);
+
+            return View(docSachTaiCho.ToPagedList(pageNumber, pageSize));
         }
 
         

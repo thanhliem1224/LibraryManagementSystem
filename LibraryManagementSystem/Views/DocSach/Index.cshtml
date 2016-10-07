@@ -1,5 +1,6 @@
-﻿@model IEnumerable<LibraryManagementSystem.Models.DocSachTaiCho>
-
+﻿@model PagedList.IPagedList<LibraryManagementSystem.Models.DocSachTaiCho>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Lịch Sử Đọc Sách";
 }
@@ -18,16 +19,16 @@
 {
     <div class="form-inline" role="form">
         <div>
-            <input id="lopHS" name="lopHS" type="text" class="form-control" placeholder="Tìm Lớp">
+            <input id="lopHS" name="lopHS" type="text" class="form-control" placeholder="Tìm Lớp" value="@ViewBag.CurrentLopHS">
         </div>
         <div>
-            <input id="tenHS" name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh">
+            <input id="tenHS" name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh" value="@ViewBag.CurrentTenHS">
         </div>
         <div>
             <label>Sau ngày</label>
-            <input name="ngayMuonFrom" type="date" class="form-control" />
+            <input name="ngayFrom" type="date" class="form-control" />
             <label>Trước ngày</label>
-            <input name="ngayMuonTo" type="date" class="form-control" />
+            <input name="ngayTo" type="date" class="form-control" />
         </div>
         <div>
             <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
@@ -43,16 +44,16 @@
                     #
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HocSinh.Lop)
+                    Lop
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HocSinh.TenHS)
+                    Tên học sinh
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HocSinh.NgaySinh)
+                    Ngày sinh
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Ngay)
+                    Ngày 
                 </th>
             </tr>
 
@@ -80,3 +81,8 @@
         }
     </table>
 </div>
+<br />
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, lopHS = ViewBag.CurrentLopHS, tenHS = ViewBag.CurrentTenHS, ngayFrom = ViewBag.CurrentNgayFrom, ngayTo = ViewBag.CurrentNgayTo }))
