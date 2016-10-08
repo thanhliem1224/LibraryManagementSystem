@@ -1,17 +1,17 @@
-﻿@model IEnumerable<LibraryManagementSystem.Models.Sach>
-
+﻿@model PagedList.IPagedList<LibraryManagementSystem.Models.Sach>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="text-center">
     <h2>Danh sách Sách trong thư viện</h2>
 </div>
 <br />
 <div class="row">
     <div class="col-md-8">
-        @using (Html.BeginForm())
+        @using (Html.BeginForm(FormMethod.Get))
             {
             <div class="form-inline" role="form">
                 <div class="form-group">
@@ -26,7 +26,6 @@
                 <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
             </div>
         }
-
     </div>
     <div class="col-md-4 text-right">
         <div>
@@ -35,7 +34,6 @@
         </div>
     </div>
 </div>
-
 <br />
 <div class="table-responsive">
     <table class="table">
@@ -50,10 +48,9 @@
                 @Html.ActionLink("Tên sách", "Index", new { sortOrder = ViewBag.sorTen })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TrangThai)
+                Trạng thái
             </th>
         </tr>
-
         @foreach (var item in Model)
         {
             <tr>
@@ -71,6 +68,16 @@
                 </td>
             </tr>
         }
-
     </table>
 </div>
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new
+    {
+        page,
+        sachID = ViewBag.CurrentMaSach,
+        tenSach = ViewBag.CurrentTenSach,
+        chuDeSach = ViewBag.CurrentChuDeSach,
+        sortOrder = ViewBag.CurrentSort
+    }))

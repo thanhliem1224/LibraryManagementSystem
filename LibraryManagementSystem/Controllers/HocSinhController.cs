@@ -12,6 +12,7 @@ using System.IO;
 using Excel;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
+using PagedList;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -21,7 +22,7 @@ namespace LibraryManagementSystem.Controllers
 
         // GET: Hoc_Sinh
         [Authorize]
-        public ActionResult Index(string tenHS, string lopHS, string sortOrder)
+        public ActionResult Index(string tenHS, string lopHS, string sortOrder, int? page)
         {
             ViewBag.sorTen = string.IsNullOrEmpty(sortOrder) ? "name_inc" : "";
             ViewBag.sortLop = string.IsNullOrEmpty(sortOrder) ? "lop_inc" : "";
@@ -38,7 +39,9 @@ namespace LibraryManagementSystem.Controllers
                 case "lop_inc":
                     hoc_sinh = hoc_sinh.OrderBy(s => s.Lop);
                     break;
-
+                default:
+                    hoc_sinh = hoc_sinh.OrderBy(s => s.TenHS);
+                    break;
 
             }
 
@@ -51,7 +54,15 @@ namespace LibraryManagementSystem.Controllers
                 hoc_sinh = hoc_sinh.Where(s => s.Lop.Contains(lopHS));
             }
 
-            return View(hoc_sinh);
+
+            // lưu dữ liệu search hiện tại
+            ViewBag.CurrentLopHS = lopHS;
+            ViewBag.CurrentTenHS = tenHS;
+            // setup page
+            int pageSize = 50; // số dòng trong 1 trang
+            int pageNumber = (page ?? 1);
+
+            return View(hoc_sinh.ToPagedList(pageNumber, pageSize));
         }
         /*
         // GET: Hoc_Sinh/Details/5

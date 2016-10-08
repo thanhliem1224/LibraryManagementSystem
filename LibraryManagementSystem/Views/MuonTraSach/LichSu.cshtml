@@ -1,4 +1,6 @@
-﻿@model IEnumerable<LibraryManagementSystem.Models.MuonTraSach>
+﻿@model PagedList.IPagedList<LibraryManagementSystem.Models.MuonTraSach>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Lịch Sử Mượn Trả Sách";
 }
@@ -46,25 +48,25 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.HocSinh.Lop)
+                Lớp
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HocSinh.TenHS)
+                Tên Học Sinh
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HocSinh.NgaySinh)
+                Ngày Sinh
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Sach.TenSach)
+                Tên Sách
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NgayMuon)
+                Ngày Mượn
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HanTra)
+                Hạn Trả
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NgayTra)
+                Ngày Trả
             </th>
         </tr>
         @foreach (var item in Model)
@@ -95,3 +97,17 @@
         }
     </table>
 </div>
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("LichSu",
+    new
+    {
+        page,
+        type = ViewBag.CurrentType,
+        lopHS = ViewBag.CurrentLopHS,
+        tenHS = ViewBag.CurrentTenHS,
+        maSach = ViewBag.CurrentMaSach,
+        tenSach = ViewBag.CurrentTenSach,
+        ngayFrom = ViewBag.CurrentNgayFrom,
+        ngayTo = ViewBag.CurrentNgayTo
+    }))

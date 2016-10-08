@@ -6,6 +6,7 @@ using System.Net;
 using System.Web.Mvc;
 using LibraryManagementSystem.DAL;
 using LibraryManagementSystem.Models;
+using PagedList;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -13,7 +14,7 @@ namespace LibraryManagementSystem.Controllers
     {
         private CNCFContext db = new CNCFContext();
         // GET: ThanhLy
-        public ActionResult Index(string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo)
+        public ActionResult Index(string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo, int? page)
         {
             var thanhLy = db.ThanhLy.Include(t => t.Sach);
 
@@ -51,7 +52,16 @@ namespace LibraryManagementSystem.Controllers
                       orderby t.Ngay descending
                       select t;
 
-            return View(thanhLy.ToList());
+            // lưu dữ liệu search hiện tại
+            ViewBag.CurrentMaSach = maSach;
+            ViewBag.CurrentTenSach = tenSach;
+            ViewBag.CurrentNgayFrom = ngayFrom;
+            ViewBag.CurrentNgayTo = ngayTo;
+
+            // setup page
+            int pageSize = 50; // số dòng trong 1 trang
+            int pageNumber = (page ?? 1);
+            return View(thanhLy.ToPagedList(pageNumber, pageSize));
         }
         /*
         // GET: ThanhLy/Details/5

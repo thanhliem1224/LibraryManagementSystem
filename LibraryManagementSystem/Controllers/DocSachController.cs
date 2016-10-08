@@ -19,6 +19,7 @@ namespace LibraryManagementSystem.Controllers
         public ActionResult Index(string lopHS, string tenHS, DateTime? ngayFrom, DateTime? ngayTo, int? page)
         {
             var docSachTaiCho = db.DocSachTaiCho.Include(d => d.HocSinh);
+            
             if (lopHS != null)
             {
                 docSachTaiCho = from d in docSachTaiCho
@@ -58,8 +59,9 @@ namespace LibraryManagementSystem.Controllers
             ViewBag.CurrentTenHS = tenHS;
             ViewBag.CurrentNgayFrom = ngayFrom;
             ViewBag.CurrentNgayTo = ngayTo;
+            
 
-            // khu vực page
+            // setup page
             int pageSize = 50; // số dòng trong 1 trang
             int pageNumber = (page ?? 1);
 

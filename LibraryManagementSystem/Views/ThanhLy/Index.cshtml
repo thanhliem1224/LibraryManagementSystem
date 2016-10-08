@@ -1,4 +1,6 @@
-﻿@model IEnumerable<LibraryManagementSystem.Models.ThanhLy>
+﻿@model PagedList.IPagedList<LibraryManagementSystem.Models.ThanhLy>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Lịch Sử Thanh Lý Sách";
 }
@@ -35,41 +37,56 @@
 }
 <div class="table-responsive">
     <table class="table">
-        @{
-            int count = 1; // đếm số thứ tự
-            <tr>
-                <th>
-                    #
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Sach.SachID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Sach.TenSach)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Ngay)
-                </th>
-            </tr>
 
-            foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.ActionLink(count.ToString(), "Edit", new { id = item.ID })
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Sach.SachID)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Sach.TenSach)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Ngay)
-                    </td>
-                </tr>
-                count++;
-            }
+        <tr>
+            <th>
+                Mã Sách
+            </th>
+            <th>
+                Tên Sách
+            </th>
+            <th>
+                Chủ Đề
+            </th>
+            <th>
+                Ngày Thanh Lý
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sach.SachID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sach.TenSach)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sach.ChuDe.TenChuDe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ngay)
+                </td>
+                <td>
+                    @Html.ActionLink("Sửa", "Edit", new { id = item.ID })
+                </td>
+            </tr>
         }
+
     </table>
 </div>
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new
+    {
+        page,
+        maSach = ViewBag.CurrentMaSach,
+        tenSach = ViewBag.CurrentTenSach,
+
+        ngayFrom = ViewBag.CurrentNgayFrom,
+        ngayTo = ViewBag.CurrentNgayTo
+    }))

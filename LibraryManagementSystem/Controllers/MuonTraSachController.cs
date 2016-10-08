@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using LibraryManagementSystem.DAL;
 using LibraryManagementSystem.Models;
 using LibraryManagementSystem.Models.ViewModel;
+using PagedList;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -18,12 +19,9 @@ namespace LibraryManagementSystem.Controllers
         private DateTime _end_day_now = CNCFClass.GoToEndOfDay(DateTime.Now);
 
         // GET: MuonTraSach
-        public ActionResult Index(string lopHS, string tenHS, string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo, int? type)
+        public ActionResult Index(string lopHS, string tenHS, string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo, int? type, int? page)
         {
-            var muonsach = from m in db.MuonTraSach
-                           where m.NgayTra == null
-                           select m;
-
+            var muonsach = db.MuonTraSach.Include(m => m.HocSinh).Include(m => m.Sach).Where(m => m.NgayTra == null);
 
             if (lopHS != null)
             {
@@ -77,26 +75,35 @@ namespace LibraryManagementSystem.Controllers
             {
                 TempData["Title"] = "Danh Sách Học Sinh Đang Mượn Sách";
             }
-            if (muonsach.Count() > 0)
-            {
-                ViewBag.MuonTraSach = muonsach;
-                ViewBag.MuonTraSach_Count = muonsach.Count();
-            }
-            else
-            {
-                ViewBag.MuonTraSach_Count = 0;
-            }
-            return View();
+
+            muonsach = from m in muonsach
+                       orderby m.NgayMuon
+                       select m;
+
+            // lưu dữ liệu search hiện tại
+            ViewBag.CurrentLopHS = lopHS;
+            ViewBag.CurrentTenHS = tenHS;
+            ViewBag.CurrentMaSach = maSach;
+            ViewBag.CurrentTenSach = tenSach;
+            ViewBag.CurrentNgayFrom = ngayFrom;
+            ViewBag.CurrentNgayTo = ngayTo;
+            ViewBag.CurrentType = type;
+
+            // setup page
+            int pageSize = 50; // số dòng trong 1 trang
+            int pageNumber = (page ?? 1);
+
+            return View(muonsach.ToPagedList(pageNumber, pageSize));
         }
-        public ActionResult LichSu(string lopHS, string tenHS, string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo)
+        public ActionResult LichSu(string lopHS, string tenHS, string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo, int? page)
         {
             var muonTraSach = db.MuonTraSach.Include(m => m.HocSinh).Include(m => m.Sach);
-            
+
             if (lopHS != null)
             {
                 muonTraSach = from m in muonTraSach
                               where m.HocSinh.Lop.Contains(lopHS)
-                           select m;
+                              select m;
             }
             if (tenHS != null)
             {
@@ -135,7 +142,20 @@ namespace LibraryManagementSystem.Controllers
             muonTraSach = from m in muonTraSach
                           orderby m.NgayMuon descending
                           select m;
-            return View(muonTraSach.ToList());
+
+            // lưu dữ liệu search hiện tại
+            ViewBag.CurrentLopHS = lopHS;
+            ViewBag.CurrentTenHS = tenHS;
+            ViewBag.CurrentMaSach = maSach;
+            ViewBag.CurrentTenSach = tenSach;
+            ViewBag.CurrentNgayFrom = ngayFrom;
+            ViewBag.CurrentNgayTo = ngayTo;
+
+            // setup page
+            int pageSize = 50; // số dòng trong 1 trang
+            int pageNumber = (page ?? 1);
+
+            return View(muonTraSach.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult TimHocSinh(string tenHS)
@@ -278,6 +298,7 @@ namespace LibraryManagementSystem.Controllers
                 {
                     if (s.TrangThai == TrangThai.CoSan)  // nếu sách đã dc trả
                     {
+                        TempData["error"] = "Sách hiện tại đang ở trong thư viện @@ !!!";
                         return View("SthError");
                     }
                     else // nếu sách chưa dc trả
@@ -406,7 +427,7 @@ namespace LibraryManagementSystem.Controllers
             ViewBag.SachID = new SelectList(db.Sach, "ID", "SachID", muonTraSach.SachID);
             return View(muonTraSach);
         }
-        
+
         /*
         // GET: MuonTraSach/Details/5
         public ActionResult Details(int? id)

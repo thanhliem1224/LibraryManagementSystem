@@ -10,6 +10,7 @@ using LibraryManagementSystem.DAL;
 using LibraryManagementSystem.Models;
 using System.IO;
 using Excel;
+using PagedList;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -19,11 +20,22 @@ namespace LibraryManagementSystem.Controllers
 
         // GET: Saches
         [Authorize]
-        public ActionResult Index(string sachID, string tenSach, string chuDeSach, string sortOrder)
+        public ActionResult Index(string sachID, string tenSach, string chuDeSach, string sortOrder, int? page)
         {
-            ViewBag.sorTen = string.IsNullOrEmpty(sortOrder) ? "name_incr" : "name_desc";
-            ViewBag.sortID = string.IsNullOrEmpty(sortOrder) ? "id_incr" : "id_desc";
-            ViewBag.sortChuDe = string.IsNullOrEmpty(sortOrder) ? "chude_incr" : "chude_desc";
+            var sach = db.Sach.Include(s => s.ChuDe);
+
+            if (!string.IsNullOrEmpty(sachID))
+            {
+                sach = sach.Where(s => s.SachID.Contains(sachID));
+            }
+            if (!string.IsNullOrEmpty(tenSach))
+            {
+                sach = sach.Where(s => s.TenSach.Contains(tenSach));
+            }
+            if (!string.IsNullOrEmpty(chuDeSach))
+            {
+                sach = sach.Where(x => x.ChuDe.TenChuDe == chuDeSach);
+            }
 
             //Tìm theo chủ đề sách
             var chude_list = new List<string>();
@@ -33,11 +45,16 @@ namespace LibraryManagementSystem.Controllers
             chude_list.AddRange(chude.Distinct());
 
             ViewBag.chuDeSach = new SelectList(chude_list);
-
             //Kết thúc tìm theo chủ đề
-            var sach = from s in db.Sach.Include(s => s.ChuDe)
-                       select s;
 
+            /*
+            ViewBag.sorTen = string.IsNullOrEmpty(sortOrder) ? "name_incr" : "name_desc";
+            ViewBag.sortID = string.IsNullOrEmpty(sortOrder) ? "id_incr" : "id_desc";
+            ViewBag.sortChuDe = string.IsNullOrEmpty(sortOrder) ? "chude_incr" : "chude_desc";
+
+            
+
+            
             switch (sortOrder)
             {
                 case "name_desc":
@@ -64,27 +81,25 @@ namespace LibraryManagementSystem.Controllers
                 case "chude_incr":
                     sach = sach.OrderBy(s => s.ChuDe.ID);
                     break;
-
+                default:
+                    sach = sach.OrderBy(s => s.TenSach);
+                    break;
             }
+            */
+            sach = sach.OrderBy(s => s.TenSach);
 
-            if (!string.IsNullOrEmpty(sachID))
-            {
-                sach = sach.Where(s => s.SachID.Contains(sachID));
-            }
-            if (!string.IsNullOrEmpty(tenSach))
-            {
-                sach = sach.Where(s => s.TenSach.Contains(tenSach));
-            }
-            //
-            if (!string.IsNullOrEmpty(chuDeSach))
-            {
-                sach = sach.Where(x => x.ChuDe.TenChuDe == chuDeSach);
-            }
 
-            return View(sach);
+            // lưu dữ liệu search hiện tại
+            ViewBag.CurrentMaSach = sachID;
+            ViewBag.CurrentTenSach = tenSach;
+            ViewBag.CurrentChuDeSach = chuDeSach;
+            ViewBag.CurrentSort = sortOrder;
 
-            //var applicationDbContext = _context.Sach.Include(s => s.Chu_De);
-            //return View(applicationDbContext.ToList());
+            // setup page
+            int pageSize = 50; // số dòng trong 1 trang
+            int pageNumber = (page ?? 1);
+
+            return View(sach.ToPagedList(pageNumber, pageSize));
         }
 
         

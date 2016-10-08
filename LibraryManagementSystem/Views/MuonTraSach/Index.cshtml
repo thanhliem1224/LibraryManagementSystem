@@ -1,4 +1,6 @@
-﻿@model IEnumerable<LibraryManagementSystem.Models.MuonTraSach>
+﻿@model PagedList.IPagedList<LibraryManagementSystem.Models.MuonTraSach>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Mượn Trả Sách";
 }
@@ -48,92 +50,94 @@
     }
 </div>
 <br />
-@if (ViewBag.MuonTraSach_Count > 0)
-{
-    <h3 class="text-center">@TempData["Title"]</h3>
-    <br />
+<h3 class="text-center">@TempData["Title"]</h3>
+<br />
 
-    <div class="table-responsive">
-        <table class="table">
-            @{
-                int count = 1;
-                <tr>
-                    <th>
-                        #
-                    </th>
-                    <th>
-                        Lớp
-                    </th>
-                    <th>
-                        Tên Học Sinh
-                    </th>
-                    <th>
-                        Ngày Sinh
-                    </th>
-                    <th>
-                        Tên sách
-                    </th>
-                    <th>
-                        Ngày mượn
-                    </th>
-                    <th>
-                        Hạn trả
-                    </th>
-                    <th>
-                    </th>
-                </tr>
+<div class="table-responsive">
+    <table class="table">
 
-                foreach (var item in ViewBag.MuonTraSach)
+        <tr>
+            <th>
+                Lớp
+            </th>
+            <th>
+                Tên Học Sinh
+            </th>
+            <th>
+                Ngày Sinh
+            </th>
+            <th>
+                Tên sách
+            </th>
+            <th>
+                Ngày mượn
+            </th>
+            <th>
+                Hạn trả
+            </th>
+            <th>
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+            {
+                string _class = "";
+                if (item.HanTra.Date < DateTime.Now.Date)
                 {
-                    string _class = "";
-                    if (item.HanTra.Date < DateTime.Now.Date)
-                    {
-                        _class = "danger";
-                    }
-                    else if (item.HanTra.Date == DateTime.Now.Date)
-                    {
-                        _class = "warning";
-                    }
-                    <tr class="@_class">
-                        <td>
-                            @Html.ActionLink(@count.ToString(), "Edit", new { id = item.ID })
-                        </td>
-                        <td>
-                            @item.HocSinh.Lop
-                        </td>
-                        <td>
-                            @item.HocSinh.TenHS
-                        </td>
-                        <td>
-                            @item.HocSinh.NgaySinh.ToShortDateString()
-                        </td>
-                        <td>
-                            @item.Sach.IDandTen
-                        </td>
-                        <td>
-                            @item.NgayMuon.ToShortDateString()
-                        </td>
-                        <td>
-                            @item.HanTra.ToShortDateString()
-                        </td>
-                        <td>
-                            <div class="btn-group navbar-btn">
-                                @Html.ActionLink("Trả Sách", "TraSach", new { id = item.ID }, new { @class = "btn btn-default btn-xs" })
-                                <button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle"><span class="caret"></span></button>
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Gia Hạn", "GiaHan", new { id = item.ID })</li>
-                                    <li>@Html.ActionLink("Báo Mất", "BaoMat", new { id = item.ID })</li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    count++;
+                    _class = "danger";
                 }
-            }
-        </table>
-    </div>
-}
-else
-{
-    <p>Không có hoạt động mượn sách</p>
-}
+                else if (item.HanTra.Date == DateTime.Now.Date)
+                {
+                    _class = "warning";
+                }
+                <tr class="@_class">
+                    <td>
+                        @item.HocSinh.Lop
+                    </td>
+                    <td>
+                        @item.HocSinh.TenHS
+                    </td>
+                    <td>
+                        @item.HocSinh.NgaySinh.ToShortDateString()
+                    </td>
+                    <td>
+                        @item.Sach.IDandTen
+                    </td>
+                    <td>
+                        @item.NgayMuon.ToShortDateString()
+                    </td>
+                    <td>
+                        @item.HanTra.ToShortDateString()
+                    </td>
+                    <td>
+                        <div class="btn-group navbar-btn">
+                            @Html.ActionLink("Trả Sách", "TraSach", new { id = item.ID }, new { @class = "btn btn-default btn-xs" })
+                            <button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle"><span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Gia Hạn", "GiaHan", new { id = item.ID })</li>
+                                <li>@Html.ActionLink("Báo Mất", "BaoMat", new { id = item.ID })</li>
+                                <li>@Html.ActionLink("Sửa", "Edit", new { id = item.ID })</li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+        }
+    </table>
+</div>
+<br />
+
+
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new
+    {
+        page,
+        type = ViewBag.CurrentType,
+        lopHS = ViewBag.CurrentLopHS,
+        tenHS = ViewBag.CurrentTenHS,
+        maSach = ViewBag.CurrentMaSach,
+        tenSach = ViewBag.CurrentTenSach,
+        ngayFrom = ViewBag.CurrentNgayFrom,
+        ngayTo = ViewBag.CurrentNgayTo
+    }))
