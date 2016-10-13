@@ -17,9 +17,29 @@ namespace LibraryManagementSystem.Controllers
 
         // GET: Chu_De
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
-            return View(db.ChuDe.ToList());
+            var chuDe = from c in db.ChuDe
+                        select c;
+
+            ViewBag.SortTen = "ten_ascending";
+            switch(sortOrder)
+            {
+                case "ten_ascending":
+                    chuDe = chuDe.OrderBy(c => c.TenChuDe);
+                    ViewBag.SortTen = "ten_descending";
+                    break;
+                case "ten_descending":
+                    chuDe = chuDe.OrderByDescending(c => c.TenChuDe);
+                    ViewBag.SortTen = "ten_ascending";
+                    break;
+                default:
+                    chuDe = chuDe.OrderBy(c => c.TenChuDe);
+                    ViewBag.SortTen = "ten_descending";
+                    break;
+            }
+
+            return View(chuDe);
         }
         /*
         // GET: Chu_De/Details/5

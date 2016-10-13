@@ -36,24 +36,50 @@
 </div>
 <br />
 <div class="table-responsive">
-    <table class="table">
+    <table class="table table-hover" ">
         <tr>
             <th>
-                @Html.ActionLink("Tên chủ đề", "Index", new { sortOrder = ViewBag.sortChuDe })
+                @Html.ActionLink("Tên chủ đề", "Index", new
+           {
+               sortOrder = ViewBag.sortChuDe,
+               sachID = ViewBag.CurrentMaSach,
+               tenSach = ViewBag.CurrentTenSach,
+               chuDeSach = ViewBag.CurrentChuDeSach,
+           })
             </th>
             <th>
-                @Html.ActionLink("Mã số sách", "Index", new { sortOrder = ViewBag.sortID })
+                @Html.ActionLink("Mã số sách", "Index", new
+           {
+               sortOrder = ViewBag.sortMaSach,
+               sachID = ViewBag.CurrentMaSach,
+               tenSach = ViewBag.CurrentTenSach,
+               chuDeSach = ViewBag.CurrentChuDeSach,
+           })
             </th>
             <th>
-                @Html.ActionLink("Tên sách", "Index", new { sortOrder = ViewBag.sorTen })
+                @Html.ActionLink("Tên sách", "Index", new
+           {
+               sortOrder = ViewBag.sortTenSach,
+               sachID = ViewBag.CurrentMaSach,
+               tenSach = ViewBag.CurrentTenSach,
+               chuDeSach = ViewBag.CurrentChuDeSach,
+           })
             </th>
             <th>
-                Trạng thái
+                @Html.ActionLink("Trạng Thái", "Index", new
+           {
+               sortOrder = ViewBag.sortTrangThai,
+               sachID = ViewBag.CurrentMaSach,
+               tenSach = ViewBag.CurrentTenSach,
+               chuDeSach = ViewBag.CurrentChuDeSach,
+           })
             </th>
         </tr>
         @foreach (var item in Model)
         {
-            <tr>
+            string url = "Sach/Edit/" + item.ID;
+
+            <tr class='clickable-row' data-href='@url'>
                 <td>
                     @Html.DisplayFor(modelItem => item.ChuDe.TenChuDe)
                 </td>
@@ -61,7 +87,7 @@
                     @Html.DisplayFor(modelItem => item.SachID)
                 </td>
                 <td>
-                    @Html.ActionLink(item.TenSach, "Edit", new { id = item.ID })
+                    @Html.DisplayFor(modelItem => item.TenSach)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.TrangThai)
@@ -81,3 +107,12 @@ Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.Page
         chuDeSach = ViewBag.CurrentChuDeSach,
         sortOrder = ViewBag.CurrentSort
     }))
+@section Scripts{
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.document.location = $(this).data("href");
+            });
+        });
+    </script>
+}

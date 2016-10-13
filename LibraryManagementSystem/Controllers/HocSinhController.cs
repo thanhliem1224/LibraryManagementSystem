@@ -24,26 +24,8 @@ namespace LibraryManagementSystem.Controllers
         [Authorize]
         public ActionResult Index(string tenHS, string lopHS, string sortOrder, int? page)
         {
-            ViewBag.sorTen = string.IsNullOrEmpty(sortOrder) ? "name_inc" : "";
-            ViewBag.sortLop = string.IsNullOrEmpty(sortOrder) ? "lop_inc" : "";
-
             var hoc_sinh = from s in db.HocSinh
                            select s;
-
-            switch (sortOrder)
-            {
-                case "name_inc":
-                    hoc_sinh = hoc_sinh.OrderBy(s => s.TenHS);
-                    break;
-
-                case "lop_inc":
-                    hoc_sinh = hoc_sinh.OrderBy(s => s.Lop);
-                    break;
-                default:
-                    hoc_sinh = hoc_sinh.OrderBy(s => s.TenHS);
-                    break;
-
-            }
 
             if (!string.IsNullOrEmpty(tenHS))
             {
@@ -53,11 +35,51 @@ namespace LibraryManagementSystem.Controllers
             {
                 hoc_sinh = hoc_sinh.Where(s => s.Lop.Contains(lopHS));
             }
+            #region Sort
+            ViewBag.sortLop = "lop_ascending";
+            ViewBag.sortTenHS = "tenHS_ascending";
+            ViewBag.sortNgaySinh = "ngaySinh_ascending";
+
+            switch (sortOrder)
+            {
+                case "lop_ascending":
+                    hoc_sinh = hoc_sinh.OrderBy(h => h.Lop);
+                    ViewBag.sortLop = "lop_descending";
+                    break;
+                case "tenHS_ascending":
+                    hoc_sinh = hoc_sinh.OrderBy(h => h.TenHS);
+                    ViewBag.sortTenHS = "tenHS_descending";
+                    break;
+                case "ngaySinh_ascending":
+                    hoc_sinh = hoc_sinh.OrderBy(h => h.NgaySinh);
+                    ViewBag.sortNgaySinh = "ngaySinh_descending";
+                    break;
+                /////////////////////////////////////////////////////////////////
+                case "lop_descending":
+                    hoc_sinh = hoc_sinh.OrderByDescending(h => h.Lop);
+                    ViewBag.sortLop = "lop_ascending";
+                    break;
+                case "tenHS_descending":
+                    hoc_sinh = hoc_sinh.OrderByDescending(h => h.TenHS);
+                    ViewBag.sortTenHS = "tenHS_ascending";
+                    break;
+                case "ngaySinh_descending":
+                    hoc_sinh = hoc_sinh.OrderByDescending(h => h.NgaySinh);
+                    ViewBag.sortNgaySinh = "ngaySinh_ascending";
+                    break;
+                default:
+                    hoc_sinh = hoc_sinh.OrderBy(h => h.TenHS);
+                    ViewBag.sortTenHS = "tenHS_descending";
+                    break;
+            }
+
+            #endregion
 
 
             // lưu dữ liệu search hiện tại
             ViewBag.CurrentLopHS = lopHS;
             ViewBag.CurrentTenHS = tenHS;
+            ViewBag.CurrentSort = sortOrder;
             // setup page
             int pageSize = 50; // số dòng trong 1 trang
             int pageNumber = (page ?? 1);

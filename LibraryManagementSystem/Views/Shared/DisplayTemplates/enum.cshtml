@@ -1,5 +1,4 @@
 ﻿@model Enum
-
 @if (EnumHelper.IsValidForEnumHelper(ViewData.ModelMetadata))
 {
     // Display Enum using same names (from [Display] attributes) as in editors
@@ -11,7 +10,6 @@
             displayName = item.Text ?? item.Value;
         }
     }
-
     // Handle the unexpected case that nothing is selected
     if (String.IsNullOrEmpty(displayName))
     {
@@ -24,7 +22,6 @@
             displayName = Model.ToString();
         }
     }
-
     @Html.DisplayTextFor(model => displayName)
 }
 else

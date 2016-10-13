@@ -14,21 +14,23 @@ namespace LibraryManagementSystem.Controllers
     {
         private CNCFContext db = new CNCFContext();
         // GET: ThanhLy
-        public ActionResult Index(string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo, int? page)
+        public ActionResult Index(string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo, string sortOrder, int? page)
         {
             var thanhLy = db.ThanhLy.Include(t => t.Sach);
+
+
 
             if (maSach != null)
             {
                 thanhLy = from m in thanhLy
                           where m.Sach.SachID.Contains(maSach)
-                           select m;
+                          select m;
             }
             if (tenSach != null)
             {
                 thanhLy = from m in thanhLy
-                           where m.Sach.TenSach.Contains(tenSach)
-                           select m;
+                          where m.Sach.TenSach.Contains(tenSach)
+                          select m;
             }
             if (ngayFrom != null)// && ngayMuonTo != null)
             {
@@ -37,7 +39,7 @@ namespace LibraryManagementSystem.Controllers
 
                 thanhLy = from m in thanhLy
                           where m.Ngay >= ngayFrom
-                           select m;
+                          select m;
             }
             if (ngayTo != null)
             {
@@ -45,18 +47,62 @@ namespace LibraryManagementSystem.Controllers
                 ngayTo = CNCFClass.GoToEndOfDay(ngayTo.Value);
                 thanhLy = from m in thanhLy
                           where m.Ngay <= ngayTo
-                           select m;
+                          select m;
             }
 
-            thanhLy = from t in thanhLy
-                      orderby t.Ngay descending
-                      select t;
+            ViewBag.sortMaSach = "maSach_ascending";
+            ViewBag.sortTenSach = "tenSach_ascending";
+            ViewBag.sortChuDe = "chuDe_ascending";
+            ViewBag.sortNgay = "ngay_ascending";
+
+            switch (sortOrder)
+            {
+                case "maSach_ascending":
+                    thanhLy = thanhLy.OrderBy(t => t.Sach.SachID);
+                    ViewBag.sortMaSach = "maSach_descending";
+                    break;
+
+                case "tenSach_ascending":
+                    thanhLy = thanhLy.OrderBy(t => t.Sach.TenSach);
+                    ViewBag.sortTenSach = "tenSach_descending";
+                    break;
+                case "chuDe_ascending":
+                    thanhLy = thanhLy.OrderBy(t => t.Sach.ChuDe.TenChuDe);
+                    ViewBag.sortChuDe = "chuDe_descending";
+                    break;
+                case "ngay_ascending":
+                    thanhLy = thanhLy.OrderBy(t => t.Ngay);
+                    ViewBag.sortNgay = "ngay_descending";
+                    break;
+                ////////////////////////////////////////////////////////////
+                case "maSach_descending":
+                    thanhLy = thanhLy.OrderByDescending(t => t.Sach.SachID);
+                    ViewBag.sortMaSach = "maSach_ascending";
+                    break;
+                case "tenSach_descending":
+                    thanhLy = thanhLy.OrderByDescending(t => t.Sach.TenSach);
+                    ViewBag.sortTenSach = "tenSach_ascending";
+                    break;
+                case "chuDe_descending":
+                    thanhLy = thanhLy.OrderByDescending(t => t.Sach.ChuDe.TenChuDe);
+                    ViewBag.sortChuDe = "chuDe_ascending";
+                    break;
+                case "ngay_descending":
+                    thanhLy = thanhLy.OrderByDescending(t => t.Ngay);
+                    ViewBag.sortNgay = "ngay_ascending";
+                    break;
+                default:
+                    thanhLy = thanhLy.OrderByDescending(t => t.Ngay);
+                    ViewBag.sortNgay = "ngay_descending";
+                    break;
+            }
 
             // lưu dữ liệu search hiện tại
             ViewBag.CurrentMaSach = maSach;
             ViewBag.CurrentTenSach = tenSach;
             ViewBag.CurrentNgayFrom = ngayFrom;
             ViewBag.CurrentNgayTo = ngayTo;
+            ViewBag.CurrentSort = sortOrder;
 
             // setup page
             int pageSize = 50; // số dòng trong 1 trang
@@ -89,7 +135,7 @@ namespace LibraryManagementSystem.Controllers
         // GET: ThanhLy/Create
         public ActionResult Create(string b)
         {
-            if(b != null)
+            if (b != null)
             {
                 var ds = db.Sach.Where(s => s.TrangThai == TrangThai.CoSan);
                 ds = ds.Where(s => s.TenSach.Contains(b));
@@ -103,7 +149,7 @@ namespace LibraryManagementSystem.Controllers
                     TempData["Message_Fa"] = "Không có sách tên " + b;
                 }
 
-                
+
             }
 
             return View();

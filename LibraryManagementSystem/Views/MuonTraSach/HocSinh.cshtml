@@ -117,16 +117,52 @@
                 </tr>
                 @foreach (var item in ViewBag.SachDangMuon)
                 {
-                    string _class = "";
-                    if(item.HanTra.Date < DateTime.Now.Date)
-                    {
-                        _class = "danger";
-                    }
-                    else if (item.HanTra.Date == DateTime.Now.Date)
-                    {
-                        _class = "warning";
-                    }
-                    <tr class="@_class">
+                    <tr>
+                        <td>
+                            @item.Sach.SachID
+                        </td>
+                        <td>
+                            @item.Sach.TenSach
+                        </td>
+                        <td>
+                            @item.NgayMuon.ToShortDateString()
+                        </td>
+                        <td>
+                            @item.HanTra.ToShortDateString()
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("Trả Sách", "TraSach", "MuonTraSach", new { id = item.ID }, null)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
+    @if (ViewBag.SachQuaHan != null)
+    {
+        <br />
+        <h3>Sách Qúa Hạn</h3>
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>
+                        Mã Sách
+                    </th>
+                    <th>
+                        Tên Sách
+                    </th>
+                    <th>
+                        Ngày Mượn
+                    </th>
+                    <th>
+                        Hạn Trả
+                    </th>
+                    <th></th>
+                </tr>
+                @foreach (var item in ViewBag.SachQuaHan)
+                {
+                    <tr>
                         <td>
                             @item.Sach.SachID
                         </td>

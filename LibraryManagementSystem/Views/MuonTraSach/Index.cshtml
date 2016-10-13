@@ -18,33 +18,48 @@
 <div>
     @using (Html.BeginForm("Index", "MuonTraSach", FormMethod.Get))
     {
-        <div class="form-inline" role="form">
-            <div>
-                <input id="lopHS" name="lopHS" type="text" class="form-control" placeholder="Tìm Lớp">
+        <div class="row">
+            <div class="col-md-3">
+                <div>
+                    <input id="lopHS" name="lopHS" type="text" class="form-control" placeholder="Tìm Lớp">
+                </div>
+                <div>
+                    <input id="tenHS" name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh">
+                </div>
             </div>
-            <div>
-                <input id="tenHS" name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh">
+            <div class="col-md-3">
+                <div>
+                    <input id="maSach" name="maSach" type="text" class="form-control" placeholder="Tìm Mã Sách">
+                </div>
+                <div>
+                    <input id="tenSach" name="tenSach" type="text" class="form-control" placeholder="Tìm Tên Sách">
+                </div>
             </div>
-            <div>
-                <input id="maSach" name="maSach" type="text" class="form-control" placeholder="Tìm Mã Sách">
+            <div class="col-md-3">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label>ngày mượn</label>
+                        <input name="ngayFrom" type="date" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>đến ngày</label>
+                        <input name="ngayTo" type="date" class="form-control" />
+                    </div>
+                </div>
             </div>
-            <div>
-                <input id="tenSach" name="tenSach" type="text" class="form-control" placeholder="Tìm Tên Sách">
-            </div>
-            <div>
-                <label>ngày mượn</label>
-                <input name="ngayFrom" type="date" class="form-control" />
-                <label>đến ngày</label>
-                <input name="ngayTo" type="date" class="form-control" />
-            </div>
-            <div>
-                <select name="type" class="form-control">
-                    <option value="0">Sách Đang Mượn</option>
-                    <option value="1">Sách Quá Hạn</option>
-                </select>
-            </div>
-            <div>
-                <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+            <div class="col-md-3">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <select name="type" class="form-control">
+                            <option value="0">Sách Đang Mượn</option>
+                            <option value="1">Sách Cần Trả Hôm Nay</option>
+                            <option value="2">Sách Quá Hạn</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default col-md-6">Tìm</button>
+                    </div>
+                </div>
             </div>
         </div>
     }
@@ -54,26 +69,86 @@
 <br />
 
 <div class="table-responsive">
-    <table class="table">
+    <table class="table table-hover" ">
 
         <tr>
             <th>
-                Lớp
+                @Html.ActionLink("Lớp", "Index", new
+           {
+               sortOrder = ViewBag.SortLop,
+               type = ViewBag.CurrentType,
+               lopHS = ViewBag.CurrentLopHS,
+               tenHS = ViewBag.CurrentTenHS,
+               maSach = ViewBag.CurrentMaSach,
+               tenSach = ViewBag.CurrentTenSach,
+               ngayFrom = ViewBag.CurrentNgayFrom,
+               ngayTo = ViewBag.CurrentNgayTo,
+           })
             </th>
             <th>
-                Tên Học Sinh
+                @Html.ActionLink("Tên Học Sinh", "Index", new
+           {
+               sortOrder = ViewBag.SortTenHS,
+               type = ViewBag.CurrentType,
+               lopHS = ViewBag.CurrentLopHS,
+               tenHS = ViewBag.CurrentTenHS,
+               maSach = ViewBag.CurrentMaSach,
+               tenSach = ViewBag.CurrentTenSach,
+               ngayFrom = ViewBag.CurrentNgayFrom,
+               ngayTo = ViewBag.CurrentNgayTo,
+           })
             </th>
             <th>
-                Ngày Sinh
+                @Html.ActionLink("Ngày Sinh", "Index", new
+           {
+               sortOrder = ViewBag.SortNgaySinh,
+               type = ViewBag.CurrentType,
+               lopHS = ViewBag.CurrentLopHS,
+               tenHS = ViewBag.CurrentTenHS,
+               maSach = ViewBag.CurrentMaSach,
+               tenSach = ViewBag.CurrentTenSach,
+               ngayFrom = ViewBag.CurrentNgayFrom,
+               ngayTo = ViewBag.CurrentNgayTo,
+           })
             </th>
             <th>
-                Tên sách
+                @Html.ActionLink("Tên sách", "Index", new
+           {
+               sortOrder = ViewBag.SortTenSach,
+               type = ViewBag.CurrentType,
+               lopHS = ViewBag.CurrentLopHS,
+               tenHS = ViewBag.CurrentTenHS,
+               maSach = ViewBag.CurrentMaSach,
+               tenSach = ViewBag.CurrentTenSach,
+               ngayFrom = ViewBag.CurrentNgayFrom,
+               ngayTo = ViewBag.CurrentNgayTo,
+           })
             </th>
             <th>
-                Ngày mượn
+                @Html.ActionLink("Ngày mượn", "Index", new
+           {
+               sortOrder = ViewBag.SortNgayMuon,
+               type = ViewBag.CurrentType,
+               lopHS = ViewBag.CurrentLopHS,
+               tenHS = ViewBag.CurrentTenHS,
+               maSach = ViewBag.CurrentMaSach,
+               tenSach = ViewBag.CurrentTenSach,
+               ngayFrom = ViewBag.CurrentNgayFrom,
+               ngayTo = ViewBag.CurrentNgayTo,
+           })
             </th>
             <th>
-                Hạn trả
+                @Html.ActionLink("Hạn trả", "Index", new
+           {
+               sortOrder = ViewBag.SortHanTra,
+               type = ViewBag.CurrentType,
+               lopHS = ViewBag.CurrentLopHS,
+               tenHS = ViewBag.CurrentTenHS,
+               maSach = ViewBag.CurrentMaSach,
+               tenSach = ViewBag.CurrentTenSach,
+               ngayFrom = ViewBag.CurrentNgayFrom,
+               ngayTo = ViewBag.CurrentNgayTo,
+           })
             </th>
             <th>
             </th>
@@ -139,5 +214,6 @@ Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.Page
         maSach = ViewBag.CurrentMaSach,
         tenSach = ViewBag.CurrentTenSach,
         ngayFrom = ViewBag.CurrentNgayFrom,
-        ngayTo = ViewBag.CurrentNgayTo
+        ngayTo = ViewBag.CurrentNgayTo,
+        sortOrder = ViewBag.CurrentSort
     }))

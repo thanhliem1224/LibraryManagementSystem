@@ -17,69 +17,145 @@ namespace LibraryManagementSystem.Controllers
     {
         private CNCFContext db = new CNCFContext();
         private DateTime _end_day_now = CNCFClass.GoToEndOfDay(DateTime.Now);
+        private DateTime _endDayYesterday = CNCFClass.GoToEndOfDay(DateTime.Now.AddDays(-1));
+        private DateTime _beginDayNow = CNCFClass.GoToBeginOfDay(DateTime.Now);
 
         // GET: MuonTraSach
-        public ActionResult Index(string lopHS, string tenHS, string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo, int? type, int? page)
+        public ActionResult Index(string lopHS, string tenHS, string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo, string sortOrder, int? type, int? page)
         {
-            var muonsach = db.MuonTraSach.Include(m => m.HocSinh).Include(m => m.Sach).Where(m => m.NgayTra == null);
-
+            var muonTraSach = db.MuonTraSach.Include(m => m.HocSinh).Include(m => m.Sach).Where(m => m.NgayTra == null);
+            #region Search
             if (lopHS != null)
             {
-                muonsach = from m in muonsach
-                           where m.HocSinh.Lop.Contains(lopHS)
-                           select m;
+                muonTraSach = from m in muonTraSach
+                              where m.HocSinh.Lop.Contains(lopHS)
+                              select m;
             }
             if (tenHS != null)
             {
-                muonsach = from m in muonsach
-                           where m.HocSinh.TenHS.Contains(tenHS)
-                           select m;
+                muonTraSach = from m in muonTraSach
+                              where m.HocSinh.TenHS.Contains(tenHS)
+                              select m;
             }
             if (maSach != null)
             {
-                muonsach = from m in muonsach
-                           where m.Sach.SachID.Contains(maSach)
-                           select m;
+                muonTraSach = from m in muonTraSach
+                              where m.Sach.SachID.Contains(maSach)
+                              select m;
             }
             if (tenSach != null)
             {
-                muonsach = from m in muonsach
-                           where m.Sach.TenSach.Contains(tenSach)
-                           select m;
+                muonTraSach = from m in muonTraSach
+                              where m.Sach.TenSach.Contains(tenSach)
+                              select m;
             }
             if (ngayFrom != null)// && ngayMuonTo != null)
             {
-                // chỉnh lại ngày
+                // chỉnh lại đầu ngày
                 ngayFrom = CNCFClass.GoToBeginOfDay(ngayFrom.Value);
-                muonsach = from m in muonsach
-                           where m.NgayMuon >= ngayFrom
-                           select m;
+                muonTraSach = from m in muonTraSach
+                              where m.NgayMuon >= ngayFrom
+                              select m;
             }
             if (ngayTo != null)
             {
-                // chỉnh lại ngày
+                // chỉnh lại cuối ngày
                 ngayTo = CNCFClass.GoToEndOfDay(ngayTo.Value);
-                muonsach = from m in muonsach
-                           where m.NgayMuon <= ngayTo
-                           select m;
+                muonTraSach = from m in muonTraSach
+                              where m.NgayMuon <= ngayTo
+                              select m;
             }
-            if (type == 1) // nếu loại là 1: mượn sách quá hạn
-            {
-                // muonsach.Where(m => m.HanTra <= _end_day_now);
-                muonsach = from m in muonsach
-                           where m.HanTra <= _end_day_now
-                           select m;
-                TempData["Title"] = "Danh Sách Học Sinh Mượn Sách Quá Hạn";
-            }
-            if (type == 0 || type == null) // nếu loại là 1: sách đang mượn
+            if (type == 0 || type == null) // nếu loại là 0: sách đang mượn
             {
                 TempData["Title"] = "Danh Sách Học Sinh Đang Mượn Sách";
             }
+            if (type == 1) // nếu loại là 1: sách cần trả hôm nay
+            {
 
-            muonsach = from m in muonsach
-                       orderby m.NgayMuon
-                       select m;
+                muonTraSach = from m in muonTraSach
+                              where m.HanTra >= _beginDayNow && m.HanTra <= _end_day_now
+                              select m;
 
+                TempData["Title"] = "Danh Sách Học Sinh Cần Trả Sách Hôm Nay";
+            }
+            if (type == 2) // nếu loại là 2: mượn sách quá hạn
+            {
+                // muonTraSach.Where(m => m.HanTra <= _end_day_now);
+                muonTraSach = from m in muonTraSach
+                              where m.HanTra <= _endDayYesterday
+                              select m;
+                TempData["Title"] = "Danh Sách Học Sinh Mượn Sách Quá Hạn";
+            }
+
+            #endregion
+            #region Sort
+            ViewBag.sortLop = "lop_ascending";
+            ViewBag.sortTenHS = "tenHS_ascending";
+            ViewBag.sortNgaySinh = "ngaySinh_ascending";
+            ViewBag.sortTenSach = "tenSach_ascending";
+            ViewBag.sortNgayMuon = "ngayMuon_ascending";
+            ViewBag.sortHanTra = "hanTra_ascending";
+
+            switch (sortOrder)
+            {
+                case "lop_ascending":
+                    muonTraSach = muonTraSach.OrderBy(m => m.HocSinh.Lop);
+                    ViewBag.sortLop = "lop_descending";
+                    break;
+                case "tenHS_ascending":
+                    muonTraSach = muonTraSach.OrderBy(m => m.HocSinh.TenHS);
+                    ViewBag.sortTenHS = "tenHS_descending";
+                    break;
+                case "ngaySinh_ascending":
+                    muonTraSach = muonTraSach.OrderBy(m => m.HocSinh.NgaySinh);
+                    ViewBag.sortNgaySinh = "ngaySinh_descending";
+                    break;
+                case "tenSach_ascending":
+                    muonTraSach = muonTraSach.OrderBy(m => m.Sach.TenSach);
+                    ViewBag.sortTenSach = "tenSach_descending";
+                    break;
+                case "ngayMuon_ascending":
+                    muonTraSach = muonTraSach.OrderBy(m => m.NgayMuon);
+                    ViewBag.sortNgayMuon = "ngayMuon_descending";
+                    break;
+                case "hanTra_ascending":
+                    muonTraSach = muonTraSach.OrderBy(m => m.HanTra);
+                    ViewBag.sortHanTra = "hanTra_descending";
+                    break;
+
+                //////////////////////////////////////////////////////////
+                case "lop_descending":
+                    muonTraSach = muonTraSach.OrderByDescending(m => m.HocSinh.Lop);
+                    ViewBag.sortLop = "lop_ascending";
+                    break;
+                case "tenHS_descending":
+                    muonTraSach = muonTraSach.OrderByDescending(m => m.HocSinh.TenHS);
+                    ViewBag.sortTenHS = "tenHS_ascending";
+                    break;
+                case "ngaySinh_descending":
+                    muonTraSach = muonTraSach.OrderByDescending(m => m.HocSinh.NgaySinh);
+                    ViewBag.sortNgaySinh = "ngaySinh_ascending";
+                    break;
+                case "tenSach_descending":
+                    muonTraSach = muonTraSach.OrderByDescending(m => m.Sach.TenSach);
+                    ViewBag.sortTenSach = "tenSach_ascending";
+                    break;
+                case "ngayMuon_descending":
+                    muonTraSach = muonTraSach.OrderByDescending(m => m.NgayMuon);
+                    ViewBag.sortNgayMuon = "ngayMuon_ascending";
+                    break;
+                case "hanTra_descending":
+                    muonTraSach = muonTraSach.OrderByDescending(m => m.HanTra);
+                    ViewBag.sortHanTra = "hanTra_ascending";
+                    break;
+                default:
+                    muonTraSach = muonTraSach.OrderByDescending(m => m.NgayMuon);
+                    ViewBag.sortNgayMuon = "ngayMuon_ascending";
+                    break;
+
+            }
+            #endregion
+            #region Page
             // lưu dữ liệu search hiện tại
             ViewBag.CurrentLopHS = lopHS;
             ViewBag.CurrentTenHS = tenHS;
@@ -88,14 +164,15 @@ namespace LibraryManagementSystem.Controllers
             ViewBag.CurrentNgayFrom = ngayFrom;
             ViewBag.CurrentNgayTo = ngayTo;
             ViewBag.CurrentType = type;
+            ViewBag.CurrentSort = sortOrder;
 
             // setup page
             int pageSize = 50; // số dòng trong 1 trang
             int pageNumber = (page ?? 1);
-
-            return View(muonsach.ToPagedList(pageNumber, pageSize));
+            #endregion
+            return View(muonTraSach.ToPagedList(pageNumber, pageSize));
         }
-        public ActionResult LichSu(string lopHS, string tenHS, string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo, int? page)
+        public ActionResult LichSu(string lopHS, string tenHS, string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo, string sortOrder, int? page)
         {
             var muonTraSach = db.MuonTraSach.Include(m => m.HocSinh).Include(m => m.Sach);
 
@@ -139,9 +216,82 @@ namespace LibraryManagementSystem.Controllers
                               where m.NgayMuon <= ngayTo
                               select m;
             }
-            muonTraSach = from m in muonTraSach
-                          orderby m.NgayMuon descending
-                          select m;
+
+            #region Sort
+            ViewBag.sortLop = "lop_ascending";
+            ViewBag.sortTenHS = "tenHS_ascending";
+            ViewBag.sortNgaySinh = "ngaySinh_ascending";
+            ViewBag.sortTenSach = "tenSach_ascending";
+            ViewBag.sortNgayMuon = "ngayMuon_ascending";
+            ViewBag.sortHanTra = "hanTra_ascending";
+            ViewBag.sortNgayTra = "ngayTra_ascending";
+
+            switch (sortOrder)
+            {
+                case "lop_ascending":
+                    muonTraSach = muonTraSach.OrderBy(m => m.HocSinh.Lop);
+                    ViewBag.sortLop = "lop_descending";
+                    break;
+                case "tenHS_ascending":
+                    muonTraSach = muonTraSach.OrderBy(m => m.HocSinh.TenHS);
+                    ViewBag.sortTenHS = "tenHS_descending";
+                    break;
+                case "ngaySinh_ascending":
+                    muonTraSach = muonTraSach.OrderBy(m => m.HocSinh.NgaySinh);
+                    ViewBag.sortNgaySinh = "ngaySinh_descending";
+                    break;
+                case "tenSach_ascending":
+                    muonTraSach = muonTraSach.OrderBy(m => m.Sach.TenSach);
+                    ViewBag.sortTenSach = "tenSach_descending";
+                    break;
+                case "ngayMuon_ascending":
+                    muonTraSach = muonTraSach.OrderBy(m => m.NgayMuon);
+                    ViewBag.sortNgayMuon = "ngayMuon_descending";
+                    break;
+                case "hanTra_ascending":
+                    muonTraSach = muonTraSach.OrderBy(m => m.HanTra);
+                    ViewBag.sortHanTra = "hanTra_descending";
+                    break;
+                case "ngayTra_ascending":
+                    muonTraSach = muonTraSach.OrderBy(m => m.NgayTra);
+                    ViewBag.sortNgayTra = "ngayTra_descending";
+                    break;
+
+                //////////////////////////////////////////////////////////
+                case "lop_descending":
+                    muonTraSach = muonTraSach.OrderByDescending(m => m.HocSinh.Lop);
+                    ViewBag.sortLop = "lop_ascending";
+                    break;
+                case "tenHS_descending":
+                    muonTraSach = muonTraSach.OrderByDescending(m => m.HocSinh.TenHS);
+                    ViewBag.sortTenHS = "tenHS_ascending";
+                    break;
+                case "ngaySinh_descending":
+                    muonTraSach = muonTraSach.OrderByDescending(m => m.HocSinh.NgaySinh);
+                    ViewBag.sortNgaySinh = "ngaySinh_ascending";
+                    break;
+                case "tenSach_descending":
+                    muonTraSach = muonTraSach.OrderByDescending(m => m.Sach.TenSach);
+                    ViewBag.sortTenSach = "tenSach_ascending";
+                    break;
+                case "ngayMuon_descending":
+                    muonTraSach = muonTraSach.OrderByDescending(m => m.NgayMuon);
+                    ViewBag.sortNgayMuon = "ngayMuon_ascending";
+                    break;
+                case "hanTra_descending":
+                    muonTraSach = muonTraSach.OrderByDescending(m => m.HanTra);
+                    ViewBag.sortHanTra = "hanTra_ascending";
+                    break;
+                case "ngayTra_descending":
+                    muonTraSach = muonTraSach.OrderByDescending(m => m.NgayTra);
+                    ViewBag.sortNgayTra = "ngayTra_ascending";
+                    break;
+                default:
+                    muonTraSach = muonTraSach.OrderByDescending(m => m.NgayMuon);
+                    ViewBag.sortNgayMuon = "ngayMuon_ascending";
+                    break;
+            }
+            #endregion
 
             // lưu dữ liệu search hiện tại
             ViewBag.CurrentLopHS = lopHS;
@@ -150,6 +300,7 @@ namespace LibraryManagementSystem.Controllers
             ViewBag.CurrentTenSach = tenSach;
             ViewBag.CurrentNgayFrom = ngayFrom;
             ViewBag.CurrentNgayTo = ngayTo;
+            ViewBag.CurrentSort = sortOrder;
 
             // setup page
             int pageSize = 50; // số dòng trong 1 trang
@@ -180,7 +331,8 @@ namespace LibraryManagementSystem.Controllers
                 return HttpNotFound();
             }
 
-            var sachdangmuon = db.MuonTraSach.Where(m => m.HocSinhID == id).Where(m => m.NgayTra == null);
+            var sachdangmuon = db.MuonTraSach.Where(m => m.HocSinhID == id).Where(m => m.NgayTra == null).Where(m => m.HanTra >= _beginDayNow);
+            var sachquahan = db.MuonTraSach.Where(m => m.HocSinhID == id).Where(m => m.NgayTra == null).Where(m => m.HanTra <= _endDayYesterday);
             var sachdamuon = db.MuonTraSach.Where(m => m.HocSinhID == id).Where(m => m.NgayTra != null);
             var sachmat = sachdamuon.Where(m => m.Mat == true);
 
@@ -203,6 +355,10 @@ namespace LibraryManagementSystem.Controllers
             if (sachdangmuon.Count() > 0)
             {
                 ViewBag.SachDangMuon = sachdangmuon;
+            }
+            if (sachquahan.Count() > 0)
+            {
+                ViewBag.SachQuaHan = sachquahan;
             }
             if (sachdamuon.Count() > 0)
             {

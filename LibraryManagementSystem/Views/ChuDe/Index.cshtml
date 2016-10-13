@@ -1,17 +1,14 @@
 ﻿@model IEnumerable<LibraryManagementSystem.Models.ChuDe>
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="text-center">
     <h2>Danh Sách Chủ Đề</h2>
 </div>
 <br />
 <div class="row">
     <div class="col-md-8">
-
     </div>
     <div class="col-md-4 text-right">
         <div>
@@ -21,27 +18,33 @@
 </div>
 <br />
 <div class="table-responsive">
-    <table class="table">
+    <table class="table table-hover">
         <tr>
             <th>
-                Mã chủ đề
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TenChuDe)
+                @Html.ActionLink("Tên Chủ Đề", "Index", new
+           {
+               sortOrder = ViewBag.SortTen
+           })
             </th>
         </tr>
-
         @foreach (var item in Model)
         {
-            <tr>
+            string url = "ChuDe/Edit/" + item.ID;
+
+            <tr class='clickable-row' data-href='@url'>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ID)
-                </td>
-                <td>
-                    @Html.ActionLink(item.TenChuDe, "Edit", new { id = item.ID })
+                    @Html.DisplayFor(modelItem => item.TenChuDe)
                 </td>
             </tr>
         }
-
     </table>
 </div>
+@section Scripts{
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.document.location = $(this).data("href");
+            });
+        });
+    </script>
+}

@@ -33,20 +33,37 @@
     <table class="table table-hover">
         <tr>
             <th>
-                @Html.ActionLink("Tên học sinh", "Index", new { sortOrder = ViewBag.sorTen })
+                @Html.ActionLink("Tên học sinh", "Index", new
+           {
+               sortOrder = ViewBag.sortTenHS,
+               lopHS = ViewBag.CurrentLopHS,
+               tenHS = ViewBag.CurrentTenHS,
+           })
             </th>
             <th>
-                @Html.ActionLink("Lớp", "Index", new { sortOrder = ViewBag.sortLop })
+                @Html.ActionLink("Lớp", "Index", new
+           {
+               sortOrder = ViewBag.sortLop,
+               lopHS = ViewBag.CurrentLopHS,
+               tenHS = ViewBag.CurrentTenHS,
+           })
             </th>
             <th>
-                Ngày Sinh
+                @Html.ActionLink("Ngày Sinh", "Index", new
+           {
+               sortOrder = ViewBag.sortNgaySinh,
+               lopHS = ViewBag.CurrentLopHS,
+               tenHS = ViewBag.CurrentTenHS,
+           })
             </th>
         </tr>
         @foreach (var item in Model)
         {
-            <tr>
+            string url = "HocSinh/Edit/" + item.ID;
+
+            <tr class='clickable-row' data-href='@url'>
                 <td>
-                    @Html.ActionLink(@item.TenHS, "Edit", new { id = item.ID }) 
+                    @Html.DisplayFor(modelItem => item.TenHS)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Lop)
@@ -62,4 +79,20 @@
 Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, lopHS = ViewBag.CurrentLopHS, tenHS = ViewBag.CurrentTenHS }))
+    new
+    {
+        page,
+        lopHS = ViewBag.CurrentLopHS,
+        tenHS = ViewBag.CurrentTenHS,
+        sortOrder = ViewBag.CurrentSort
+    }))
+
+@section Scripts{
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.document.location = $(this).data("href");
+            });
+        });
+    </script>
+}

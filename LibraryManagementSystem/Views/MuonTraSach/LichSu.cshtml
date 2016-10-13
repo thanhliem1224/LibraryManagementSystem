@@ -45,28 +45,98 @@
 </div>
 <br />
 <div class="table-responsive">
-    <table class="table">
+    <table class="table table-hover"">
         <tr>
             <th>
-                Lớp
+                @Html.ActionLink("Lớp", "LichSu", new
+           {
+               sortOrder = ViewBag.SortLop,
+               type = ViewBag.CurrentType,
+               lopHS = ViewBag.CurrentLopHS,
+               tenHS = ViewBag.CurrentTenHS,
+               maSach = ViewBag.CurrentMaSach,
+               tenSach = ViewBag.CurrentTenSach,
+               ngayFrom = ViewBag.CurrentNgayFrom,
+               ngayTo = ViewBag.CurrentNgayTo,
+           })
             </th>
             <th>
-                Tên Học Sinh
+                @Html.ActionLink("Tên Học Sinh", "LichSu", new
+           {
+               sortOrder = ViewBag.SortTenHS,
+               type = ViewBag.CurrentType,
+               lopHS = ViewBag.CurrentLopHS,
+               tenHS = ViewBag.CurrentTenHS,
+               maSach = ViewBag.CurrentMaSach,
+               tenSach = ViewBag.CurrentTenSach,
+               ngayFrom = ViewBag.CurrentNgayFrom,
+               ngayTo = ViewBag.CurrentNgayTo,
+           })
             </th>
             <th>
-                Ngày Sinh
+                @Html.ActionLink("Ngày Sinh", "LichSu", new
+           {
+               sortOrder = ViewBag.SortNgaySinh,
+               type = ViewBag.CurrentType,
+               lopHS = ViewBag.CurrentLopHS,
+               tenHS = ViewBag.CurrentTenHS,
+               maSach = ViewBag.CurrentMaSach,
+               tenSach = ViewBag.CurrentTenSach,
+               ngayFrom = ViewBag.CurrentNgayFrom,
+               ngayTo = ViewBag.CurrentNgayTo,
+           })
             </th>
             <th>
-                Tên Sách
+                @Html.ActionLink("Tên sách", "LichSu", new
+           {
+               sortOrder = ViewBag.SortTenSach,
+               type = ViewBag.CurrentType,
+               lopHS = ViewBag.CurrentLopHS,
+               tenHS = ViewBag.CurrentTenHS,
+               maSach = ViewBag.CurrentMaSach,
+               tenSach = ViewBag.CurrentTenSach,
+               ngayFrom = ViewBag.CurrentNgayFrom,
+               ngayTo = ViewBag.CurrentNgayTo,
+           })
             </th>
             <th>
-                Ngày Mượn
+                @Html.ActionLink("Ngày mượn", "LichSu", new
+           {
+               sortOrder = ViewBag.SortNgayMuon,
+               type = ViewBag.CurrentType,
+               lopHS = ViewBag.CurrentLopHS,
+               tenHS = ViewBag.CurrentTenHS,
+               maSach = ViewBag.CurrentMaSach,
+               tenSach = ViewBag.CurrentTenSach,
+               ngayFrom = ViewBag.CurrentNgayFrom,
+               ngayTo = ViewBag.CurrentNgayTo,
+           })
             </th>
             <th>
-                Hạn Trả
+                @Html.ActionLink("Hạn trả", "LichSu", new
+           {
+               sortOrder = ViewBag.SortHanTra,
+               type = ViewBag.CurrentType,
+               lopHS = ViewBag.CurrentLopHS,
+               tenHS = ViewBag.CurrentTenHS,
+               maSach = ViewBag.CurrentMaSach,
+               tenSach = ViewBag.CurrentTenSach,
+               ngayFrom = ViewBag.CurrentNgayFrom,
+               ngayTo = ViewBag.CurrentNgayTo,
+           })
             </th>
             <th>
-                Ngày Trả
+                @Html.ActionLink("Ngày trả", "LichSu", new
+           {
+               sortOrder = ViewBag.SortNgayTra,
+               type = ViewBag.CurrentType,
+               lopHS = ViewBag.CurrentLopHS,
+               tenHS = ViewBag.CurrentTenHS,
+               maSach = ViewBag.CurrentMaSach,
+               tenSach = ViewBag.CurrentTenSach,
+               ngayFrom = ViewBag.CurrentNgayFrom,
+               ngayTo = ViewBag.CurrentNgayTo,
+           })
             </th>
         </tr>
         @foreach (var item in Model)
@@ -109,5 +179,6 @@ Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.Page
         maSach = ViewBag.CurrentMaSach,
         tenSach = ViewBag.CurrentTenSach,
         ngayFrom = ViewBag.CurrentNgayFrom,
-        ngayTo = ViewBag.CurrentNgayTo
+        ngayTo = ViewBag.CurrentNgayTo,
+        sortOrder = ViewBag.CurrentSort
     }))

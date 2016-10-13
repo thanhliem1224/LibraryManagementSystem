@@ -13,24 +13,31 @@ namespace LibraryManagementSystem.Controllers
     public class DocSachController : Controller
     {
         private CNCFContext db = new CNCFContext();
-
+        private static int _PageSize = 50;
+        [Authorize]
+        [HttpPost]
+        public ActionResult SetPageSize(int pageSize)
+        {
+            _PageSize = pageSize;
+            return RedirectToAction("Index");
+        }
         // GET: DocSach
         [Authorize]
-        public ActionResult Index(string lopHS, string tenHS, DateTime? ngayFrom, DateTime? ngayTo, int? page)
+        public ActionResult Index(string lopHS, string tenHS, DateTime? ngayFrom, DateTime? ngayTo, string sortOrder, int? page)
         {
             var docSachTaiCho = db.DocSachTaiCho.Include(d => d.HocSinh);
-            
+
             if (lopHS != null)
             {
                 docSachTaiCho = from d in docSachTaiCho
                                 where d.HocSinh.Lop.Contains(lopHS)
-                              select d;
+                                select d;
             }
             if (tenHS != null)
             {
                 docSachTaiCho = from d in docSachTaiCho
                                 where d.HocSinh.TenHS.Contains(tenHS)
-                              select d;
+                                select d;
             }
             if (ngayFrom != null)
             {
@@ -46,29 +53,74 @@ namespace LibraryManagementSystem.Controllers
                 ngayTo = CNCFClass.GoToEndOfDay(ngayTo.Value);
                 docSachTaiCho = from d in docSachTaiCho
                                 where d.Ngay <= ngayTo
-                              select d;
+                                select d;
             }
 
-            // sắp xếp theo ngày giảm dần
-            docSachTaiCho = from d in docSachTaiCho
-                            orderby d.Ngay descending
-                            select d;
+            #region Sort
+            ViewBag.sortLop = "lop_ascending";
+            ViewBag.sortTenHS = "tenHS_ascending";
+            ViewBag.sortNgaySinh = "ngaySinh_ascending";
+            ViewBag.sortNgay = "ngay_ascending";
 
+            switch (sortOrder)
+            {
+                case "lop_ascending":
+                    docSachTaiCho = docSachTaiCho.OrderBy(d => d.HocSinh.Lop);
+                    ViewBag.sortLop = "lop_descending";
+                    break;
+                case "tenHS_ascending":
+                    docSachTaiCho = docSachTaiCho.OrderBy(d => d.HocSinh.TenHS);
+                    ViewBag.sortTenHS = "tenHS_descending";
+                    break;
+                case "ngaySinh_ascending":
+                    docSachTaiCho = docSachTaiCho.OrderBy(d => d.HocSinh.NgaySinh);
+                    ViewBag.sortNgaySinh = "ngaySinh_descending";
+                    break;
+                case "ngay_ascending":
+                    docSachTaiCho = docSachTaiCho.OrderBy(d => d.Ngay);
+                    ViewBag.sortNgay = "ngay_descending";
+                    break;
+
+                //////////////////////////////////////////////////////////
+                case "lop_descending":
+                    docSachTaiCho = docSachTaiCho.OrderByDescending(m => m.HocSinh.Lop);
+                    ViewBag.sortLop = "lop_ascending";
+                    break;
+                case "tenHS_descending":
+                    docSachTaiCho = docSachTaiCho.OrderByDescending(m => m.HocSinh.TenHS);
+                    ViewBag.sortTenHS = "tenHS_ascending";
+                    break;
+                case "ngaySinh_descending":
+                    docSachTaiCho = docSachTaiCho.OrderByDescending(m => m.HocSinh.NgaySinh);
+                    ViewBag.sortNgaySinh = "ngaySinh_ascending";
+                    break;
+                case "ngay_descending":
+                    docSachTaiCho = docSachTaiCho.OrderByDescending(m => m.Ngay);
+                    ViewBag.sortNgay = "ngay_ascending";
+                    break;
+                default:
+                    docSachTaiCho = docSachTaiCho.OrderByDescending(m => m.Ngay);
+                    ViewBag.sortNgay = "ngay_ascending";
+                    break;
+
+            }
+            #endregion
+            #region Paged
             // lưu dữ liệu search hiện tại
             ViewBag.CurrentLopHS = lopHS;
             ViewBag.CurrentTenHS = tenHS;
             ViewBag.CurrentNgayFrom = ngayFrom;
             ViewBag.CurrentNgayTo = ngayTo;
-            
+            ViewBag.CurrentSort = sortOrder;
 
             // setup page
-            int pageSize = 50; // số dòng trong 1 trang
+            int pageSize = _PageSize; // số dòng trong 1 trang
             int pageNumber = (page ?? 1);
-
+            #endregion
             return View(docSachTaiCho.ToPagedList(pageNumber, pageSize));
         }
 
-        
+
 
         [HttpPost]
         [Authorize]
@@ -86,17 +138,17 @@ namespace LibraryManagementSystem.Controllers
             {
                 var ds = db.HocSinh.Select(hs => hs);
                 ds = db.HocSinh.Where(hs => hs.TenHS.Contains(s));
-                
+
                 if (ds.Count() > 0) // nếu có kết quả
                 {
                     ViewBag.HocSinhID = new SelectList(ds, "ID", "TenHS");
                 }
-                else 
+                else
                 {
                     TempData["Message_Fa"] = "Không tìm thấy học sinh tên \"" + s + "\"";
                 }
             }
-            
+
 
             ViewBag.DSDocSach = db.DocSachTaiCho.Where(dstc => dstc.Ngay.Day == DateTime.Now.Day && dstc.Ngay.Month == DateTime.Now.Month && dstc.Ngay.Year == DateTime.Now.Year).OrderByDescending(dstc => dstc.Ngay);
             return View();
@@ -117,7 +169,7 @@ namespace LibraryManagementSystem.Controllers
                     var kiemtra = from d in db.DocSachTaiCho   //.Where(d => d.HocSinhID == docSachTaiCho.HocSinhID).Where(d => d.Ngay.Day == DateTime.Now.Day && d.Ngay.Month == DateTime.Now.Month && d.Ngay.Year == DateTime.Now.Year);
                                   where d.HocSinhID == docSachTaiCho.HocSinhID && (d.Ngay.Day == DateTime.Now.Day && d.Ngay.Month == DateTime.Now.Month && d.Ngay.Year == DateTime.Now.Year)
                                   select d;
-                    if (kiemtra.Count()>0)
+                    if (kiemtra.Count() > 0)
                     {
                         string tenhs = db.HocSinh.Find(docSachTaiCho.HocSinhID).TenHS;
                         TempData["Message_Fa"] = "Học Sinh " + tenhs + " đã đọc sách hôm nay.";
@@ -144,7 +196,7 @@ namespace LibraryManagementSystem.Controllers
             ViewBag.HocSinhID = new SelectList(db.HocSinh, "ID", "TenHS", docSachTaiCho.HocSinhID);
             return View(docSachTaiCho);
         }
-        
+
         // GET: DocSach/Edit/5
         [Authorize]
         public ActionResult Edit(int? id)

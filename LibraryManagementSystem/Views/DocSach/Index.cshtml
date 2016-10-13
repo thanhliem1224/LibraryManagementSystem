@@ -18,71 +18,139 @@
 @using (Html.BeginForm("Index", "DocSach", FormMethod.Get))
 {
     <div class="form-inline" role="form">
-        <div>
-            <input id="lopHS" name="lopHS" type="text" class="form-control" placeholder="Tìm Lớp" value="@ViewBag.CurrentLopHS">
+        <div class="row">
+            <div class="col-md-5">
+                <div>
+                    <input id="lopHS" name="lopHS" type="text" class="form-control" placeholder="Tìm Lớp" value="@ViewBag.CurrentLopHS">
+                </div>
+                <div>
+                    <input id="tenHS" name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh" value="@ViewBag.CurrentTenHS">
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-horizontal">
+                    <div>
+                        <label class="col-md-1">Từ Ngày</label>
+                        <input name="ngayFrom" type="date" class="form-control" />
+                    </div>
+                    <div>
+                        <label class="col-md-1">Đến ngày</label>
+                        <input name="ngayTo" type="date" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button id="buttonSubmit" type="submit" class="btn btn-default">Tìm</button>
+            </div>
         </div>
-        <div>
-            <input id="tenHS" name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh" value="@ViewBag.CurrentTenHS">
-        </div>
-        <div>
-            <label>Sau ngày</label>
-            <input name="ngayFrom" type="date" class="form-control" />
-            <label>Trước ngày</label>
-            <input name="ngayTo" type="date" class="form-control" />
-        </div>
-        <div>
-            <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+    </div>
+}
+<br />
+@using (Html.BeginForm("SetPageSize", "DocSach", FormMethod.Post))
+{
+    <div class="row">
+        <div class="text-right">
+            <div>
+                <label>số dòng hiển thị trong 1 trang</label>
+            </div>
+            <div>
+                <select name="pageSize" onchange="this.form.submit()">
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="150">150</option>
+                    <option value="200">200</option>
+                </select>
+            </div>
         </div>
     </div>
 }
 <div class="table-responsive">
-    <table class="table">
-        @{
-            int count = 1; // đếm số thứ tự
-            <tr>
-                <th>
-                    #
-                </th>
-                <th>
-                    Lop
-                </th>
-                <th>
-                    Tên học sinh
-                </th>
-                <th>
-                    Ngày sinh
-                </th>
-                <th>
-                    Ngày 
-                </th>
-            </tr>
+    <table class="table table-hover">
+        <tr>
+            <th>
+                @Html.ActionLink("Lớp", "Index", new
+           {
+               sortOrder = ViewBag.sortLop,
+               lopHS = ViewBag.CurrentLopHS,
+               tenHS = ViewBag.CurrentTenHS,
+               ngayFrom = ViewBag.CurrentNgayFrom,
+               ngayTo = ViewBag.CurrentNgayTo
+           })
+            </th>
+            <th>
+                @Html.ActionLink("Tên học sinh", "Index", new
+           {
+               sortOrder = ViewBag.sortTenHS,
+               lopHS = ViewBag.CurrentLopHS,
+               tenHS = ViewBag.CurrentTenHS,
+               ngayFrom = ViewBag.CurrentNgayFrom,
+               ngayTo = ViewBag.CurrentNgayTo
+           })
+            </th>
+            <th>
+                @Html.ActionLink("Ngày sinh", "Index", new
+           {
+               sortOrder = ViewBag.sortNgaySinh,
+               lopHS = ViewBag.CurrentLopHS,
+               tenHS = ViewBag.CurrentTenHS,
+               ngayFrom = ViewBag.CurrentNgayFrom,
+               ngayTo = ViewBag.CurrentNgayTo
+           })
+            </th>
+            <th>
+                @Html.ActionLink("Ngày", "Index", new
+           {
+               sortOrder = ViewBag.sortNgay,
+               lopHS = ViewBag.CurrentLopHS,
+               tenHS = ViewBag.CurrentTenHS,
+               ngayFrom = ViewBag.CurrentNgayFrom,
+               ngayTo = ViewBag.CurrentNgayTo
+           })
+            </th>
+        </tr>
 
-            foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.ActionLink(count.ToString(), "Edit", new { id = item.ID })
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.HocSinh.Lop)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.HocSinh.TenHS)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.HocSinh.NgaySinh)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Ngay)
-                    </td>
-                </tr>
-                count++;
-            }
+        @foreach (var item in Model)
+        {
+            string url = "/DocSach/Edit/" + item.ID;
+
+            <tr class='clickable-row' data-href='@url'>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HocSinh.Lop)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HocSinh.TenHS)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HocSinh.NgaySinh)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ngay)
+                </td>
+            </tr>
         }
+
     </table>
 </div>
 <br />
 Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, lopHS = ViewBag.CurrentLopHS, tenHS = ViewBag.CurrentTenHS, ngayFrom = ViewBag.CurrentNgayFrom, ngayTo = ViewBag.CurrentNgayTo }))
+    new
+    {
+        page,
+        lopHS = ViewBag.CurrentLopHS,
+        tenHS = ViewBag.CurrentTenHS,
+        ngayFrom = ViewBag.CurrentNgayFrom,
+        ngayTo = ViewBag.CurrentNgayTo,
+        sortOrder = ViewBag.CurrentSort
+    }))
+@section Scripts{
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.document.location = $(this).data("href");
+            });
+        });
+    </script>
+}

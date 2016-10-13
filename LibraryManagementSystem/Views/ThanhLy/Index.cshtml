@@ -36,20 +36,48 @@
     </div>
 }
 <div class="table-responsive">
-    <table class="table">
+    <table class="table table-hover"">
 
         <tr>
             <th>
-                Mã Sách
+                @Html.ActionLink("Mã Sách", "index", new
+           {
+               sortOrder = ViewBag.sortMaSach,
+               maSach = ViewBag.CurrentMaSach,
+               tenSach = ViewBag.CurrentTenSach,
+               ngayFrom = ViewBag.CurrentNgayFrom,
+               ngayTo = ViewBag.CurrentNgayTo
+           })
             </th>
             <th>
-                Tên Sách
+                @Html.ActionLink("Tên Sách", "Index", new
+           {
+               sortOrder = ViewBag.sortTenSach,
+               maSach = ViewBag.CurrentMaSach,
+               tenSach = ViewBag.CurrentTenSach,
+               ngayFrom = ViewBag.CurrentNgayFrom,
+               ngayTo = ViewBag.CurrentNgayTo
+           })
             </th>
             <th>
-                Chủ Đề
+                @Html.ActionLink("Chủ Đề", "Index", new
+           {
+               sortOrder = ViewBag.sortChuDe,
+               maSach = ViewBag.CurrentMaSach,
+               tenSach = ViewBag.CurrentTenSach,
+               ngayFrom = ViewBag.CurrentNgayFrom,
+               ngayTo = ViewBag.CurrentNgayTo
+           })
             </th>
             <th>
-                Ngày Thanh Lý
+                @Html.ActionLink("Ngày Thanh Lý", "Index", new
+           {
+               sortOrder = ViewBag.sortNgay,
+               maSach = ViewBag.CurrentMaSach,
+               tenSach = ViewBag.CurrentTenSach,
+               ngayFrom = ViewBag.CurrentNgayFrom,
+               ngayTo = ViewBag.CurrentNgayTo
+           })
             </th>
             <th></th>
         </tr>
@@ -86,7 +114,7 @@ Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.Page
         page,
         maSach = ViewBag.CurrentMaSach,
         tenSach = ViewBag.CurrentTenSach,
-
+        sortOrder = ViewBag.CurrentSort,
         ngayFrom = ViewBag.CurrentNgayFrom,
         ngayTo = ViewBag.CurrentNgayTo
     }))

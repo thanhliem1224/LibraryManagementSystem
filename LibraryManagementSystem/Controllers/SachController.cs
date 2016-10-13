@@ -47,47 +47,57 @@ namespace LibraryManagementSystem.Controllers
             ViewBag.chuDeSach = new SelectList(chude_list);
             //Kết thúc tìm theo chủ đề
 
-            /*
-            ViewBag.sorTen = string.IsNullOrEmpty(sortOrder) ? "name_incr" : "name_desc";
-            ViewBag.sortID = string.IsNullOrEmpty(sortOrder) ? "id_incr" : "id_desc";
-            ViewBag.sortChuDe = string.IsNullOrEmpty(sortOrder) ? "chude_incr" : "chude_desc";
 
-            
+            ViewBag.sortTenSach = "tenSach_ascending";
+            ViewBag.sortMaSach = "maSach_ascending";
+            ViewBag.sortChuDe = "chuDe_ascending";
+            ViewBag.sortTrangThai = "trangThai_ascending";
 
-            
             switch (sortOrder)
             {
-                case "name_desc":
-                    sach = sach.OrderByDescending(s => s.TenSach);
+                case "tenSach_ascending":
+                    sach = sach.OrderBy(s => s.TenSach);
+                    ViewBag.sortTenSach = "tenSach_descending";
                     break;
 
-                case "id_desc":
-                    sach = sach.OrderByDescending(s => s.SachID);
+                case "maSach_ascending":
+                    sach = sach.OrderBy(s => s.SachID);
+                    ViewBag.sortMaSach = "maSach_descending";
                     break;
 
-                case "chude_desc":
-                    sach = sach.OrderByDescending(s => s.ChuDe.ID);
+                case "chuDe_ascending":
+                    sach = sach.OrderBy(s => s.ChuDe.ID);
+                    ViewBag.sortChuDe = "chuDe_descending";
+                    break;
+                case "trangThai_ascending":
+                    sach = sach.OrderBy(s => s.TrangThai);
+                    ViewBag.sortTrangThai = "trangThai_descending";
                     break;
 
                 ///////////////////////////////////////////////
-                case "name_incr":
-                    sach = sach.OrderBy(s => s.TenSach);
+                case "tenSach_descending":
+                    sach = sach.OrderByDescending(s => s.TenSach);
+                    ViewBag.sortTenSach = "tenSach_ascending";
                     break;
 
-                case "id_incr":
-                    sach = sach.OrderBy(s => s.SachID);
+                case "maSach_descending":
+                    sach = sach.OrderByDescending(s => s.SachID);
+                    ViewBag.sortMaSach = "maSach_ascending";
                     break;
 
-                case "chude_incr":
-                    sach = sach.OrderBy(s => s.ChuDe.ID);
+                case "chuDe_descending":
+                    sach = sach.OrderByDescending(s => s.ChuDe.ID);
+                    ViewBag.sortChuDe = "chuDe_ascending";
+                    break;
+                case "trangThai_descending":
+                    sach = sach.OrderByDescending(s => s.TrangThai);
+                    ViewBag.sortTrangThai = "trangThai_ascending";
                     break;
                 default:
                     sach = sach.OrderBy(s => s.TenSach);
+                    ViewBag.sortTenSach = "tenSach_descending";
                     break;
             }
-            */
-            sach = sach.OrderBy(s => s.TenSach);
-
 
             // lưu dữ liệu search hiện tại
             ViewBag.CurrentMaSach = sachID;
@@ -102,7 +112,7 @@ namespace LibraryManagementSystem.Controllers
             return View(sach.ToPagedList(pageNumber, pageSize));
         }
 
-        
+
         //// GET: Saches/Details/5
         //public ActionResult Details(int? id)
         //{
@@ -117,7 +127,7 @@ namespace LibraryManagementSystem.Controllers
         //    }
         //    return View(sach);
         //}
-        
+
         // GET: Saches/Create
         public ActionResult Create()
         {
@@ -279,7 +289,7 @@ namespace LibraryManagementSystem.Controllers
                 return HttpNotFound();
             }
             ViewBag.ChuDeID = new SelectList(db.ChuDe, "ID", "TenChuDe", sach.ChuDeID);
-            
+
             return View(sach);
         }
 
