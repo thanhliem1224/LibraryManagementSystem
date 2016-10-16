@@ -9,34 +9,45 @@
     <h2>Danh sách Sách trong thư viện</h2>
 </div>
 <br />
-<div class="row">
-    <div class="col-md-8">
-        @using (Html.BeginForm(FormMethod.Get))
+@using (Html.BeginForm(FormMethod.Get))
             {
+    <div class="row">
+        <div class="col-md-8">
+
             <div class="form-inline" role="form">
                 <div class="form-group">
                     @Html.DropDownList("chuDeSach", null, "Chủ Đề", new { @class = "form-control" })
                 </div>
                 <div class="form-group">
-                    <input id="sachID" name="sachID" type="text" class="form-control" placeholder="Tìm Mã Sách">
+                    <input id="sachID" name="sachID" type="text" class="form-control" placeholder="Tìm Mã Sách" value="@ViewBag.CurrentMaSach">
                 </div>
                 <div class="form-group">
-                    <input id="tenSach" name="tenSach" type="text" class="form-control" placeholder="Tìm Tên Sách">
+                    <input id="tenSach" name="tenSach" type="text" class="form-control" placeholder="Tìm Tên Sách" value="@ViewBag.CurrentTenSach">
                 </div>
-                <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                <button type="submit" class="btn btn-default">Tìm</button>
+                <div hidden>
+                    <input type="text" name="sortOrder" value="@ViewBag.CurrentSort" />
+                </div>
             </div>
-        }
-    </div>
-    <div class="col-md-4 text-right">
-        <div>
-            <a href="Sach/Create" class="btn btn-primary active" role="button">Thêm một sách</a>
-            <a href="Sach/ThemSachTuFile" class="btn btn-primary active" role="button">Thêm nhiều sách</a>
+
+        </div>
+        <div class="col-md-4 text-right">
+            <div>
+                <a href="Sach/Create" class="btn btn-primary active" role="button">Thêm một sách</a>
+                <a href="Sach/ThemSachTuFile" class="btn btn-primary active" role="button">Thêm nhiều sách</a>
+            </div>
         </div>
     </div>
-</div>
-<br />
+    <br />
+    <div class="row">
+        <div class="col-md-offset-8 col-md-4 text-right form-inline">
+            <label class="control-label text-right">Số dòng trong 1 trang: </label>
+            @Html.DropDownList("pageSize", null, new { @class = "form-control", @onchange = "this.form.submit()" })
+        </div>
+    </div>
+}
 <div class="table-responsive">
-    <table class="table table-hover" ">
+    <table class="table table-hover">
         <tr>
             <th>
                 @Html.ActionLink("Tên chủ đề", "Index", new
@@ -45,6 +56,7 @@
                sachID = ViewBag.CurrentMaSach,
                tenSach = ViewBag.CurrentTenSach,
                chuDeSach = ViewBag.CurrentChuDeSach,
+               pageSize = ViewBag.CurrentPageSize
            })
             </th>
             <th>
@@ -54,6 +66,7 @@
                sachID = ViewBag.CurrentMaSach,
                tenSach = ViewBag.CurrentTenSach,
                chuDeSach = ViewBag.CurrentChuDeSach,
+               pageSize = ViewBag.CurrentPageSize
            })
             </th>
             <th>
@@ -63,6 +76,7 @@
                sachID = ViewBag.CurrentMaSach,
                tenSach = ViewBag.CurrentTenSach,
                chuDeSach = ViewBag.CurrentChuDeSach,
+               pageSize = ViewBag.CurrentPageSize
            })
             </th>
             <th>
@@ -72,6 +86,7 @@
                sachID = ViewBag.CurrentMaSach,
                tenSach = ViewBag.CurrentTenSach,
                chuDeSach = ViewBag.CurrentChuDeSach,
+               pageSize = ViewBag.CurrentPageSize
            })
             </th>
         </tr>
@@ -105,7 +120,8 @@ Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.Page
         sachID = ViewBag.CurrentMaSach,
         tenSach = ViewBag.CurrentTenSach,
         chuDeSach = ViewBag.CurrentChuDeSach,
-        sortOrder = ViewBag.CurrentSort
+        sortOrder = ViewBag.CurrentSort,
+        pageSize = ViewBag.CurrentPageSize
     }))
 @section Scripts{
     <script type="text/javascript">

@@ -2,59 +2,79 @@
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
-    ViewBag.Title = "Mượn Trả Sách";
+    ViewBag.Title = TempData["Title"];
 }
-<h2 class="text-center">Mượn Trả Sách</h2>
+<h2 class="text-center">@TempData["Title"]</h2>
 <br />
 <div class="row">
     <div class="col-md-8">
         @Html.ActionLink("Lịch Sử Mượn Trả Sách", "LichSu")
     </div>
     <div class="col-md-4 text-right form-inline">
-        <a href="~/MuonTraSach/TimHocSinh" class="btn btn-primary active" role="button">Thêm Mới</a>
+        <a href="~/MuonTraSach/TimHocSinh" class="btn btn-primary active" role="button">Mượn Sách</a>
     </div>
 </div>
 <br />
-<div>
-    @using (Html.BeginForm("Index", "MuonTraSach", FormMethod.Get))
-    {
+@using (Html.BeginForm("Index", "MuonTraSach", FormMethod.Get))
+{
+    <div>
+
         <div class="row">
             <div class="col-md-3">
                 <div>
-                    <input id="lopHS" name="lopHS" type="text" class="form-control" placeholder="Tìm Lớp">
+                    <input id="lopHS" name="lopHS" type="text" class="form-control" placeholder="Tìm Lớp" value="@ViewBag.CurrentLopHS">
                 </div>
                 <div>
-                    <input id="tenHS" name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh">
+                    <input id="tenHS" name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh" value="@ViewBag.CurrentTenHS">
                 </div>
             </div>
             <div class="col-md-3">
                 <div>
-                    <input id="maSach" name="maSach" type="text" class="form-control" placeholder="Tìm Mã Sách">
+                    <input id="maSach" name="maSach" type="text" class="form-control" placeholder="Tìm Mã Sách" value="@ViewBag.CurrentMaSach">
                 </div>
                 <div>
-                    <input id="tenSach" name="tenSach" type="text" class="form-control" placeholder="Tìm Tên Sách">
+                    <input id="tenSach" name="tenSach" type="text" class="form-control" placeholder="Tìm Tên Sách" value="@ViewBag.CurrentTenSach">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-horizontal">
                     <div class="form-group">
                         <label>ngày mượn</label>
-                        <input name="ngayFrom" type="date" class="form-control" />
+                        @{
+                            string dateFrom = "";
+                            if (ViewBag.CurrentNgayFrom != null)
+                            {
+                                string yearFrom = ViewBag.CurrentNgayFrom.Year.ToString();
+                                string monthFrom = ViewBag.CurrentNgayFrom.Month.ToString();
+                                string dayFrom = ViewBag.CurrentNgayFrom.Day.ToString();
+
+                                dateFrom = yearFrom.PadLeft(4, '0') + "-" + monthFrom.PadLeft(2, '0') + "-" + dayFrom.PadLeft(2, '0');
+                            }
+                        }
+                        <input name="ngayFrom" type="date" class="form-control" value="@dateFrom"/>
                     </div>
                     <div class="form-group">
                         <label>đến ngày</label>
-                        <input name="ngayTo" type="date" class="form-control" />
+                        @{
+                            string dateTo = "";
+                            if (ViewBag.CurrentNgayTo != null)
+                            {
+                                string yearTo = ViewBag.CurrentNgayTo.Year.ToString();
+                                string monthTo = ViewBag.CurrentNgayTo.Month.ToString();
+                                string dayTo = ViewBag.CurrentNgayTo.Day.ToString();
+
+                                dateTo = yearTo.PadLeft(4, '0') + "-" + monthTo.PadLeft(2, '0') + "-" + dayTo.PadLeft(2, '0');
+
+                            }
+                        }
+                        <input name="ngayTo" type="date" class="form-control" value="@dateTo" />
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-horizontal">
                     <div class="form-group">
-                        <select name="type" class="form-control">
-                            <option value="0">Sách Đang Mượn</option>
-                            <option value="1">Sách Cần Trả Hôm Nay</option>
-                            <option value="2">Sách Quá Hạn</option>
-                        </select>
+                        @Html.DropDownList("type", null, new { @class = "form-control" })
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-default col-md-6">Tìm</button>
@@ -62,14 +82,20 @@
                 </div>
             </div>
         </div>
-    }
-</div>
-<br />
-<h3 class="text-center">@TempData["Title"]</h3>
-<br />
-
+        <div hidden>
+            <input type="text" name="sortOrder" value="@ViewBag.CurrentSort" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-offset-8 col-md-4 text-right form-inline">
+            <label class="control-label text-right">Số dòng trong 1 trang: </label>
+            @Html.DropDownList("pageSize", null, new { @class = "form-control", @onchange = "this.form.submit()" })
+        </div>
+    </div>
+}
 <div class="table-responsive">
-    <table class="table table-hover" ">
+    <table class="table table-hover">
 
         <tr>
             <th>
@@ -83,7 +109,8 @@
                tenSach = ViewBag.CurrentTenSach,
                ngayFrom = ViewBag.CurrentNgayFrom,
                ngayTo = ViewBag.CurrentNgayTo,
-           })
+               pageSize = ViewBag.CurrentPageSize
+                })
             </th>
             <th>
                 @Html.ActionLink("Tên Học Sinh", "Index", new
@@ -96,6 +123,7 @@
                tenSach = ViewBag.CurrentTenSach,
                ngayFrom = ViewBag.CurrentNgayFrom,
                ngayTo = ViewBag.CurrentNgayTo,
+               pageSize = ViewBag.CurrentPageSize
            })
             </th>
             <th>
@@ -109,6 +137,7 @@
                tenSach = ViewBag.CurrentTenSach,
                ngayFrom = ViewBag.CurrentNgayFrom,
                ngayTo = ViewBag.CurrentNgayTo,
+               pageSize = ViewBag.CurrentPageSize
            })
             </th>
             <th>
@@ -122,6 +151,7 @@
                tenSach = ViewBag.CurrentTenSach,
                ngayFrom = ViewBag.CurrentNgayFrom,
                ngayTo = ViewBag.CurrentNgayTo,
+               pageSize = ViewBag.CurrentPageSize
            })
             </th>
             <th>
@@ -135,6 +165,7 @@
                tenSach = ViewBag.CurrentTenSach,
                ngayFrom = ViewBag.CurrentNgayFrom,
                ngayTo = ViewBag.CurrentNgayTo,
+               pageSize = ViewBag.CurrentPageSize
            })
             </th>
             <th>
@@ -148,6 +179,7 @@
                tenSach = ViewBag.CurrentTenSach,
                ngayFrom = ViewBag.CurrentNgayFrom,
                ngayTo = ViewBag.CurrentNgayTo,
+               pageSize = ViewBag.CurrentPageSize
            })
             </th>
             <th>
@@ -156,46 +188,37 @@
 
         @foreach (var item in Model)
             {
-                string _class = "";
-                if (item.HanTra.Date < DateTime.Now.Date)
-                {
-                    _class = "danger";
-                }
-                else if (item.HanTra.Date == DateTime.Now.Date)
-                {
-                    _class = "warning";
-                }
-                <tr class="@_class">
-                    <td>
-                        @item.HocSinh.Lop
-                    </td>
-                    <td>
-                        @item.HocSinh.TenHS
-                    </td>
-                    <td>
-                        @item.HocSinh.NgaySinh.ToShortDateString()
-                    </td>
-                    <td>
-                        @item.Sach.IDandTen
-                    </td>
-                    <td>
-                        @item.NgayMuon.ToShortDateString()
-                    </td>
-                    <td>
-                        @item.HanTra.ToShortDateString()
-                    </td>
-                    <td>
-                        <div class="btn-group navbar-btn">
-                            @Html.ActionLink("Trả Sách", "TraSach", new { id = item.ID }, new { @class = "btn btn-default btn-xs" })
-                            <button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle"><span class="caret"></span></button>
-                            <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Gia Hạn", "GiaHan", new { id = item.ID })</li>
-                                <li>@Html.ActionLink("Báo Mất", "BaoMat", new { id = item.ID })</li>
-                                <li>@Html.ActionLink("Sửa", "Edit", new { id = item.ID })</li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @item.HocSinh.Lop
+                </td>
+                <td>
+                    @item.HocSinh.TenHS
+                </td>
+                <td>
+                    @item.HocSinh.NgaySinh.ToShortDateString()
+                </td>
+                <td>
+                    @item.Sach.IDandTen
+                </td>
+                <td>
+                    @item.NgayMuon.ToShortDateString()
+                </td>
+                <td>
+                    @item.HanTra.ToShortDateString()
+                </td>
+                <td>
+                    <div class="btn-group navbar-btn">
+                        @Html.ActionLink("Trả Sách", "TraSach", new { id = item.ID }, new { @class = "btn btn-default btn-xs" })
+                        <button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle"><span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Gia Hạn", "GiaHan", new { id = item.ID })</li>
+                            <li>@Html.ActionLink("Báo Mất", "BaoMat", new { id = item.ID })</li>
+                            <li>@Html.ActionLink("Sửa", "Edit", new { id = item.ID })</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
         }
     </table>
 </div>
@@ -215,5 +238,6 @@ Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.Page
         tenSach = ViewBag.CurrentTenSach,
         ngayFrom = ViewBag.CurrentNgayFrom,
         ngayTo = ViewBag.CurrentNgayTo,
-        sortOrder = ViewBag.CurrentSort
+        sortOrder = ViewBag.CurrentSort,
+        pageSize = ViewBag.CurrentPageSize
     }))

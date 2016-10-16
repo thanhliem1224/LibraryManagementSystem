@@ -1,0 +1,122 @@
+﻿@model LibraryManagementSystem.Models.DocSachTaiCho
+
+@{
+    ViewBag.Title = "Tìm Học Sinh Đọc Sách";
+}
+
+<h2 class="text-center">Tìm Học Sinh Đọc Sách</h2>
+<br />
+<div>
+    <div class="form-horizontal">
+        <div class="form-group">
+            @using (Html.BeginForm("TimHS", "DocSach"))
+            {
+                <div class="form-inline">
+                    <div class="control-label col-md-4"><strong>Tên Học Sinh</strong></div>
+                    <div class="col-md-4">
+                        @Html.TextBox("tenHS", null, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-4">
+                        <input type="submit" value="Tìm" class="btn btn-default" />
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="form-group">
+            @if (TempData["Message_Fa"] != null)
+            {
+                <p class="col-md-offset-4 col-md-8 text-danger">@TempData["Message_Fa"]</p>
+            }
+            @if (TempData["Message_Su"] != null)
+            {
+                <p class="col-md-offset-4 col-md-8 text-success">@TempData["Message_Su"]</p>
+            }
+        </div>
+    </div>
+
+</div>
+
+<div>
+    @Html.ActionLink("Lịch Sử Đọc Sách", "Index")
+</div>
+@if (ViewBag.DSTimKiem != null)
+{
+    <hr />
+    <h3>@TempData["Title"]</h3>
+    <br />
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <tr>
+                <th>
+                    Lớp
+                </th>
+                <th>
+                    Tên Học Sinh
+                </th>
+                <th>
+                    Ngày Sinh
+                </th>
+            </tr>
+
+            @foreach (var item in ViewBag.DSTimKiem)
+            {
+                string urlSelect = "/DocSach/Create/" + item.ID;
+                <tr class='clickable-row-select' data-href='@urlSelect'>
+                    <td>
+                        @item.Lop
+                    </td>
+                    <td>
+                        @item.TenHS
+                    </td>
+                    <td>
+                        @item.NgaySinh.ToShortDateString();
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+}
+<hr />
+<div class="text-center"><h3>Danh Sách Học Sinh Đọc Sách Hôm Nay (@DateTime.Now.ToShortDateString())</h3></div>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <tr>
+            <th>
+                Lớp
+            </th>
+            <th>
+                Tên Học Sinh
+            </th>
+            <th>
+                Ngày Sinh
+            </th>
+        </tr>
+        @foreach (var item in ViewBag.DSDocSach)
+        {
+            string urlEdit = "/DocSach/Edit/" + item.ID;
+            <tr class='clickable-row-edit' data-href='@urlEdit'>
+                <td>
+                    @item.HocSinh.Lop
+                </td>
+                <td>
+                    @item.HocSinh.TenHS
+                </td>
+                <td>
+                    @item.HocSinh.NgaySinh.ToShortDateString()
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".clickable-row-edit").click(function () {
+                window.document.location = $(this).data("href");
+            });
+            $(".clickable-row-select").click(function () {
+                window.document.location = $(this).data("href");
+            });
+        });
+    </script>
+}

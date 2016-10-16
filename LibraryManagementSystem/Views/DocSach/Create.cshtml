@@ -1,107 +1,48 @@
-﻿@model LibraryManagementSystem.Models.DocSachTaiCho
+﻿@model LibraryManagementSystem.Models.HocSinh
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class="text-center">Thêm Học Sinh Đọc Sách</h2>
-<br />
-<div>
-    <div class="form-horizontal">
-        <div class="form-group">
-            @using (Html.BeginForm("TimHS", "DocSach"))
-            {
-                <div class="form-inline">
-
-                    <div class="control-label col-md-4"><strong>Tên Học Sinh</strong></div>
-                    <div class="col-md-4">
-                        @Html.TextBox("tenHS", null, new { @class = "form-control" })
-                    </div>
-
-                    <div class="col-md-4">
-                        <input type="submit" value="Tìm" class="btn btn-default" />
-                    </div>
-
-                </div>
-            }
-            <div>
-                @if (TempData["Message_Fa"] != null)
-                {
-                    <p class="col-md-offset-4 col-md-8 text-danger">@TempData["Message_Fa"]</p>
-                }
-                @if (TempData["Message_Su"] != null)
-                {
-                    <p class="col-md-offset-4 col-md-8 text-success">@TempData["Message_Su"]</p>
-                }
-            </div>
-        </div>
-        @if (ViewBag.HocSinhID != null)
-        {
-            <div class="form-group">
-                @using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
-                    <div class="form-inline">
-                        <div class="control-label col-md-4"><strong>Tên Học Sinh</strong></div>
-                        <div class="col-md-4">
-                            @Html.DropDownList("HocSinhID", null, htmlAttributes: new { @class = "form-control" })
-                        </div>
-
-
-                        <div class="col-md-4">
-                            <input type="submit" value="Xác Nhận" class="btn btn-default" />
-                        </div>
-                    </div>
-                }
-
-            </div>
-        }
-    </div>
-</div>
+<h2>Thêm Học Sinh Đọc Sách</h2>
 
 <div>
-    @Html.ActionLink("Lịch Sử Đọc Sách", "Index")
-</div>
-<hr />
-<div class="text-center"><h3>Danh Sách Học Sinh Đọc Sách Hôm Nay (@DateTime.Now.ToShortDateString())</h3></div>
-<div class="table-responsive">
-    <table class="table table-hover">
+    <h4>Xác nhận thông tin học sinh</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenHS)
+        </dt>
 
-        <tr>
-            <th>
-                Lớp
-            </th>
-            <th>
-                Tên Học Sinh
-            </th>
-            <th>
-                Ngày Sinh
-            </th>
-        </tr>
-        @foreach (var item in ViewBag.DSDocSach)
-        {
-            string url = "/DocSach/Edit/" + item.ID;
+        <dd>
+            @Html.DisplayFor(model => model.TenHS)
+        </dd>
 
-            <tr class='clickable-row' data-href='@url'>
-                <td>
-                    @item.HocSinh.Lop
-                </td>
-                <td>
-                    @item.HocSinh.TenHS
-                </td>
-                <td>
-                    @item.HocSinh.NgaySinh.ToShortDateString()
-                </td>
-            </tr>
-        }
-    </table>
+        <dt>
+            @Html.DisplayNameFor(model => model.Lop)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lop)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgaySinh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgaySinh)
+        </dd>
+
+    </dl>
 </div>
-@section Scripts{
-    <script type="text/javascript">
-        jQuery(document).ready(function ($) {
-            $(".clickable-row").click(function () {
-                window.document.location = $(this).data("href");
-            });
-        });
-    </script>
-}
+<div>
+    @using (Html.BeginForm())
+    {
+        <input name="HocSinhID" type="text" value="@Model.ID" hidden />
+        <input type="submit" value="Xác Nhận" class="btn btn-default" />
+
+    }
+    @Html.ActionLink("Tìm Học Sinh", "Index")
+</div>

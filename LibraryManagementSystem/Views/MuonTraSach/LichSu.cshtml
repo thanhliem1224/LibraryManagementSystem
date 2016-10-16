@@ -11,41 +11,75 @@
         @Html.ActionLink("Danh Sách Học Sinh Đang Mượn Sách", "Index")
     </div>
     <div class="col-md-4 text-right form-inline">
-        <a href="~/MuonTraSach/TimHocSinh" class="btn btn-primary active" role="button">Thêm Mới</a>
+        <a href="~/MuonTraSach/TimHocSinh" class="btn btn-primary active" role="button">Mượn Sách</a>
     </div>
 </div>
 <br />
-<div>
-    @using (Html.BeginForm("LichSu", "MuonTraSach", FormMethod.Get))
-    {
+@using (Html.BeginForm("LichSu", "MuonTraSach", FormMethod.Get))
+{
+    <div>
+
         <div class="form-inline" role="form">
             <div>
-                <input id="lopHS" name="lopHS" type="text" class="form-control" placeholder="Tìm Lớp">
+                <input id="lopHS" name="lopHS" type="text" class="form-control" placeholder="Tìm Lớp" value="@ViewBag.CurrentLopHS">
             </div>
             <div>
-                <input id="tenHS" name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh">
+                <input id="tenHS" name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh" value="@ViewBag.CurrentTenHS">
             </div>
             <div>
-                <input id="maSach" name="maSach" type="text" class="form-control" placeholder="Tìm Mã Sách">
+                <input id="maSach" name="maSach" type="text" class="form-control" placeholder="Tìm Mã Sách" value="@ViewBag.CurrentMaSach">
             </div>
             <div>
-                <input id="tenSach" name="tenSach" type="text" class="form-control" placeholder="Tìm Tên Sách">
+                <input id="tenSach" name="tenSach" type="text" class="form-control" placeholder="Tìm Tên Sách" value="@ViewBag.CurrentTenSach">
             </div>
             <div>
                 <label>Ngày mượn</label>
-                <input name="ngayFrom" type="date" class="form-control" />
+                @{
+                    string dateFrom = "";
+                    if (ViewBag.CurrentNgayFrom != null)
+                    {
+                        string yearFrom = ViewBag.CurrentNgayFrom.Year.ToString();
+                        string monthFrom = ViewBag.CurrentNgayFrom.Month.ToString();
+                        string dayFrom = ViewBag.CurrentNgayFrom.Day.ToString();
+
+                        dateFrom = yearFrom.PadLeft(4, '0') + "-" + monthFrom.PadLeft(2, '0') + "-" + dayFrom.PadLeft(2, '0');
+                    }
+                }
+                <input name="ngayFrom" type="date" class="form-control" value="@dateFrom"/>
                 <label>Đến ngày</label>
-                <input name="ngayTo" type="date" class="form-control" />
+                @{
+                    string dateTo = "";
+                    if (ViewBag.CurrentNgayTo != null)
+                    {
+                        string yearTo = ViewBag.CurrentNgayTo.Year.ToString();
+                        string monthTo = ViewBag.CurrentNgayTo.Month.ToString();
+                        string dayTo = ViewBag.CurrentNgayTo.Day.ToString();
+
+                        dateTo = yearTo.PadLeft(4, '0') + "-" + monthTo.PadLeft(2, '0') + "-" + dayTo.PadLeft(2, '0');
+
+                    }
+                }
+                <input name="ngayTo" type="date" class="form-control" value="@dateTo" />
             </div>
             <div>
-                <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                <button type="submit" class="btn btn-default">Tìm</button>
+            </div>
+            <div hidden>
+                <input type="text" name="sortOrder" value="@ViewBag.CurrentSort" />
             </div>
         </div>
-    }
-</div>
-<br />
+
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-offset-8 col-md-4 text-right form-inline">
+            <label class="control-label text-right">Số dòng trong 1 trang: </label>
+            @Html.DropDownList("pageSize", null, new { @class = "form-control", @onchange = "this.form.submit()" })
+        </div>
+    </div>
+                    }
 <div class="table-responsive">
-    <table class="table table-hover"">
+    <table class="table table-hover" ">
         <tr>
             <th>
                 @Html.ActionLink("Lớp", "LichSu", new
@@ -58,6 +92,7 @@
                tenSach = ViewBag.CurrentTenSach,
                ngayFrom = ViewBag.CurrentNgayFrom,
                ngayTo = ViewBag.CurrentNgayTo,
+               pageSize = ViewBag.CurrentPageSize
            })
             </th>
             <th>
@@ -71,6 +106,7 @@
                tenSach = ViewBag.CurrentTenSach,
                ngayFrom = ViewBag.CurrentNgayFrom,
                ngayTo = ViewBag.CurrentNgayTo,
+               pageSize = ViewBag.CurrentPageSize
            })
             </th>
             <th>
@@ -84,6 +120,7 @@
                tenSach = ViewBag.CurrentTenSach,
                ngayFrom = ViewBag.CurrentNgayFrom,
                ngayTo = ViewBag.CurrentNgayTo,
+               pageSize = ViewBag.CurrentPageSize
            })
             </th>
             <th>
@@ -97,6 +134,7 @@
                tenSach = ViewBag.CurrentTenSach,
                ngayFrom = ViewBag.CurrentNgayFrom,
                ngayTo = ViewBag.CurrentNgayTo,
+               pageSize = ViewBag.CurrentPageSize
            })
             </th>
             <th>
@@ -110,6 +148,7 @@
                tenSach = ViewBag.CurrentTenSach,
                ngayFrom = ViewBag.CurrentNgayFrom,
                ngayTo = ViewBag.CurrentNgayTo,
+               pageSize = ViewBag.CurrentPageSize
            })
             </th>
             <th>
@@ -123,6 +162,7 @@
                tenSach = ViewBag.CurrentTenSach,
                ngayFrom = ViewBag.CurrentNgayFrom,
                ngayTo = ViewBag.CurrentNgayTo,
+               pageSize = ViewBag.CurrentPageSize
            })
             </th>
             <th>
@@ -136,6 +176,7 @@
                tenSach = ViewBag.CurrentTenSach,
                ngayFrom = ViewBag.CurrentNgayFrom,
                ngayTo = ViewBag.CurrentNgayTo,
+               pageSize = ViewBag.CurrentPageSize
            })
             </th>
         </tr>
@@ -180,5 +221,6 @@ Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.Page
         tenSach = ViewBag.CurrentTenSach,
         ngayFrom = ViewBag.CurrentNgayFrom,
         ngayTo = ViewBag.CurrentNgayTo,
-        sortOrder = ViewBag.CurrentSort
+        sortOrder = ViewBag.CurrentSort,
+        pageSize = ViewBag.CurrentPageSize
     }))

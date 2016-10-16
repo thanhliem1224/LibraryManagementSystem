@@ -231,9 +231,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201609180413037_Init.cs" />
-    <Compile Include="Migrations\201609180413037_Init.Designer.cs">
-      <DependentUpon>201609180413037_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201610140930089_Init.cs" />
+    <Compile Include="Migrations\201610140930089_Init.Designer.cs">
+      <DependentUpon>201610140930089_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -381,6 +381,8 @@
     <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.0.min.map" />
     <Content Include="Views\MuonTraSach\GiaHan.cshtml" />
+    <Content Include="Views\ThanhLy\ConfirmCreate.cshtml" />
+    <Content Include="Views\DocSach\TimHS.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -390,8 +392,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201609180413037_Init.resx">
-      <DependentUpon>201609180413037_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610140930089_Init.resx">
+      <DependentUpon>201610140930089_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

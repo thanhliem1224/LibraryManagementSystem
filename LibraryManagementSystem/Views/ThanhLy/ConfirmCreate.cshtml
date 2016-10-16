@@ -1,0 +1,32 @@
+﻿@model LibraryManagementSystem.Models.Sach
+
+<h3>Xác nhân thanh lý</h3>
+@using (Html.BeginForm("Create", "ThanhLy"))
+{
+    @Html.AntiForgeryToken()
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ChuDe.TenChuDe)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ChuDe.TenChuDe)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SachID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SachID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TenSach)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TenSach)
+        </dd>
+    </dl>
+    <input name="SachID" type="text" value="@Model.ID" hidden />
+    <input type="submit" value="Xác Nhận" class="btn btn-default" />
+}
+
+
+

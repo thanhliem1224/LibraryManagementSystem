@@ -20,7 +20,7 @@ namespace LibraryManagementSystem.Controllers
 
         // GET: Saches
         [Authorize]
-        public ActionResult Index(string sachID, string tenSach, string chuDeSach, string sortOrder, int? page)
+        public ActionResult Index(string sachID, string tenSach, string chuDeSach, string sortOrder, int? page, int? pageSize)
         {
             var sach = db.Sach.Include(s => s.ChuDe);
 
@@ -104,12 +104,17 @@ namespace LibraryManagementSystem.Controllers
             ViewBag.CurrentTenSach = tenSach;
             ViewBag.CurrentChuDeSach = chuDeSach;
             ViewBag.CurrentSort = sortOrder;
+            ViewBag.CurrentPageSize = pageSize;
+
+            // setup page size
+            List<int> listpagesize = new List<int>() { 20, 50, 100, 150, 200 };
+            ViewBag.pageSize = new SelectList(listpagesize);
 
             // setup page
-            int pageSize = 50; // số dòng trong 1 trang
+            int thisPageSize = (pageSize ?? 20); // số dòng trong 1 trang
             int pageNumber = (page ?? 1);
 
-            return View(sach.ToPagedList(pageNumber, pageSize));
+            return View(sach.ToPagedList(pageNumber, thisPageSize));
         }
 
 

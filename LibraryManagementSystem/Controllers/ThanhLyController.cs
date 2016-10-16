@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using LibraryManagementSystem.DAL;
 using LibraryManagementSystem.Models;
 using PagedList;
+using System.Collections.Generic;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -14,11 +15,9 @@ namespace LibraryManagementSystem.Controllers
     {
         private CNCFContext db = new CNCFContext();
         // GET: ThanhLy
-        public ActionResult Index(string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo, string sortOrder, int? page)
+        public ActionResult Index(string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo, string sortOrder, int? page, int? pageSize)
         {
             var thanhLy = db.ThanhLy.Include(t => t.Sach);
-
-
 
             if (maSach != null)
             {
@@ -103,11 +102,16 @@ namespace LibraryManagementSystem.Controllers
             ViewBag.CurrentNgayFrom = ngayFrom;
             ViewBag.CurrentNgayTo = ngayTo;
             ViewBag.CurrentSort = sortOrder;
+            ViewBag.CurrentPageSize = pageSize;
+
+            // setup page size
+            List<int> listpagesize = new List<int>() { 20, 50, 100, 150, 200 };
+            ViewBag.pageSize = new SelectList(listpagesize);
 
             // setup page
-            int pageSize = 50; // số dòng trong 1 trang
+            int thisPageSize = (pageSize ?? 20); // số dòng trong 1 trang
             int pageNumber = (page ?? 1);
-            return View(thanhLy.ToPagedList(pageNumber, pageSize));
+            return View(thanhLy.ToPagedList(pageNumber, thisPageSize));
         }
         /*
         // GET: ThanhLy/Details/5
@@ -142,7 +146,7 @@ namespace LibraryManagementSystem.Controllers
 
                 if (ds.Count() > 0)
                 {
-                    ViewBag.SachID = new SelectList(ds, "ID", "IDandTen");
+                    ViewBag.SachID = ds;
                 }
                 else
                 {
@@ -154,6 +158,7 @@ namespace LibraryManagementSystem.Controllers
 
             return View();
         }
+
 
         // POST: ThanhLy/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -187,6 +192,20 @@ namespace LibraryManagementSystem.Controllers
 
             ViewBag.SachID = new SelectList(db.Sach, "ID", "SachID", thanhLy.SachID);
             return View(thanhLy);
+        }
+
+        public ActionResult ConfirmCreate(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Sach sach = db.Sach.Find(id);
+            if (sach == null)
+            {
+                return HttpNotFound();
+            }
+            return View(sach);
         }
 
         // GET: ThanhLy/Edit/5

@@ -8,27 +8,39 @@
 
 <h2 class="text-center">Danh Sách Học Sinh</h2>
 <br />
-<div class="row">
-    <div class="col-md-8">
-        @using (Html.BeginForm("Index", "HocSinh", FormMethod.Get))
-        {
+@using (Html.BeginForm("Index", "HocSinh", FormMethod.Get))
+{
+    <div class="row">
+        <div class="col-md-8">
+
             <div class="form-inline" role="form">
                 <div class="form-group">
-                    <input id="tenHS" name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh">
+                    <input id="tenHS" name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh" value="@ViewBag.CurrentTenHS">
                 </div>
                 <div class="form-group">
-                    <input id="lopHS" name="lopHS" type="text" class="form-control" placeholder="Tìm Lớp">
+                    <input id="lopHS" name="lopHS" type="text" class="form-control" placeholder="Tìm Lớp" value="@ViewBag.CurrentLopHS">
                 </div>
-                <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                <button type="submit" class="btn btn-default">Tìm</button>
             </div>
-        }
+            <div hidden>
+                <input type="text" name="sortOrder" value="@ViewBag.CurrentSort" />
+            </div>
+
+        </div>
+        <div class="col-md-4 text-right form-inline">
+            <a href="HocSinh/Create" class="btn btn-primary active" role="button">Thêm Mới</a>
+            <a href="HocSinh/ThemHocSinhTuFile" class="btn btn-primary active" role="button">Thêm Từ File</a>
+        </div>
     </div>
-    <div class="col-md-4 text-right form-inline">
-        <a href="HocSinh/Create" class="btn btn-primary active" role="button">Thêm Mới</a>
-        <a href="HocSinh/ThemHocSinhTuFile" class="btn btn-primary active" role="button">Thêm Từ File</a>
+    <br />
+
+    <div class="row">
+        <div class="col-md-offset-8 col-md-4 text-right form-inline">
+            <label class="control-label text-right">Số dòng trong 1 trang: </label>
+            @Html.DropDownList("pageSize", null, new { @class = "form-control", @onchange = "this.form.submit()" })
+        </div>
     </div>
-</div>
-<br />
+}
 <div class="table-responsive">
     <table class="table table-hover">
         <tr>
@@ -38,6 +50,7 @@
                sortOrder = ViewBag.sortTenHS,
                lopHS = ViewBag.CurrentLopHS,
                tenHS = ViewBag.CurrentTenHS,
+               pageSize = ViewBag.CurrentPageSize
            })
             </th>
             <th>
@@ -46,6 +59,7 @@
                sortOrder = ViewBag.sortLop,
                lopHS = ViewBag.CurrentLopHS,
                tenHS = ViewBag.CurrentTenHS,
+               pageSize = ViewBag.CurrentPageSize
            })
             </th>
             <th>
@@ -54,6 +68,7 @@
                sortOrder = ViewBag.sortNgaySinh,
                lopHS = ViewBag.CurrentLopHS,
                tenHS = ViewBag.CurrentTenHS,
+               pageSize = ViewBag.CurrentPageSize
            })
             </th>
         </tr>
@@ -84,7 +99,8 @@ Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.Page
         page,
         lopHS = ViewBag.CurrentLopHS,
         tenHS = ViewBag.CurrentTenHS,
-        sortOrder = ViewBag.CurrentSort
+        sortOrder = ViewBag.CurrentSort,
+        pageSize = ViewBag.CurrentPageSize
     }))
 
 @section Scripts{

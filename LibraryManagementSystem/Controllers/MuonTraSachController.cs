@@ -21,7 +21,7 @@ namespace LibraryManagementSystem.Controllers
         private DateTime _beginDayNow = CNCFClass.GoToBeginOfDay(DateTime.Now);
 
         // GET: MuonTraSach
-        public ActionResult Index(string lopHS, string tenHS, string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo, string sortOrder, int? type, int? page)
+        public ActionResult Index(string lopHS, string tenHS, string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo, string sortOrder, string type, int? page, int? pageSize)
         {
             var muonTraSach = db.MuonTraSach.Include(m => m.HocSinh).Include(m => m.Sach).Where(m => m.NgayTra == null);
             #region Search
@@ -65,11 +65,11 @@ namespace LibraryManagementSystem.Controllers
                               where m.NgayMuon <= ngayTo
                               select m;
             }
-            if (type == 0 || type == null) // nếu loại là 0: sách đang mượn
+            if (type == "Sách đang mượn" || type == null) // nếu loại là 0: sách đang mượn
             {
                 TempData["Title"] = "Danh Sách Học Sinh Đang Mượn Sách";
             }
-            if (type == 1) // nếu loại là 1: sách cần trả hôm nay
+            if (type == "Sách cần trả hôm nay") // nếu loại là 1: sách cần trả hôm nay
             {
 
                 muonTraSach = from m in muonTraSach
@@ -78,7 +78,7 @@ namespace LibraryManagementSystem.Controllers
 
                 TempData["Title"] = "Danh Sách Học Sinh Cần Trả Sách Hôm Nay";
             }
-            if (type == 2) // nếu loại là 2: mượn sách quá hạn
+            if (type == "Sách mượn quá hạn") // nếu loại là 2: mượn sách quá hạn
             {
                 // muonTraSach.Where(m => m.HanTra <= _end_day_now);
                 muonTraSach = from m in muonTraSach
@@ -165,14 +165,22 @@ namespace LibraryManagementSystem.Controllers
             ViewBag.CurrentNgayTo = ngayTo;
             ViewBag.CurrentType = type;
             ViewBag.CurrentSort = sortOrder;
+            ViewBag.CurrentPageSize = pageSize;
+
+            List<string> listtype = new List<string>() { "Sách đang mượn", "Sách cần trả hôm nay", "Sách mượn quá hạn"};
+            ViewBag.type = new SelectList(listtype);
+
+            // setup page size
+            List<int> listpagesize = new List<int>() { 20, 50, 100, 150, 200 };
+            ViewBag.pageSize = new SelectList(listpagesize);
 
             // setup page
-            int pageSize = 50; // số dòng trong 1 trang
+            int thisPageSize = (pageSize ?? 20); // số dòng trong 1 trang
             int pageNumber = (page ?? 1);
             #endregion
-            return View(muonTraSach.ToPagedList(pageNumber, pageSize));
+            return View(muonTraSach.ToPagedList(pageNumber, thisPageSize));
         }
-        public ActionResult LichSu(string lopHS, string tenHS, string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo, string sortOrder, int? page)
+        public ActionResult LichSu(string lopHS, string tenHS, string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo, string sortOrder, int? page, int? pageSize)
         {
             var muonTraSach = db.MuonTraSach.Include(m => m.HocSinh).Include(m => m.Sach);
 
@@ -301,12 +309,17 @@ namespace LibraryManagementSystem.Controllers
             ViewBag.CurrentNgayFrom = ngayFrom;
             ViewBag.CurrentNgayTo = ngayTo;
             ViewBag.CurrentSort = sortOrder;
+            ViewBag.CurrentPageSize = pageSize;
+
+            // setup page size
+            List<int> listpagesize = new List<int>() { 20, 50, 100, 150, 200 };
+            ViewBag.pageSize = new SelectList(listpagesize);
 
             // setup page
-            int pageSize = 50; // số dòng trong 1 trang
+            int thisPageSize = (pageSize ?? 20); // số dòng trong 1 trang
             int pageNumber = (page ?? 1);
 
-            return View(muonTraSach.ToPagedList(pageNumber, pageSize));
+            return View(muonTraSach.ToPagedList(pageNumber, thisPageSize));
         }
 
         public ActionResult TimHocSinh(string tenHS)

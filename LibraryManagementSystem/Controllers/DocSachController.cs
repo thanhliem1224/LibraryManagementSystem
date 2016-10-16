@@ -7,39 +7,33 @@ using System.Web.Mvc;
 using LibraryManagementSystem.DAL;
 using LibraryManagementSystem.Models;
 using PagedList;
+using System.Collections.Generic;
 
 namespace LibraryManagementSystem.Controllers
 {
     public class DocSachController : Controller
     {
         private CNCFContext db = new CNCFContext();
-        private static int _PageSize = 50;
-        [Authorize]
-        [HttpPost]
-        public ActionResult SetPageSize(int pageSize)
-        {
-            _PageSize = pageSize;
-            return RedirectToAction("Index");
-        }
+
         // GET: DocSach
         [Authorize]
-        public ActionResult Index(string lopHS, string tenHS, DateTime? ngayFrom, DateTime? ngayTo, string sortOrder, int? page)
+        public ActionResult Index(string lopHS, string tenHS, DateTime? ngayFrom, DateTime? ngayTo, string sortOrder, int? page, int? pageSize)
         {
             var docSachTaiCho = db.DocSachTaiCho.Include(d => d.HocSinh);
 
-            if (lopHS != null)
+            if (!string.IsNullOrEmpty(lopHS))
             {
                 docSachTaiCho = from d in docSachTaiCho
                                 where d.HocSinh.Lop.Contains(lopHS)
                                 select d;
             }
-            if (tenHS != null)
+            if (!string.IsNullOrEmpty(tenHS))
             {
                 docSachTaiCho = from d in docSachTaiCho
                                 where d.HocSinh.TenHS.Contains(tenHS)
                                 select d;
             }
-            if (ngayFrom != null)
+            if (ngayFrom.HasValue)
             {
                 // chỉnh lại đầu ngày
                 ngayFrom = CNCFClass.GoToBeginOfDay(ngayFrom.Value);
@@ -47,7 +41,7 @@ namespace LibraryManagementSystem.Controllers
                                 where d.Ngay >= ngayFrom
                                 select d;
             }
-            if (ngayTo != null)
+            if (ngayTo.HasValue)
             {
                 // chỉnh lại cuối ngày
                 ngayTo = CNCFClass.GoToEndOfDay(ngayTo.Value);
@@ -112,46 +106,58 @@ namespace LibraryManagementSystem.Controllers
             ViewBag.CurrentNgayFrom = ngayFrom;
             ViewBag.CurrentNgayTo = ngayTo;
             ViewBag.CurrentSort = sortOrder;
+            ViewBag.CurrentPageSize = pageSize;
+
+            // setup page size
+            List<int> listpagesize = new List<int>() { 20, 50, 100, 150, 200 };
+            ViewBag.pageSize = new SelectList(listpagesize);
 
             // setup page
-            int pageSize = _PageSize; // số dòng trong 1 trang
+            int thisPageSize = (pageSize ?? 20); // số dòng trong 1 trang
             int pageNumber = (page ?? 1);
             #endregion
-            return View(docSachTaiCho.ToPagedList(pageNumber, pageSize));
+            return View(docSachTaiCho.ToPagedList(pageNumber, thisPageSize));
         }
 
 
 
-        [HttpPost]
         [Authorize]
         public ActionResult TimHS(string tenHS)
         {
-            return RedirectToAction("Create", "DocSach", new { s = tenHS });
+            if (!string.IsNullOrEmpty(tenHS))
+            {
+                var ds = db.HocSinh.Select(hs => hs);
+                ds = db.HocSinh.Where(hs => hs.TenHS.Contains(tenHS));
+
+                if (ds.Count() > 0) // nếu có kết quả
+                {
+                    TempData["Title"] = "Kết quả tìm kiếm \"" + tenHS + "\"";
+                    ViewBag.DSTimKiem = ds;
+                }
+                else
+                {
+                    TempData["Message_Fa"] = "Không tìm thấy học sinh tên \"" + tenHS + "\"";
+                }
+            }
+
+            ViewBag.DSDocSach = db.DocSachTaiCho.Where(dstc => dstc.Ngay.Day == DateTime.Now.Day && dstc.Ngay.Month == DateTime.Now.Month && dstc.Ngay.Year == DateTime.Now.Year).OrderByDescending(dstc => dstc.Ngay);
+            return View();
         }
 
         // GET: DocSach/Create
         [Authorize]
-        public ActionResult Create(string s)
+        public ActionResult Create(int? id)
         {
-
-            if (s != null)
+            if (id == null)
             {
-                var ds = db.HocSinh.Select(hs => hs);
-                ds = db.HocSinh.Where(hs => hs.TenHS.Contains(s));
-
-                if (ds.Count() > 0) // nếu có kết quả
-                {
-                    ViewBag.HocSinhID = new SelectList(ds, "ID", "TenHS");
-                }
-                else
-                {
-                    TempData["Message_Fa"] = "Không tìm thấy học sinh tên \"" + s + "\"";
-                }
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-
-            ViewBag.DSDocSach = db.DocSachTaiCho.Where(dstc => dstc.Ngay.Day == DateTime.Now.Day && dstc.Ngay.Month == DateTime.Now.Month && dstc.Ngay.Year == DateTime.Now.Year).OrderByDescending(dstc => dstc.Ngay);
-            return View();
+            HocSinh hocSinh = db.HocSinh.Find(id);
+            if (hocSinh == null)
+            {
+                return HttpNotFound();
+            }
+            return View(hocSinh);
         }
 
         // POST: DocSach/Create
@@ -159,8 +165,7 @@ namespace LibraryManagementSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Authorize]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,HocSinhID,TenHS")] DocSachTaiCho docSachTaiCho)
+        public ActionResult Create([Bind(Include = "ID,HocSinhID")] DocSachTaiCho docSachTaiCho)
         {
             if (ModelState.IsValid)
             {
@@ -172,8 +177,8 @@ namespace LibraryManagementSystem.Controllers
                     if (kiemtra.Count() > 0)
                     {
                         string tenhs = db.HocSinh.Find(docSachTaiCho.HocSinhID).TenHS;
-                        TempData["Message_Fa"] = "Học Sinh " + tenhs + " đã đọc sách hôm nay.";
-                        return RedirectToAction("Create");
+                        TempData["Message_Fa"] = "Học sinh " + tenhs + " đã đọc sách hôm nay.";
+                        return RedirectToAction("TimHS");
                     }
                     else
                     {
@@ -182,9 +187,9 @@ namespace LibraryManagementSystem.Controllers
                         db.SaveChanges();
 
                         string tenhs = db.HocSinh.Find(docSachTaiCho.HocSinhID).TenHS;
-                        TempData["Message_Su"] = "Thêm Thành Công " + tenhs;
+                        TempData["Message_Su"] = "Thêm thành công học sinh " + tenhs;
 
-                        return RedirectToAction("Create");
+                        return RedirectToAction("TimHS");
                     }
                 }
                 else
@@ -193,8 +198,7 @@ namespace LibraryManagementSystem.Controllers
                 }
             }
 
-            ViewBag.HocSinhID = new SelectList(db.HocSinh, "ID", "TenHS", docSachTaiCho.HocSinhID);
-            return View(docSachTaiCho);
+            return RedirectToAction("TimHS");
         }
 
         // GET: DocSach/Edit/5

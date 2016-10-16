@@ -777,11 +777,11 @@ C:\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Se
 C:\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Project\LibraryManagementSystem\LibraryManagementSystem\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Project\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.csprojResolveAssemblyReference.cache
-C:\Project\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.Migrations.Init.resources
-C:\Project\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.csproj.GenerateResource.Cache
 C:\Project\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.dll
 C:\Project\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.pdb
 C:\Project\LibraryManagementSystem\LibraryManagementSystem\bin\PagedList.dll
 C:\Project\LibraryManagementSystem\LibraryManagementSystem\bin\PagedList.Mvc.dll
 C:\Project\LibraryManagementSystem\LibraryManagementSystem\bin\PagedList.xml
 C:\Project\LibraryManagementSystem\LibraryManagementSystem\bin\PagedList.Mvc.xml
+C:\Project\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.Migrations.Init.resources
+C:\Project\LibraryManagementSystem\LibraryManagementSystem\obj\Debug\LibraryManagementSystem.csproj.GenerateResource.Cache

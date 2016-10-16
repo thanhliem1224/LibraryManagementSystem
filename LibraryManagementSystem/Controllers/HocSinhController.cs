@@ -22,7 +22,7 @@ namespace LibraryManagementSystem.Controllers
 
         // GET: Hoc_Sinh
         [Authorize]
-        public ActionResult Index(string tenHS, string lopHS, string sortOrder, int? page)
+        public ActionResult Index(string tenHS, string lopHS, string sortOrder, int? page, int? pageSize)
         {
             var hoc_sinh = from s in db.HocSinh
                            select s;
@@ -80,11 +80,17 @@ namespace LibraryManagementSystem.Controllers
             ViewBag.CurrentLopHS = lopHS;
             ViewBag.CurrentTenHS = tenHS;
             ViewBag.CurrentSort = sortOrder;
+            ViewBag.CurrentPageSize = pageSize;
+
+            // setup page size
+            List<int> listpagesize = new List<int>() { 20, 50, 100, 150, 200 };
+            ViewBag.pageSize = new SelectList(listpagesize);
+
             // setup page
-            int pageSize = 50; // số dòng trong 1 trang
+            int thisPageSize = (pageSize ?? 20); // số dòng trong 1 trang
             int pageNumber = (page ?? 1);
 
-            return View(hoc_sinh.ToPagedList(pageNumber, pageSize));
+            return View(hoc_sinh.ToPagedList(pageNumber, thisPageSize));
         }
         /*
         // GET: Hoc_Sinh/Details/5
@@ -164,11 +170,11 @@ namespace LibraryManagementSystem.Controllers
                         ModelState.AddModelError("File", "Định dạng file không được hỗ trợ.");
                         return View();
                     }
-
+                    
                     reader.IsFirstRowAsColumnNames = true;
 
                     DataSet result = reader.AsDataSet();
-
+                    
                     for (int i = 0; i < result.Tables.Count; i++)
                     {
                         foreach (DataRow row in result.Tables[i].Rows)
@@ -206,6 +212,7 @@ namespace LibraryManagementSystem.Controllers
                         }
                     }
                     reader.Close();
+                    
                     return RedirectToAction("Index");
                 }
                 else
