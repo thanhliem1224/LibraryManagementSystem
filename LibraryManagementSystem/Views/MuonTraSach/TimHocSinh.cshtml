@@ -4,16 +4,32 @@
 }
 <h2 class="text-center">Tìm Học Sinh Mượn Sách</h2>
 <br />
-<div>
-    @using (Html.BeginForm(FormMethod.Get))
-    {
-        <div class="form-inline" role="form">
-            <div class="form-group">
-                <input name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh">
+
+<div class="form-horizontal">
+    <div class="form-group">
+        @using (Html.BeginForm(FormMethod.Get))
+            {
+            <div class="form-inline">
+                <div class="control-label col-md-4"><strong>Tên Học Sinh</strong></div>
+                <div class="col-md-4">
+                    @Html.TextBox("tenHS", null, new { @class = "form-control" })
+                </div>
+                <div class="col-md-4">
+                    <input type="submit" value="Tìm" class="btn btn-default" />
+                </div>
             </div>
-            <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
-        </div>
-    }
+        }
+    </div>
+    <div class="form-group">
+        @if (TempData["Message_Fa"] != null)
+            {
+            <p class="col-md-offset-4 col-md-8 text-danger">@TempData["Message_Fa"]</p>
+        }
+        @if (TempData["Message_Su"] != null)
+            {
+            <p class="col-md-offset-4 col-md-8 text-success">@TempData["Message_Su"]</p>
+        }
+    </div>
 </div>
 <br />
 <div>

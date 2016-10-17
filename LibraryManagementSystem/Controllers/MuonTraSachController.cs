@@ -327,7 +327,15 @@ namespace LibraryManagementSystem.Controllers
             if (!string.IsNullOrEmpty(tenHS))
             {
                 var hocsinh = db.HocSinh.Where(h => h.TenHS.Contains(tenHS));
-                ViewBag.HocSinh = hocsinh;
+                if (hocsinh.Count() > 0)
+                {
+                    ViewBag.HocSinh = hocsinh;
+                    TempData["Message_Su"] = "Có " + hocsinh.Count() + " kết quả";
+                }
+                else
+                {
+                    TempData["Message_Fa"] = "Không tìm thấy học sinh: \"" + tenHS + "\"";
+                }
             }
             return View();
         }
