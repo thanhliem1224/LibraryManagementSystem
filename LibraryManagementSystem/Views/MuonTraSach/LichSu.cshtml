@@ -79,105 +79,63 @@
     </div>
                     }
 <div class="table-responsive">
-    <table class="table table-hover" ">
+    <table class="table table-hover">
         <tr>
             <th>
-                @Html.ActionLink("Lớp", "LichSu", new
-           {
-               sortOrder = ViewBag.SortLop,
-               type = ViewBag.CurrentType,
-               lopHS = ViewBag.CurrentLopHS,
-               tenHS = ViewBag.CurrentTenHS,
-               maSach = ViewBag.CurrentMaSach,
-               tenSach = ViewBag.CurrentTenSach,
-               ngayFrom = ViewBag.CurrentNgayFrom,
-               ngayTo = ViewBag.CurrentNgayTo,
-               pageSize = ViewBag.CurrentPageSize
-           })
+                @Html.ActionLink("Lớp", "LichSu", new {
+               sortOrder = ViewBag.SortLop, type = ViewBag.CurrentType,
+               lopHS = ViewBag.CurrentLopHS, tenHS = ViewBag.CurrentTenHS,
+               maSach = ViewBag.CurrentMaSach, tenSach = ViewBag.CurrentTenSach,
+               ngayFrom = ViewBag.CurrentNgayFrom, ngayTo = ViewBag.CurrentNgayTo,
+               pageSize = ViewBag.CurrentPageSize })
             </th>
             <th>
-                @Html.ActionLink("Tên Học Sinh", "LichSu", new
-           {
-               sortOrder = ViewBag.SortTenHS,
-               type = ViewBag.CurrentType,
-               lopHS = ViewBag.CurrentLopHS,
-               tenHS = ViewBag.CurrentTenHS,
-               maSach = ViewBag.CurrentMaSach,
-               tenSach = ViewBag.CurrentTenSach,
-               ngayFrom = ViewBag.CurrentNgayFrom,
-               ngayTo = ViewBag.CurrentNgayTo,
-               pageSize = ViewBag.CurrentPageSize
-           })
+                @Html.ActionLink("Tên Học Sinh", "LichSu", new {
+               sortOrder = ViewBag.SortTenHS, type = ViewBag.CurrentType,
+               lopHS = ViewBag.CurrentLopHS, tenHS = ViewBag.CurrentTenHS,
+               maSach = ViewBag.CurrentMaSach, tenSach = ViewBag.CurrentTenSach,
+               ngayFrom = ViewBag.CurrentNgayFrom, ngayTo = ViewBag.CurrentNgayTo,
+               pageSize = ViewBag.CurrentPageSize })
             </th>
             <th>
-                @Html.ActionLink("Ngày Sinh", "LichSu", new
-           {
-               sortOrder = ViewBag.SortNgaySinh,
-               type = ViewBag.CurrentType,
-               lopHS = ViewBag.CurrentLopHS,
-               tenHS = ViewBag.CurrentTenHS,
-               maSach = ViewBag.CurrentMaSach,
-               tenSach = ViewBag.CurrentTenSach,
-               ngayFrom = ViewBag.CurrentNgayFrom,
-               ngayTo = ViewBag.CurrentNgayTo,
-               pageSize = ViewBag.CurrentPageSize
-           })
+                @Html.ActionLink("Ngày Sinh", "LichSu", new {
+               sortOrder = ViewBag.SortNgaySinh, type = ViewBag.CurrentType,
+               lopHS = ViewBag.CurrentLopHS, tenHS = ViewBag.CurrentTenHS,
+               maSach = ViewBag.CurrentMaSach, tenSach = ViewBag.CurrentTenSach,
+               ngayFrom = ViewBag.CurrentNgayFrom, ngayTo = ViewBag.CurrentNgayTo,
+               pageSize = ViewBag.CurrentPageSize })
             </th>
             <th>
-                @Html.ActionLink("Tên sách", "LichSu", new
-           {
-               sortOrder = ViewBag.SortTenSach,
-               type = ViewBag.CurrentType,
-               lopHS = ViewBag.CurrentLopHS,
-               tenHS = ViewBag.CurrentTenHS,
-               maSach = ViewBag.CurrentMaSach,
-               tenSach = ViewBag.CurrentTenSach,
-               ngayFrom = ViewBag.CurrentNgayFrom,
-               ngayTo = ViewBag.CurrentNgayTo,
-               pageSize = ViewBag.CurrentPageSize
-           })
+                @Html.ActionLink("Tên sách", "LichSu", new {
+               sortOrder = ViewBag.SortTenSach, type = ViewBag.CurrentType,
+               lopHS = ViewBag.CurrentLopHS, tenHS = ViewBag.CurrentTenHS,
+               maSach = ViewBag.CurrentMaSach,tenSach = ViewBag.CurrentTenSach,
+               ngayFrom = ViewBag.CurrentNgayFrom, ngayTo = ViewBag.CurrentNgayTo,
+               pageSize = ViewBag.CurrentPageSize })
             </th>
             <th>
-                @Html.ActionLink("Ngày mượn", "LichSu", new
-           {
-               sortOrder = ViewBag.SortNgayMuon,
-               type = ViewBag.CurrentType,
-               lopHS = ViewBag.CurrentLopHS,
-               tenHS = ViewBag.CurrentTenHS,
-               maSach = ViewBag.CurrentMaSach,
-               tenSach = ViewBag.CurrentTenSach,
-               ngayFrom = ViewBag.CurrentNgayFrom,
-               ngayTo = ViewBag.CurrentNgayTo,
-               pageSize = ViewBag.CurrentPageSize
-           })
+                @Html.ActionLink("Ngày mượn", "LichSu", new {
+               sortOrder = ViewBag.SortNgayMuon, type = ViewBag.CurrentType,
+               lopHS = ViewBag.CurrentLopHS, tenHS = ViewBag.CurrentTenHS,
+               maSach = ViewBag.CurrentMaSach, tenSach = ViewBag.CurrentTenSach,
+               ngayFrom = ViewBag.CurrentNgayFrom, ngayTo = ViewBag.CurrentNgayTo,
+               pageSize = ViewBag.CurrentPageSize })
             </th>
             <th>
-                @Html.ActionLink("Hạn trả", "LichSu", new
-           {
-               sortOrder = ViewBag.SortHanTra,
-               type = ViewBag.CurrentType,
-               lopHS = ViewBag.CurrentLopHS,
-               tenHS = ViewBag.CurrentTenHS,
-               maSach = ViewBag.CurrentMaSach,
-               tenSach = ViewBag.CurrentTenSach,
-               ngayFrom = ViewBag.CurrentNgayFrom,
-               ngayTo = ViewBag.CurrentNgayTo,
-               pageSize = ViewBag.CurrentPageSize
-           })
+                @Html.ActionLink("Hạn trả", "LichSu", new {
+               sortOrder = ViewBag.SortHanTra, type = ViewBag.CurrentType,
+               lopHS = ViewBag.CurrentLopHS, tenHS = ViewBag.CurrentTenHS,
+               maSach = ViewBag.CurrentMaSach, tenSach = ViewBag.CurrentTenSach,
+               ngayFrom = ViewBag.CurrentNgayFrom, ngayTo = ViewBag.CurrentNgayTo,
+               pageSize = ViewBag.CurrentPageSize })
             </th>
             <th>
-                @Html.ActionLink("Ngày trả", "LichSu", new
-           {
-               sortOrder = ViewBag.SortNgayTra,
-               type = ViewBag.CurrentType,
-               lopHS = ViewBag.CurrentLopHS,
-               tenHS = ViewBag.CurrentTenHS,
-               maSach = ViewBag.CurrentMaSach,
-               tenSach = ViewBag.CurrentTenSach,
-               ngayFrom = ViewBag.CurrentNgayFrom,
-               ngayTo = ViewBag.CurrentNgayTo,
-               pageSize = ViewBag.CurrentPageSize
-           })
+                @Html.ActionLink("Ngày trả", "LichSu", new {
+               sortOrder = ViewBag.SortNgayTra, type = ViewBag.CurrentType,
+               lopHS = ViewBag.CurrentLopHS, tenHS = ViewBag.CurrentTenHS,
+               maSach = ViewBag.CurrentMaSach, tenSach = ViewBag.CurrentTenSach,
+               ngayFrom = ViewBag.CurrentNgayFrom, ngayTo = ViewBag.CurrentNgayTo,
+               pageSize = ViewBag.CurrentPageSize })
             </th>
         </tr>
         @foreach (var item in Model)

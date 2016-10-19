@@ -13,6 +13,7 @@ using Excel;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 using PagedList;
+using System.Globalization;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -179,11 +180,22 @@ namespace LibraryManagementSystem.Controllers
                     {
                         foreach (DataRow row in result.Tables[i].Rows)
                         {
+                            DateTime ngaySinh;
+                            // chuyển date từ số sang date nếu là file excel 97
+                            if (upload.FileName.EndsWith(".xls"))
+                            {
+                                double dateNumber = double.Parse(row[2].ToString());
+                                ngaySinh = DateTime.FromOADate(dateNumber);
+                            }
+                            else // nếu là file xlsx thì giữ nguyên
+                            {
+                                ngaySinh = DateTime.Parse(row[2].ToString());
+                            }
                             HocSinh hocsinh = new HocSinh
                             {
                                 TenHS = row[1].ToString(),
                                 Lop = result.Tables[i].TableName,
-                                NgaySinh = DateTime.Parse(row[2].ToString())
+                                NgaySinh = ngaySinh
                             };
 
                             if (db.HocSinh.Any(hs => hs.NgaySinh == hocsinh.NgaySinh && hs.TenHS == hocsinh.TenHS))
@@ -197,15 +209,9 @@ namespace LibraryManagementSystem.Controllers
                                     db.HocSinh.Add(hocsinh);
                                     db.SaveChanges();
                                 }
-                                catch (DbEntityValidationException dbEx)
+                                catch (Exception)
                                 {
-                                    foreach (var validationErrors in dbEx.EntityValidationErrors)
-                                    {
-                                        foreach (var validationError in validationErrors.ValidationErrors)
-                                        {
-                                            Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
-                                        }
-                                    }
+
                                 }
 
                             }

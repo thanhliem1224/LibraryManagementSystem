@@ -42,25 +42,26 @@
                     @using (Html.BeginForm())
                     {
                         <div class="form-inline">
-
-                            <div class="control-label col-md-4"> <strong>Tìm Tên Sách</strong> </div>
-                            <div class="col-md-6">
-                                @Html.TextBox("tenSach", null, new { @class = "form-control" })
-                            </div>
-                            <div class="col-md-2">
-                                <input type="submit" value="Tìm Sách" class="btn btn-default" />
-                            </div>
-
+                            @if (TempData["Message"] != null)
+                            {
+                                <h3 class="col-md-offset-2 col-md-10 text-danger">@TempData["Message"]</h3>
+                            }
+                            else
+                            {
+                                <div class="control-label col-md-4"> <strong>Tìm Tên Sách</strong> </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="tenSach" class="form-control" />
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="submit" value="Tìm Sách" class="btn btn-default" />
+                                </div>
+                            }
                         </div>
                     }
                     <div>
-                        @if (TempData["Message"] != null)
-                        {
-                            <p class="col-md-offset-4 col-md-10 text-danger">@TempData["Message"]</p>
-                        }
                         @if (TempData["Success"] != null)
                         {
-                            <p class="col-md-offset-4 col-md-10 text-success">@TempData["Success"]</p>
+                            <h3 class="col-md-offset-2 col-md-10 text-success">@TempData["Success"]</h3>
                         }
                     </div>
                 </div>

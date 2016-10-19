@@ -58,40 +58,47 @@ namespace LibraryManagementSystem.Controllers
 
             switch (sortOrder)
             {
+                //sắp xếp tăng dần theo lớp
                 case "lop_ascending":
                     docSachTaiCho = docSachTaiCho.OrderBy(d => d.HocSinh.Lop);
                     ViewBag.sortLop = "lop_descending";
                     break;
+                //sắp xếp tăng dần theo tên học sinh
                 case "tenHS_ascending":
                     docSachTaiCho = docSachTaiCho.OrderBy(d => d.HocSinh.TenHS);
                     ViewBag.sortTenHS = "tenHS_descending";
                     break;
+                //sắp xếp tăng dần theo ngày sinh
                 case "ngaySinh_ascending":
                     docSachTaiCho = docSachTaiCho.OrderBy(d => d.HocSinh.NgaySinh);
                     ViewBag.sortNgaySinh = "ngaySinh_descending";
                     break;
+                //sắp xếp tăng dần theo ngày đọc
                 case "ngay_ascending":
                     docSachTaiCho = docSachTaiCho.OrderBy(d => d.Ngay);
                     ViewBag.sortNgay = "ngay_descending";
                     break;
-
-                //////////////////////////////////////////////////////////
+                //sắp xếp giảm dần theo lớp
                 case "lop_descending":
                     docSachTaiCho = docSachTaiCho.OrderByDescending(m => m.HocSinh.Lop);
                     ViewBag.sortLop = "lop_ascending";
                     break;
+                //sắp xếp giảm dần theo tên học sinh
                 case "tenHS_descending":
                     docSachTaiCho = docSachTaiCho.OrderByDescending(m => m.HocSinh.TenHS);
                     ViewBag.sortTenHS = "tenHS_ascending";
                     break;
+                //sắp xếp giảm dần theo ngày sinh
                 case "ngaySinh_descending":
                     docSachTaiCho = docSachTaiCho.OrderByDescending(m => m.HocSinh.NgaySinh);
                     ViewBag.sortNgaySinh = "ngaySinh_ascending";
                     break;
+                //sắp xếp giảm dần theo ngày đọc
                 case "ngay_descending":
                     docSachTaiCho = docSachTaiCho.OrderByDescending(m => m.Ngay);
                     ViewBag.sortNgay = "ngay_ascending";
                     break;
+                //sắp xếp giảm dần theo ngày đọc
                 default:
                     docSachTaiCho = docSachTaiCho.OrderByDescending(m => m.Ngay);
                     ViewBag.sortNgay = "ngay_ascending";
@@ -99,7 +106,7 @@ namespace LibraryManagementSystem.Controllers
 
             }
             #endregion
-            #region Paged
+            #region phân trang
             // lưu dữ liệu search hiện tại
             ViewBag.CurrentLopHS = lopHS;
             ViewBag.CurrentTenHS = tenHS;
@@ -131,7 +138,7 @@ namespace LibraryManagementSystem.Controllers
 
                 if (ds.Count() > 0) // nếu có kết quả
                 {
-                    TempData["Title"] = "Kết quả tìm kiếm \"" + tenHS + "\"";
+                    TempData["Title"] = "Kết quả tìm kiếm \"" + tenHS + "\" (" + ds.Count() + " kết quả)";
                     ViewBag.DSTimKiem = ds;
                 }
                 else
@@ -140,7 +147,10 @@ namespace LibraryManagementSystem.Controllers
                 }
             }
 
-            ViewBag.DSDocSach = db.DocSachTaiCho.Where(dstc => dstc.Ngay.Day == DateTime.Now.Day && dstc.Ngay.Month == DateTime.Now.Month && dstc.Ngay.Year == DateTime.Now.Year).OrderByDescending(dstc => dstc.Ngay);
+            ViewBag.DSDocSach = db.DocSachTaiCho.Where(dstc => dstc.Ngay.Day == DateTime.Now.Day
+                                                        && dstc.Ngay.Month == DateTime.Now.Month
+                                                        && dstc.Ngay.Year == DateTime.Now.Year)
+                                                .OrderByDescending(dstc => dstc.Ngay);
             return View();
         }
 

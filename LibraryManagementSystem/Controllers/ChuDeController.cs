@@ -19,16 +19,19 @@ namespace LibraryManagementSystem.Controllers
         [Authorize]
         public ActionResult Index(string sortOrder)
         {
+            //lấy danhh sách chủ đề
             var chuDe = from c in db.ChuDe
                         select c;
 
             ViewBag.SortTen = "ten_ascending";
             switch(sortOrder)
             {
+                //sắp xếp tăng dần theo tên
                 case "ten_ascending":
                     chuDe = chuDe.OrderBy(c => c.TenChuDe);
                     ViewBag.SortTen = "ten_descending";
                     break;
+                //sắp xếp giảm dần theo tên
                 case "ten_descending":
                     chuDe = chuDe.OrderByDescending(c => c.TenChuDe);
                     ViewBag.SortTen = "ten_ascending";
@@ -38,7 +41,6 @@ namespace LibraryManagementSystem.Controllers
                     ViewBag.SortTen = "ten_descending";
                     break;
             }
-
             return View(chuDe);
         }
         /*
