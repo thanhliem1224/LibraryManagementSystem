@@ -1,33 +1,61 @@
-﻿<div>
-    <h4><u>Bảng Thống Kê Thể Loại Sách Được Mượn Nhiều (@ViewBag.date)</u></h4>
-    @if (ViewBag.TheLoaiYeuThich_Count == 0)
-    {
-    <p>Không có hoạt động mượn sách</p>
-    }
-    else
-    {
-    <div class="table-responsive">
-        <table class="table">
-            <tr>
-                <th>
-                    Thể Loại
-                </th>
-                <th>
-                    Số Lượng
-                </th>
-            </tr>
-            @foreach (var theloai in ViewBag.TheLoaiYeuThich)
-            {
-            <tr>
-                <td>
-                    @theloai.GroupName1
-                </td>
-                <td>
-                    @theloai.GroupSoLuong
-                </td>
-            </tr>
-            }
-        </table>
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#e_bctly").click(function () {
+                $("#t_bctly").fadeToggle("slow");
+            });
+        });
+    </script>
+    <style>
+        a:link {
+            color: black;
+        }
+
+        a:visited {
+            color: hotpink;
+        }
+
+        a:active {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h4><a id="e_bctly">Bảng Thống Kê Thể Loại Sách Được Mượn Nhiều (@ViewBag.date)</a></h4>
+        @if (ViewBag.TheLoaiYeuThich_Count == 0)
+        {
+            <p>Không có hoạt động mượn sách</p>
+        }
+        else
+        {
+            <div class="table-responsive" id="t_bctly">
+                <table class="table">
+                    <tr>
+                        <th>
+                            Thể Loại
+                        </th>
+                        <th>
+                            Số Lượng
+                        </th>
+                    </tr>
+                    @foreach (var theloai in ViewBag.TheLoaiYeuThich)
+                {
+                        <tr>
+                            <td>
+                                @theloai.GroupName1
+                            </td>
+                            <td>
+                                @theloai.GroupSoLuong
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        }
     </div>
-    }
-</div>
+</body>
+</html>

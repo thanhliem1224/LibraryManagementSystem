@@ -1,61 +1,89 @@
-﻿<div>
-    <h4><u>Danh Sách Học Sinh Làm Mất Sách (từ trước đến nay)</u></h4>
-    @if (ViewBag.SachMat_Count == 0)
-    {
-        <p>Không có sách bị mất</p>
-    }
-    else
-    {
-        <div class="table-responsive">
-            <table class="table">
-                <tr>
-                    <th>
-                        Tên Học Sinh
-                    </th>
-                    <th>
-                        Số Lượng
-                    </th>
-                    <th>
-                        Tên Sách
-                    </th>
-                </tr>
-                @foreach (var item in ViewBag.SachMat)
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#e_bcsm").click(function () {
+                $("#t_bcsm").fadeToggle("slow");
+            });
+        });
+    </script>
+    <style>
+        a:link {
+            color: black;
+        }
+
+        a:visited {
+            color: hotpink;
+        }
+
+        a:active {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h4><a id="e_bcsm">Danh Sách Học Sinh Làm Mất Sách</a></h4>
+        @if (ViewBag.SachMat_Count == 0)
+        {
+            <p>Không có sách bị mất</p>
+        }
+        else
+        {
+            <div class="table-responsive" id="t_bcsm">
+                <table class="table">
+                    <tr>
+                        <th>
+                            Tên Học Sinh
+                        </th>
+                        <th>
+                            Số Lượng
+                        </th>
+                        <th>
+                            Tên Sách
+                        </th>
+                    </tr>
+                    @foreach (var item in ViewBag.SachMat)
                 {
+                        <tr>
+                            <td>
+                                @item.GroupName1
+                            </td>
+                            <td>
+                                @item.GroupSoLuong
+                            </td>
+                            <td>
+                                <table class="table">
+                                    @foreach (var dsct in item.GroupDanhSach)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @dsct.Sach.TenSach
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </td>
+                        </tr>
+
+                    }
                     <tr>
                         <td>
-                            @item.GroupName1
+                            <strong>
+                                Tổng Cộng
+                            </strong>
                         </td>
-                        <td>
-                            @item.GroupSoLuong
-                        </td>
-                        <td>
-                            <table class="table">
-                                @foreach (var dsct in item.GroupDanhSach)
-                                {
-                                    <tr>
-                                        <td>
-                                            @dsct.Sach.TenSach
-                                        </td>
-                                    </tr>
-                                }
-                            </table>
+                        <td colspan="2">
+                            <strong>
+                                @ViewBag.SachMat_Count
+                            </strong>
                         </td>
                     </tr>
-
-                }
-                <tr>
-                    <td>
-                        <strong>
-                            Tổng Cộng
-                        </strong>
-                    </td>
-                    <td colspan="2">
-                        <strong>
-                            @ViewBag.SachMat_Count
-                        </strong>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    }
-</div>
+                </table>
+            </div>
+        }
+    </div>
+</body>
+</html>

@@ -1,41 +1,78 @@
-﻿<div>
-    <h4><u>Bảng Thống Kê Hoạt Động Mượn Sách (@ViewBag.date)</u></h4>
-    @if (ViewBag.MuonTraSach_Count == 0)
-    {
-    <p>Không có hoạt động mượn sách</p>
-    }
-    else
-    {
-    <div class="table-responsive">
-        <table class="table">
-            <tr>
-                <th>
-                    Lớp
-                </th>
-                <th>
-                    Số Lượng Mượn Sách Về Nhà
-                </th>
-            </tr>
-            @foreach (var item in ViewBag.MuonTraSach)
-            {
-            <tr>
-                <td>
-                    @item.GroupName1
-                </td>
-                <td>
-                    @item.GroupSoLuong
-                </td>
-            </tr>
-            }
-            <tr>
-                <td>
-                    <strong>Tổng Cộng</strong>
-                </td>
-                <td>
-                    <strong>@ViewBag.MuonTraSach_Count</strong>
-                </td>
-            </tr>
-        </table>
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#e_bcms").click(function () {
+                $("#t_bcms").fadeToggle("slow");
+            });
+        });
+    </script>
+    <script>
+        function bcct_muonsach() {
+            window.open("/BaoCao/BCCT_MuonSach");
+        }
+    </script>
+    <style>
+        a:link {
+            color: black;
+        }
+
+        a:visited {
+            color: hotpink;
+        }
+
+        a:active {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h4><a id="e_bcms">Bảng Thống Kê Hoạt Động Mượn Sách (@ViewBag.date)</a></h4>
+        @if (ViewBag.MuonTraSach_Count == 0)
+        {
+            <p>Không có hoạt động mượn sách</p>
+        }
+        else
+        {
+            <div class="table-responsive" id="t_bcms">
+                <table class="table">
+                    <tr>
+                        <th>
+                            Lớp
+                        </th>
+                        <th>
+                            Số Lượng Mượn Sách Về Nhà
+                        </th>
+                    </tr>
+                    @foreach (var item in ViewBag.MuonTraSach)
+                {
+                        <tr>
+                            <td>
+                                @item.GroupName1
+                            </td>
+                            <td>
+                                @item.GroupSoLuong
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td>
+                            <strong>Tổng Cộng</strong>
+                        </td>
+                        <td>
+                            <strong>@ViewBag.MuonTraSach_Count</strong>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+            <button class="btn btn-success" onclick="bcct_muonsach()">
+                Báo cáo chi tiết
+            </button>
+        }
     </div>
-    }
-</div>
+</body>
+</html>

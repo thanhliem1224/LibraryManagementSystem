@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "Báo cáo đọc sách chi tiết";
+}
+@using (Html.BeginForm("BCCT_DocSach", "BaoCao", FormMethod.Get))
+{
+    <div>
+        <h4><u>Bảng Thống Kê Chi Tiết Hoạt Động Đọc Sách</u></h4>
+        <div class="form-inline" role="form">
+            <div class="form-group">
+                <input id="tenHS" name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh" value="@ViewBag.CurrentTenHS">
+            </div>
+            <div class="form-group">
+                <input id="lopHS" name="lopHS" type="text" class="form-control" placeholder="Tìm Lớp" value="@ViewBag.CurrentLopHS">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search" value="Search"></i></button>
+            </div>
+        </div>
+        @if (ViewBag.DocSachTaiCho_Count == 0)
+        {
+            <p>Có lỗi khi sinh ra?</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            @Html.ActionLink("Tên Học Sinh", "BCCT_DocSach", new {
+                           lopHS = ViewBag.CurrentLopHS,
+                           tenHS = ViewBag.CurrentTenHS,
+                           sortOrder = ViewBag.NameSort })
+                        </th>
+                        <th>
+                            @Html.ActionLink("Lớp", "BCCT_DocSach", new {
+                           lopHS = ViewBag.CurrentLopHS,
+                           tenHS = ViewBag.CurrentTenHS,
+                           sortOrder = ViewBag.ClassSort })
+                        </th>
+                        <th>
+                            @Html.ActionLink("Ngày Đọc", "BCCT_DocSach", new {
+                           lopHS = ViewBag.CurrentLopHS,
+                           tenHS = ViewBag.CurrentTenHS,
+                           sortOrder = ViewBag.DateSort })
+                        </th>
+                    </tr>
+                    @foreach (var item in ViewBag.DocSachTaiCho)
+                    {
+                        <tr>
+                            <td>
+                                @item.GroupName1
+                            </td>
+                            <td>
+                                @item.GroupName2
+                            </td>
+                            <td>
+                                @item.GroupName3
+                            </td>
+                            <td>
+                                @item.GroupDatetime.ToShortDateString()
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td colspan="3">
+                            <strong>Tổng Cộng</strong>
+                        </td>
+                        <td>
+                            <strong>@ViewBag.DocSachTaiCho_Count</strong>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+    </div>
+}

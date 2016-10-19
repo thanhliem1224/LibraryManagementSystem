@@ -1,39 +1,67 @@
-﻿<div>
-    <h4><u>Bảng Thống Kê Sách Được Mượn Nhiều (@ViewBag.date)</u></h4>
-    @if (ViewBag.SachYeuThich_Count == 0)
-    {
-        <p>Không có hoạt động mượn sách</p>
-    }
-    else
-    {
-        <div class="table-responsive">
-            <table class="table">
-                <tr>
-                    <th>
-                        Thể Loại
-                    </th>
-                    <th>
-                        Tên Sách
-                    </th>
-                    <th>
-                        Số Lượng
-                    </th>
-                </tr>
-                @foreach (var sach in ViewBag.SachYeuThich)
-                {
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#e_bcsy").click(function () {
+                $("#t_bcsy").fadeToggle("slow");
+            });
+        });
+    </script>
+    <style>
+        a:link {
+            color: black;
+        }
+
+        a:visited {
+            color: hotpink;
+        }
+
+        a:active {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h4><a id="e_bcsy">Bảng Thống Kê Sách Được Mượn Nhiều (@ViewBag.date)</a></h4>
+        @if (ViewBag.SachYeuThich_Count == 0)
+        {
+            <p>Không có hoạt động mượn sách</p>
+        }
+        else
+        {
+            <div class="table-responsive" id="t_bcsy">
+                <table class="table">
                     <tr>
-                        <td>
-                            @sach.GroupName1
-                        </td>
-                        <td>
-                            @sach.GroupName2
-                        </td>
-                        <td>
-                            @sach.GroupSoLuong
-                        </td>
+                        <th>
+                            Thể Loại
+                        </th>
+                        <th>
+                            Tên Sách
+                        </th>
+                        <th>
+                            Số Lượng
+                        </th>
                     </tr>
-                }
-            </table>
-        </div>
-    }
-</div>
+                    @foreach (var sach in ViewBag.SachYeuThich)
+                {
+                        <tr>
+                            <td>
+                                @sach.GroupName1
+                            </td>
+                            <td>
+                                @sach.GroupName2
+                            </td>
+                            <td>
+                                @sach.GroupSoLuong
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        }
+    </div>
+</body>
+</html>

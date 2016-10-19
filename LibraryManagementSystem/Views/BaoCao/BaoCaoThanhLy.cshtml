@@ -1,40 +1,67 @@
-﻿
-<div>
-    <h4><u>Danh Sách Sách Đã Thanh Lý (@ViewBag.date)</u></h4>
-    @if (ViewBag.ThanhLy_Count == 0)
-    {
-        <p>Không có sach thanh lý</p>
-    }
-    else
-    {
-        <div class="table-responsive">
-            <table class="table">
-                <tr>
-                    <th>
-                        Mã Sách
-                    </th>
-                    <th>
-                        Tên Sách
-                    </th>
-                    <th>
-                        Ngày
-                    </th>
-                </tr>
-                @foreach (var item in ViewBag.ThanhLy)
-                {
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#e_bcstl").click(function () {
+                $("#t_bcstl").fadeToggle("slow");
+            });
+        });
+    </script>
+    <style>
+        a:link {
+            color: black;
+        }
+
+        a:visited {
+            color: hotpink;
+        }
+
+        a:active {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h4><a id="e_bcstl">Danh Sách Sách Đã Thanh Lý (@ViewBag.date)</a></h4>
+        @if (ViewBag.ThanhLy_Count == 0)
+        {
+            <p>Không có sach thanh lý</p>
+        }
+        else
+        {
+            <div class="table-responsive" id="t_bcstl">
+                <table class="table">
                     <tr>
-                        <td>
-                            @item.Sach.SachID
-                        </td>
-                        <td>
-                            @item.Sach.TenSach
-                        </td>
-                        <td>
-                            @item.Ngay
-                        </td>
+                        <th>
+                            Mã Sách
+                        </th>
+                        <th>
+                            Tên Sách
+                        </th>
+                        <th>
+                            Ngày
+                        </th>
                     </tr>
-                }
-            </table>
-        </div>
-    }
-</div>
+                    @foreach (var item in ViewBag.ThanhLy)
+                {
+                        <tr>
+                            <td>
+                                @item.Sach.SachID
+                            </td>
+                            <td>
+                                @item.Sach.TenSach
+                            </td>
+                            <td>
+                                @item.Ngay
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        }
+    </div>
+</body>
+</html>

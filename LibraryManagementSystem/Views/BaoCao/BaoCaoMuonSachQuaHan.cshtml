@@ -1,61 +1,89 @@
-﻿<div>
-    <h4><u>Danh Sách Học Sinh Mượn Sách Quá Hạn (từ trước đến nay)</u></h4>
-    @if (ViewBag.MuonQuaHan_Count == 0)
-    {
-    <p>Không có học sinh mượn sách quá hạn</p>
-    }
-    else
-    {
-    <div class="table-responsive">
-        <table class="table">
-            <tr>
-                <th>
-                    Tên Học Sinh
-                </th>
-                <th>
-                    Số Lượng
-                </th>
-                <th>
-                    Tên Sách
-                </th>
-            </tr>
-            @foreach (var item in ViewBag.MuonQuaHan)
-            {
-            <tr>
-                <td>
-                    @item.GroupName1
-                </td>
-                <td>
-                    @item.GroupSoLuong
-                </td>
-                <td>
-                    <table class="table">
-                        @foreach (var dsct in item.GroupDanhSach)
-                        {
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#e_bcsqh").click(function () {
+                $("#t_bcsqh").fadeToggle("slow");
+            });
+        });
+    </script>
+    <style>
+        a:link {
+            color: black;
+        }
+
+        a:visited {
+            color: hotpink;
+        }
+
+        a:active {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h4><a id="e_bcsqh">Danh Sách Học Sinh Hiện Đang Mượn Sách Quá Hạn</a></h4>
+        @if (ViewBag.MuonQuaHan_Count == 0)
+        {
+            <p>Không có học sinh mượn sách quá hạn</p>
+        }
+        else
+        {
+            <div class="table-responsive" id="t_bcsqh">
+                <table class="table">
+                    <tr>
+                        <th>
+                            Tên Học Sinh
+                        </th>
+                        <th>
+                            Số Lượng
+                        </th>
+                        <th>
+                            Tên Sách
+                        </th>
+                    </tr>
+                    @foreach (var item in ViewBag.MuonQuaHan)
+                {
                         <tr>
                             <td>
-                                @dsct.Sach.TenSach
+                                @item.GroupName1
+                            </td>
+                            <td>
+                                @item.GroupSoLuong
+                            </td>
+                            <td>
+                                <table class="table">
+                                    @foreach (var dsct in item.GroupDanhSach)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @dsct.Sach.TenSach
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
                             </td>
                         </tr>
-                        }
-                    </table>
-                </td>
-            </tr>
 
-            }
-            <tr>
-                <td>
-                    <strong>
-                        Tổng Cộng
-                    </strong>
-                </td>
-                <td colspan="2">
-                    <strong>
-                        @ViewBag.MuonQuaHan_Count
-                    </strong>
-                </td>
-            </tr>
-        </table>
+                    }
+                    <tr>
+                        <td>
+                            <strong>
+                                Tổng Cộng
+                            </strong>
+                        </td>
+                        <td colspan="2">
+                            <strong>
+                                @ViewBag.MuonQuaHan_Count
+                            </strong>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
     </div>
-    }
-</div>
+</body>
+</html>

@@ -1,13 +1,18 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using LibraryManagementSystem.DAL;
-using System;
-using LibraryManagementSystem.Models.ViewModel;
 using LibraryManagementSystem.Models;
-using System.IO;
+using LibraryManagementSystem.Models.ViewModel;
+using PagedList;
 using Novacode;
+using System.IO;
 using System.Drawing;
-using System.Collections.Generic;
 using System.Text;
 
 namespace LibraryManagementSystem.Controllers
@@ -365,6 +370,213 @@ namespace LibraryManagementSystem.Controllers
             }
         }
 
+        private IQueryable<BaoCaoVM> BaoCaoDocSachChiTiet(LOAIBAOCAO? type, DateTime? d, DateTime? d_f,
+            string sortOrder, string tenHS, string lopHS)
+        {
+            var danhsachdoc = db.DocSachTaiCho.Include(dsd => dsd.Ngay).Include(dsd => dsd.HocSinhID);
+            #region Run
+            if (type.HasValue)
+            {
+                if (type == LOAIBAOCAO.Thang)
+                {
+                    if (d.HasValue) // neu du lieu thang co
+                    {
+                        int _month = d.Value.Month;
+                        int _year = d.Value.Year;
+
+                        danhsachdoc = from dsd in db.DocSachTaiCho
+                                      where dsd.Ngay.Month == _month && dsd.Ngay.Year == _year
+                                      select dsd;
+                    }
+                    else // neu ko co du lieu thang
+                    {
+                        return null;
+                    }
+                }
+                else if (type == LOAIBAOCAO.Nam)
+                {
+                    if (d.HasValue) // neu co du lieu nam
+                    {
+                        int _year = d.Value.Year;
+
+                        danhsachdoc = from dsd in db.DocSachTaiCho
+                                      where dsd.Ngay.Year == _year
+                                      select dsd;
+                    }
+                    else // neu ko co du lieu nam
+                    {
+                        return null;
+                    }
+                }
+                else if (type == LOAIBAOCAO.KhoanThoiGian)
+                {
+                    if ((d.HasValue) && (d_f.HasValue)) // neu co du lieu khoang thoi gian
+                    {
+                        int _month_s = d.Value.Month;
+                        int _year_s = d.Value.Year;
+                        int _month_f = d_f.Value.Month;
+                        int _year_f = d_f.Value.Year;
+                        danhsachdoc = from dsd in db.DocSachTaiCho
+                                      where (dsd.Ngay.Month >= _month_s && dsd.Ngay.Year >= _year_s) && (dsd.Ngay.Month <= _month_f && dsd.Ngay.Year <= _year_f)
+                                      select dsd;
+                    }
+                    else // neu ko co du lieu khoang thoi gian
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+            else
+            {
+                return null;
+            }
+            var result = from dshs in db.HocSinh
+                         from dsd in danhsachdoc
+                         where dshs.ID == dsd.HocSinhID
+                         orderby dsd.Ngay
+                         select new BaoCaoVM { GroupName1 = dshs.ID.ToString(), GroupName2 = dshs.TenHS, GroupName3 = dshs.Lop, GroupDatetime = dsd.Ngay, GroupSoLuong = 1 };
+
+            #endregion
+            #region search
+            if (!String.IsNullOrEmpty(tenHS))
+            {
+                result = result.Where(s => s.GroupName2.Contains(tenHS));
+            }
+            if (!String.IsNullOrEmpty(lopHS))
+            {
+                result = result.Where(s => s.GroupName3.Contains(lopHS));
+            }
+            #endregion
+            #region Sort
+            ViewBag.DateSort = string.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
+            ViewBag.NameSort = sortOrder == "Name" ? "name_desc" : "Name";
+            ViewBag.ClassSort = sortOrder == "Class" ? "class_desc" : "Class";
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    result = result.OrderByDescending(s => s.GroupName2);
+                    break;
+                case "date_desc":
+                    result = result.OrderByDescending(s => s.GroupDatetime);
+                    break;
+                case "Name":
+                    result = result.OrderBy(s => s.GroupName2);
+                    break;
+                case "Class":
+                    result = result.OrderBy(s => s.GroupName3);
+                    break;
+                case "class_desc":
+                    result = result.OrderByDescending(s => s.GroupName3);
+                    break;
+                default:
+                    result = result.OrderBy(s => s.GroupDatetime);
+                    break;
+
+            }
+            #endregion
+            return result;
+        }
+
+        private IQueryable<BaoCaoVM> BaoCaoMuonSachChiTiet(LOAIBAOCAO? type, DateTime? d, DateTime? d_f,
+            string sortOrder, string tenHS, string lopHS, string tenS)
+        {
+            #region Run
+            var danhsachmuonsach = db.MuonTraSach.Include(dsms => dsms.HocSinhID).Include(dsms => dsms.SachID)
+                .Include(dsms => dsms.NgayMuon);
+            if (type.HasValue)
+            {
+                if (type == LOAIBAOCAO.Thang)
+                {
+                    if (d.HasValue) // neu du lieu thang co
+                    {
+                        int _month = d.Value.Month;
+                        int _year = d.Value.Year;
+
+                        danhsachmuonsach = from dsms in db.MuonTraSach
+                                           where dsms.NgayMuon.Month == _month && dsms.NgayMuon.Year == _year
+                                           select dsms;
+
+                    }
+                }
+                else if (type == LOAIBAOCAO.Nam)
+                {
+                    if (d.HasValue) // neu co du lieu nam
+                    {
+                        int _year = d.Value.Year;
+
+                        danhsachmuonsach = from dsms in db.MuonTraSach
+                                           where dsms.NgayMuon.Year == _year
+                                           select dsms;
+                    }
+                }
+                else if (type == LOAIBAOCAO.KhoanThoiGian)
+                {
+                    if ((d.HasValue) && (d_f.HasValue)) // neu co du lieu khoang thoi gian
+                    {
+                        int _month_s = d.Value.Month;
+                        int _year_s = d.Value.Year;
+                        int _month_f = d_f.Value.Month;
+                        int _year_f = d_f.Value.Year;
+                        danhsachmuonsach = from dsms in db.MuonTraSach
+                                           where (dsms.NgayMuon.Month >= _month_s && dsms.NgayMuon.Year >= _year_s) && (dsms.NgayMuon.Month <= _month_f && dsms.NgayMuon.Year <= _year_f)
+                                           select dsms;
+                    }
+                }
+
+            }
+            var result = from dsms in danhsachmuonsach
+                         select new BaoCaoVM { GroupName1 = dsms.HocSinh.TenHS, GroupName2 = dsms.HocSinh.Lop, GroupName3 = dsms.Sach.TenSach, GroupDatetime = dsms.NgayMuon, GroupSoLuong = 1 };
+            #endregion
+            #region Search
+            if (!String.IsNullOrEmpty(tenHS))
+            {
+                result = result.Where(s => s.GroupName1.Contains(tenHS));
+            }
+            if (!String.IsNullOrEmpty(lopHS))
+            {
+                result = result.Where(s => s.GroupName2.Contains(lopHS));
+            }
+            if (!String.IsNullOrEmpty(tenS))
+            {
+                result = result.Where(s => s.GroupName3.Contains(tenS));
+            }
+            #endregion
+            #region Sort
+            ViewBag.DateSort = string.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
+            ViewBag.NameSort = sortOrder == "Name" ? "name_desc" : "Name";
+            ViewBag.ClassSort = sortOrder == "Class" ? "class_desc" : "Class";
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    result = result.OrderByDescending(s => s.GroupName1);
+                    break;
+                case "date_desc":
+                    result = result.OrderByDescending(s => s.GroupDatetime);
+                    break;
+                case "Name":
+                    result = result.OrderBy(s => s.GroupName1);
+                    break;
+                case "Class":
+                    result = result.OrderBy(s => s.GroupName2);
+                    break;
+                case "class_desc":
+                    result = result.OrderByDescending(s => s.GroupName2);
+                    break;
+                default:
+                    result = result.OrderBy(s => s.GroupDatetime);
+                    break;
+
+            }
+            #endregion
+            return result;
+            //
+        }
         private IQueryable<BaoCaoVM> BaoCaoMuonSach(LOAIBAOCAO? type, DateTime? d, DateTime? d_f)
         {
             if (type.HasValue)
@@ -731,8 +943,6 @@ namespace LibraryManagementSystem.Controllers
 
             Paragraph heading = doc.InsertParagraph();
             heading.StyleName = "Heading1";
-
-            #region Bao Cao Muon Sach + Doc Tai Cho
             ///
             ///Bao cao muon sach
             ///
@@ -782,9 +992,9 @@ namespace LibraryManagementSystem.Controllers
                 {
 
                     t_Muonsach.Rows[Row].Cells[Cell].Paragraphs[0].Append(string.Format("{0}", lop.Key)).FontSize(13).Font(TNR);
-                        t_Muonsach.Rows[Row + 1].Cells[Cell].Paragraphs[0].Append(string.Format("{0}", lop.Value)).FontSize(13).Font(TNR);
+                    t_Muonsach.Rows[Row + 1].Cells[Cell].Paragraphs[0].Append(string.Format("{0}", lop.Value)).FontSize(13).Font(TNR);
                     tc_luot += lop.Value;
-                        Cell++;
+                    Cell++;
                 }
                 //Xuat tong so luon cac lop
                 t_Muonsach.Rows[Row].Cells[Cell].Paragraphs[0].Append(string.Format("Tổng số lượt mượn sách")).FontSize(13).Font(TNR);
@@ -826,7 +1036,7 @@ namespace LibraryManagementSystem.Controllers
                 {
                     filter_quahang.Add(v.GroupName2, v.GroupSoLuong);
                 }
-                
+
             }
             // Filter sach qua han
 
@@ -871,7 +1081,6 @@ namespace LibraryManagementSystem.Controllers
                 sen = text.ToString();
                 bc_Trasach.AppendLine(sen).FontSize(13).Font(TNR);
             }
-            #endregion
             #region Sach cua thu vien
             Paragraph heading3 = doc.InsertParagraph();
             heading3.StyleName = "Heading1";
@@ -906,6 +1115,40 @@ namespace LibraryManagementSystem.Controllers
             doc.Save();
             string filename = "BaoCao_" + date.Replace('/', '.') + ".doc";
             return File(stream.ToArray(), "application/octet-stream", filename);
+        }
+        public ActionResult BCCT_DocSach(string lopHS, string tenHS, string sortOrder)
+        {
+            var danhsachdoc = BaoCaoDocSachChiTiet(thisistype, thisisD, thisisD_F, sortOrder, tenHS, lopHS);
+            if (danhsachdoc.Count() > 0)
+            {
+                ViewBag.DocSachTaiCho_Count = danhsachdoc.Sum(m => m.GroupSoLuong);
+                ViewBag.DocSachTaiCho = danhsachdoc;
+            }
+            else
+            {
+                ViewBag.DocSachTaiCho_Count = 0;
+            }
+            ViewBag.CurrentLopHS = lopHS;
+            ViewBag.CurrentTenHS = tenHS;
+            return View();
+        }
+        public ActionResult BCCT_MuonSach(string tenHS, string lopHS, string tenS, string sortOrder)
+        {
+            var danhsachmuonsach = BaoCaoMuonSachChiTiet(thisistype, thisisD, thisisD_F, sortOrder, tenHS, lopHS, tenS);
+
+            if (danhsachmuonsach.Count() > 0)
+            {
+                ViewBag.MuonTraSach_Count = danhsachmuonsach.Sum(m => m.GroupSoLuong);
+                ViewBag.MuonTraSach = danhsachmuonsach;
+            }
+            else
+            {
+                ViewBag.MuonTraSach_Count = 0;
+            }
+            ViewBag.CurrentLopHS = lopHS;
+            ViewBag.CurrentTenHS = tenHS;
+            ViewBag.CurrenttenS = tenS;
+            return View();
         }
     }
 }

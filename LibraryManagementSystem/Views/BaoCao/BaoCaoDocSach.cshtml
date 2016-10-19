@@ -1,41 +1,76 @@
-﻿<div>
-    <h4><u>Bảng Thống Kê Hoạt Động Đọc Sách Tại Thư Viện (@ViewBag.date)</u></h4>
-    @if (ViewBag.DocSachTaiCho_Count == 0)
-    {
-        <p>Không có hoạt động đọc sách</p>
-    }
-    else
-    {
-        <div class="table-responsive">
-            <table class="table">
-                <tr>
-                    <th>
-                        Lớp
-                    </th>
-                    <th>
-                        Số Lượt Đọc
-                    </th>
-                </tr>
-                @foreach (var item in ViewBag.DocSachTaiCho)
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#e_bcds").click(function () {
+                $("#t_bcds").fadeToggle("slow");
+            });
+        });
+    </script>
+    <script>
+        function bcct_docsach() {
+            window.open("/BaoCao/BCCT_DocSach");
+        }
+    </script>
+    <style>
+        a:link {
+            color: black;
+        }
+        a:visited {
+            color: hotpink;
+        }
+        a:active {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h4><a id="e_bcds">Bảng Thống Kê Hoạt Động Đọc Sách Tại Thư Viện (@ViewBag.date)</a></h4>
+        @if (ViewBag.DocSachTaiCho_Count == 0)
+        {
+            <p>Không có hoạt động đọc sách</p>
+        }
+        else
+        {
+            <div class="table-responsive" >
+                <table class="table" id="t_bcds">
+                    <tr>
+                        <th>
+                            Lớp
+                        </th>
+                        <th>
+                            Số Lượt Đọc
+                        </th>
+                    </tr>
+                    @foreach (var item in ViewBag.DocSachTaiCho)
                 {
+                        <tr>
+                            <td>
+                                @item.GroupName1
+                            </td>
+                            <td>
+                                @item.GroupSoLuong
+                            </td>
+                        </tr>
+                    }
                     <tr>
                         <td>
-                            @item.GroupName1
+                            <strong>Tổng Cộng</strong>
                         </td>
                         <td>
-                            @item.GroupSoLuong
+                            <strong>@ViewBag.DocSachTaiCho_Count</strong>
                         </td>
                     </tr>
-                }
-                <tr>
-                    <td>
-                        <strong>Tổng Cộng</strong>
-                    </td>
-                    <td>
-                        <strong>@ViewBag.DocSachTaiCho_Count</strong>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    }
-</div>
+                </table>  
+            </div>
+            <button class="btn btn-success" onclick="bcct_docsach()">
+                Báo cáo chi tiết
+            </button>
+        }
+    </div>
+</body>
+</html>
+
