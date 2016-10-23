@@ -3,19 +3,21 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="text-center">
-    <h2>Danh Sách Chủ Đề</h2>
-</div>
-<br />
+
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-offset-2 col-md-8">
+        <h2 class="text-center">Danh Sách Chủ Đề</h2>
     </div>
-    <div class="col-md-4 text-right">
-        <div>
-            <a href="/ChuDe/Create" class="btn btn-primary active" role="button">Tạo Mới</a>
+    <div class="col-md-2">
+        <br />
+    </div>
+    <div class="col-md-2">
+        <div class="text-right">
+            @Html.ActionLink("Thêm Chủ Đề", "Create", "ChuDe", null, new { @class = "btn btn-success" })
         </div>
     </div>
 </div>
+<br />
 <br />
 <div class="table-responsive">
     <table class="table table-hover">

@@ -10,6 +10,7 @@
 
 @using (Html.BeginForm())
 {
+    string date;
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
@@ -41,17 +42,24 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SoLuong, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.NgayNhap, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SoLuong, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SoLuong, "", new { @class = "text-danger" })
+                @{
+                    string year = DateTime.Now.Year.ToString();
+                    string month = DateTime.Now.Month.ToString();
+                    string day = DateTime.Now.Day.ToString();
+
+                    date = year.PadLeft(4, '0') + "-" + month.PadLeft(2, '0') + "-" + day.PadLeft(2, '0');
+                }
+
+                <input id="ngayNhap" name="ngayNhap" type="date" class="form-control" value="@date" />
+                @Html.ValidationMessageFor(model => model.NgayNhap, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group hidden">
             @Html.LabelFor(model => model.TrangThai, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                
                 @Html.EnumDropDownListFor(model => model.TrangThai, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.TrangThai, "", new { @class = "text-danger" })
             </div>
@@ -74,12 +82,8 @@
 
 <script type="text/javascript">
 
-        $(document).ready(function () {
-
-            {
-                $("#txtTrangThai").val("Có Sẵn");
-
-            }
+    $(document).ready(function () {
+        
         });
 
 </script>

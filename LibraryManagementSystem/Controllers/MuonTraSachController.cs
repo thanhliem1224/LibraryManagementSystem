@@ -24,32 +24,39 @@ namespace LibraryManagementSystem.Controllers
         public ActionResult Index(string lopHS, string tenHS, string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo, string sortOrder, string type, int? page, int? pageSize)
         {
             var muonTraSach = db.MuonTraSach.Include(m => m.HocSinh).Include(m => m.Sach).Where(m => m.NgayTra == null);
+            // load dropdow lớp
+            var lop = from l in db.HocSinh
+                      group l by l.Lop into g
+                      select g.Key;
+            ViewBag.lopHS = new SelectList(lop);
+
             #region Search
-            if (lopHS != null)
+
+            if (!string.IsNullOrEmpty(lopHS))
             {
                 muonTraSach = from m in muonTraSach
-                              where m.HocSinh.Lop.Contains(lopHS)
+                              where m.HocSinh.Lop.Equals(lopHS)
                               select m;
             }
-            if (tenHS != null)
+            if (!string.IsNullOrEmpty(tenHS))
             {
                 muonTraSach = from m in muonTraSach
                               where m.HocSinh.TenHS.Contains(tenHS)
                               select m;
             }
-            if (maSach != null)
+            if (!string.IsNullOrEmpty(maSach))
             {
                 muonTraSach = from m in muonTraSach
                               where m.Sach.SachID.Contains(maSach)
                               select m;
             }
-            if (tenSach != null)
+            if (!string.IsNullOrEmpty(tenSach))
             {
                 muonTraSach = from m in muonTraSach
                               where m.Sach.TenSach.Contains(tenSach)
                               select m;
             }
-            if (ngayFrom != null)// && ngayMuonTo != null)
+            if (ngayFrom.HasValue)// && ngayMuonTo != null)
             {
                 // chỉnh lại đầu ngày
                 ngayFrom = CNCFClass.GoToBeginOfDay(ngayFrom.Value);
@@ -57,7 +64,7 @@ namespace LibraryManagementSystem.Controllers
                               where m.NgayMuon >= ngayFrom
                               select m;
             }
-            if (ngayTo != null)
+            if (ngayTo.HasValue)
             {
                 // chỉnh lại cuối ngày
                 ngayTo = CNCFClass.GoToEndOfDay(ngayTo.Value);
@@ -183,10 +190,16 @@ namespace LibraryManagementSystem.Controllers
         public ActionResult LichSu(string lopHS, string tenHS, string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo, string sortOrder, int? page, int? pageSize)
         {
             var muonTraSach = db.MuonTraSach.Include(m => m.HocSinh).Include(m => m.Sach);
+            // load dropdow lớp
+            var lop = from l in db.HocSinh
+                      group l by l.Lop into g
+                      select g.Key;
+            ViewBag.lopHS = new SelectList(lop);
+
             #region Tìm Kiếm
             if (lopHS != null)
             {
-                muonTraSach = from m in muonTraSach where m.HocSinh.Lop.Contains(lopHS) select m;
+                muonTraSach = from m in muonTraSach where m.HocSinh.Lop.Equals(lopHS) select m;
             }
             if (tenHS != null)
             {
@@ -323,25 +336,39 @@ namespace LibraryManagementSystem.Controllers
             return View(muonTraSach.ToPagedList(pageNumber, thisPageSize));
         }
 
-        public ActionResult TimHocSinh(string tenHS)
+        public ActionResult TimHocSinh(string tenHS, string lopHS)
         {
-            if (!string.IsNullOrEmpty(tenHS))
+            // load dropdow lớp
+            var lop = from l in db.HocSinh
+                      group l by l.Lop into g
+                      select g.Key;
+            ViewBag.lopHS = new SelectList(lop);
+
+            if (!string.IsNullOrEmpty(tenHS) || !string.IsNullOrEmpty(lopHS))
             {
-                var hocsinh = db.HocSinh.Where(h => h.TenHS.Contains(tenHS));
-                if (hocsinh.Count() > 0)
+                var ds = db.HocSinh.Select(hs => hs);
+                if (!string.IsNullOrEmpty(tenHS))
                 {
-                    ViewBag.HocSinh = hocsinh;
-                    TempData["Message_Su"] = "Có " + hocsinh.Count() + " kết quả";
+                    ds = db.HocSinh.Where(hs => hs.TenHS.Contains(tenHS));
+                }
+                if (!string.IsNullOrEmpty(lopHS))
+                {
+                    ds = ds.Where(s => s.Lop.Equals(lopHS));
+                }
+                if (ds.Count() > 0) // nếu có kết quả
+                {
+                    TempData["Title"] = "Kết quả tìm kiếm " + tenHS + " - " + lopHS + " (" + ds.Count() + " kết quả)";
+                    ViewBag.DSTimKiem = ds;
                 }
                 else
                 {
-                    TempData["Message_Fa"] = "Không tìm thấy học sinh: \"" + tenHS + "\"";
+                    TempData["Message_Fa"] = "Không tìm thấy học sinh \"" + tenHS + "\" - " + lopHS;
                 }
             }
             return View();
         }
 
-        public ActionResult HocSinh(int? id, string tenSach)
+        public ActionResult HocSinh(int? id, string tenSach, string maSach)
         {
             if (id == null)
             {
@@ -356,18 +383,26 @@ namespace LibraryManagementSystem.Controllers
             #region Tìm kiếm sách
             // lấy danh sách sách hiện đang có sẵn trong thư viện
             var dssach = db.Sach.Where(s => s.TrangThai == TrangThai.CoSan);
-            // tìm theo tên sách
-            if (!string.IsNullOrEmpty(tenSach))
+            // tìm kiếm sách
+            if (!string.IsNullOrEmpty(tenSach) || !string.IsNullOrEmpty(maSach))
             {
-                dssach = dssach.Where(s => s.TenSach.Contains(tenSach));
+                if (!string.IsNullOrEmpty(tenSach))
+                {
+                    dssach = dssach.Where(s => s.TenSach.Contains(tenSach));
+                }
+                if (!string.IsNullOrEmpty(maSach))
+                {
+                    dssach = dssach.Where(s => s.SachID.Contains(maSach));
+                }
 
                 if (dssach.Count() > 0)// neu có kết quả tìm kiếm sách
                 {
+                    TempData["Search_result"] = "Kết quả tìm kiếm " + maSach + " - " + tenSach + " (" + dssach.Count() + " kết quả)";
                     ViewBag.SachID = new SelectList(dssach, "ID", "IDandTen");
                 }
                 else
                 {
-                    TempData["Message"] = "Không có sách tên " + tenSach;
+                    TempData["Search_result"] = "Không có sách " + maSach + " - " + tenSach;
                 }
             }
             #endregion
@@ -385,6 +420,11 @@ namespace LibraryManagementSystem.Controllers
                     TempData["Message"] = "Học sinh đang mượn 5 cuốn";
                 }
                 ViewBag.SachDangMuon = sachdangmuon;
+                ViewBag.SachDangMuonCount = sachdangmuon.Count();
+            }
+            else
+            {
+                ViewBag.SachDangMuonCount = 0;
             }
             // lấy danh sách sách quá hạn
             var sachquahan = db.MuonTraSach.Where(m => m.HocSinhID == id)
@@ -394,6 +434,11 @@ namespace LibraryManagementSystem.Controllers
             {
                 TempData["Message"] = "Học Sinh Vẫn Chưa Trả Sách";
                 ViewBag.SachQuaHan = sachquahan;
+                ViewBag.SachQuaHanCount = sachquahan.Count();
+            }
+            else
+            {
+                ViewBag.SachQuaHanCount = 0;
             }
             // lấy danh sách sách đã mượn
             var sachdamuon = db.MuonTraSach.Where(m => m.HocSinhID == id)
@@ -402,6 +447,11 @@ namespace LibraryManagementSystem.Controllers
             if (sachdamuon.Count() > 0)
             {
                 ViewBag.SachDaMuon = sachdamuon;
+                ViewBag.SachDaMuonCount = sachdamuon.Count();
+            }
+            else
+            {
+                ViewBag.SachDaMuonCount = 0;
             }
             // lấy danh sách sách mất
             var sachmat = sachdamuon.Where(m => m.Mat == true);
@@ -409,53 +459,81 @@ namespace LibraryManagementSystem.Controllers
             if (sachmat.Count() > 0)
             {
                 ViewBag.SachMat = sachmat;
+                ViewBag.SachMatCount = sachmat.Count();
+            }
+            else
+            {
+                ViewBag.SachMatCount = 0;
             }
             #endregion
             return View(hocsinh);
         }
 
         [HttpPost]
-        public ActionResult Create([Bind(Include = "SachID,HocSinhID")] MuonTraSach muonTraSach)
+        public ActionResult Create([Bind(Include = "SachID,HocSinhID,NgayMuon")] MuonTraSach muonTraSach)
         {
-
             if (ModelState.IsValid)
             {
-                // kiểm tra số luọng sách học sinh đã mượn
-                var mts = from m in db.MuonTraSach
-                          where m.HocSinhID == muonTraSach.HocSinhID && m.NgayTra == null
-                          select m;
-                if (mts.Count() < 5) // nếu nhỏ hơn 5 thì cho mượn sách
+                //kiem tra ID học sinh có tồn tại hay không
+                var _hocSinh = db.HocSinh.Find(muonTraSach.HocSinhID);
+                if (_hocSinh == null)
                 {
-                    // kiểm tra đã quá hạn trả sách chưa
-                    var mts2 = from m in mts
-                               where m.HanTra < DateTime.Now
-                               select m;
-                    if (mts2.Count() > 0) //có sách quá hạn trả
+                    TempData["error"] = "Lỗi !!! Học sinh không tồn tại";
+                    return View("SthError");
+                }
+                //kiem tra ID sách có tồn tại hay không
+                var _sach = db.Sach.Find(muonTraSach.SachID);
+                if (_sach == null)
+                {
+                    TempData["error"] = "Lỗi !!! Sách không tồn tại";
+                    return View("SthError");
+                }
+                else  // nếu sách có tồn tại
+                {
+                    // kiểm tra số luọng sách học sinh đã mượn
+                    var mts = from m in db.MuonTraSach
+                              where m.HocSinhID == muonTraSach.HocSinhID && m.NgayTra == null
+                              select m;
+                    if (mts.Count() < 5) // nếu nhỏ hơn 5 thì cho mượn sách
+                    {
+                        // kiểm tra đã quá hạn trả sách chưa
+                        var mts2 = from m in mts
+                                   where m.HanTra < DateTime.Now
+                                   select m;
+                        if (mts2.Count() > 0) //có sách quá hạn trả
+                        {
+                            // thông báo
+                            TempData["Message"] = "Học Sinh Vẫn Chưa Trả Sách";
+                        }
+                        else //không có sách đến hạn trả, đc phếp mượn
+                        {
+                            //kiểm tra sách có trong thư viện hay không
+                            if (_sach.TrangThai != TrangThai.CoSan)
+                            {
+                                TempData["error"] = "Lỗi !!! Sách " + _sach.TenSach + " không có trong thư viện (tình trạng: " + EnumHelper<TrangThai>.GetDisplayValue(_sach.TrangThai) + ")";
+                                return View("SthError");
+                            }
+                            else // nếu sách có trong thư viện
+                            {
+                                // cho mượn
+                                muonTraSach.HanTra = CNCFClass.GoToEndOfDay(muonTraSach.NgayMuon.AddDays(7));
+                                db.MuonTraSach.Add(muonTraSach);
+                                db.SaveChanges();
+
+                                // update trạng thái sach
+                                _sach.TrangThai = TrangThai.DangMuon;
+                                db.SaveChanges();
+                                TempData["Success"] = "Thêm thành công " + _sach.IDandTen;
+                            }
+                        }
+                    }
+                    else  // nếu đã mượn 5 cuốn sách
                     {
                         // thông báo
-                        TempData["Message"] = "Học Sinh Vẫn Chưa Trả Sách";
+                        TempData["Message"] = "Học Sinh Vượt Quá Số Lượng Mượn Sách";
                     }
-                    else //không có sách đến hạn trả, đc phếp mượn
-                    {
-                        // cho mượn
-                        muonTraSach.NgayMuon = DateTime.Now;
-                        muonTraSach.HanTra = CNCFClass.GoToEndOfDay(DateTime.Now.AddDays(7));
-                        db.MuonTraSach.Add(muonTraSach);
-                        db.SaveChanges();
-
-                        // update trạng thái sach
-                        Sach s = db.Sach.Single(c => c.ID == muonTraSach.SachID);
-                        s.TrangThai = TrangThai.DangMuon;
-                        db.SaveChanges();
-                        TempData["Success"] = "Thêm thành công " + s.IDandTen;
-                    }
+                    return RedirectToAction("HocSinh", new { id = muonTraSach.HocSinhID });
                 }
-                else  // nếu đã mượn 5 cuốn sách
-                {
-                    // thông báo
-                    TempData["Message"] = "Học Sinh Vượt Quá Số Lượng Mượn Sách";
-                }
-                return RedirectToAction("HocSinh", new { id = muonTraSach.HocSinhID });
             }
             else
             {
@@ -511,7 +589,11 @@ namespace LibraryManagementSystem.Controllers
                 mts.NgayTra = DateTime.Now;
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                // lấy id học sinh trả về trang thông tin học sinh
+
+                int id = mts.HocSinhID;
+                return RedirectToAction("HocSinh", "MuonTraSach", new { id = id });
+                //return RedirectToAction("Index");
             }
             return View(muonTraSach);
         }

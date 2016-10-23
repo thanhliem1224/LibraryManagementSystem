@@ -24,8 +24,8 @@ namespace LibraryManagementSystem.Migrations
                         ChuDeID = c.Int(nullable: false),
                         SachID = c.String(nullable: false),
                         TenSach = c.String(nullable: false),
-                        SoLuong = c.Int(nullable: false),
                         TrangThai = c.Int(nullable: false),
+                        NgayNhap = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.ChuDe", t => t.ChuDeID, cascadeDelete: true)

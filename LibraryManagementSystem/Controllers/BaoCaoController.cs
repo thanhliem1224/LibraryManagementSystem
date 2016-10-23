@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using LibraryManagementSystem.DAL;
 using LibraryManagementSystem.Models;
 using LibraryManagementSystem.Models.ViewModel;
-using PagedList;
 using Novacode;
 using System.IO;
 using System.Drawing;
@@ -19,13 +16,6 @@ namespace LibraryManagementSystem.Controllers
 {
     public class BaoCaoController : Controller
     {
-        public enum LOAIBAOCAO
-        {
-            Thang,
-            Nam,
-            KhoanThoiGian
-        }
-
         public static LOAIBAOCAO thisistype;
         public static DateTime thisisD;
         public static DateTime thisisD_F;

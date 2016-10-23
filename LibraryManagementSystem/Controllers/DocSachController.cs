@@ -19,12 +19,18 @@ namespace LibraryManagementSystem.Controllers
         [Authorize]
         public ActionResult Index(string lopHS, string tenHS, DateTime? ngayFrom, DateTime? ngayTo, string sortOrder, int? page, int? pageSize)
         {
+            #region Search
+            var lop = from l in db.HocSinh
+                      group l by l.Lop into g
+                      select g.Key;
+            ViewBag.lopHS = new SelectList(lop);
+
             var docSachTaiCho = db.DocSachTaiCho.Include(d => d.HocSinh);
 
             if (!string.IsNullOrEmpty(lopHS))
             {
                 docSachTaiCho = from d in docSachTaiCho
-                                where d.HocSinh.Lop.Contains(lopHS)
+                                where d.HocSinh.Lop.Equals(lopHS)
                                 select d;
             }
             if (!string.IsNullOrEmpty(tenHS))
@@ -49,7 +55,7 @@ namespace LibraryManagementSystem.Controllers
                                 where d.Ngay <= ngayTo
                                 select d;
             }
-
+            #endregion
             #region Sort
             ViewBag.sortLop = "lop_ascending";
             ViewBag.sortTenHS = "tenHS_ascending";
@@ -129,16 +135,28 @@ namespace LibraryManagementSystem.Controllers
 
 
         [Authorize]
-        public ActionResult TimHS(string tenHS)
+        public ActionResult TimHS(string tenHS, string lopHS)
         {
-            if (!string.IsNullOrEmpty(tenHS))
+            #region Search
+            var lop = from l in db.HocSinh
+                      group l by l.Lop into g
+                      select g.Key;
+            ViewBag.lopHS = new SelectList(lop);
+
+            if (!string.IsNullOrEmpty(tenHS) || !string.IsNullOrEmpty(lopHS))
             {
                 var ds = db.HocSinh.Select(hs => hs);
-                ds = db.HocSinh.Where(hs => hs.TenHS.Contains(tenHS));
-
+                if (!string.IsNullOrEmpty(tenHS))
+                {
+                    ds = db.HocSinh.Where(hs => hs.TenHS.Contains(tenHS));
+                }
+                if (!string.IsNullOrEmpty(lopHS))
+                {
+                    ds = ds.Where(s => s.Lop.Equals(lopHS));
+                }
                 if (ds.Count() > 0) // nếu có kết quả
                 {
-                    TempData["Title"] = "Kết quả tìm kiếm \"" + tenHS + "\" (" + ds.Count() + " kết quả)";
+                    TempData["Title"] = "Kết quả tìm kiếm " + tenHS + " - " + lopHS + " (" + ds.Count() + " kết quả)";
                     ViewBag.DSTimKiem = ds;
                 }
                 else
@@ -146,6 +164,7 @@ namespace LibraryManagementSystem.Controllers
                     TempData["Message_Fa"] = "Không tìm thấy học sinh tên \"" + tenHS + "\"";
                 }
             }
+            #endregion
 
             ViewBag.DSDocSach = db.DocSachTaiCho.Where(dstc => dstc.Ngay.Day == DateTime.Now.Day
                                                         && dstc.Ngay.Month == DateTime.Now.Month
@@ -175,35 +194,37 @@ namespace LibraryManagementSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Authorize]
-        public ActionResult Create([Bind(Include = "ID,HocSinhID")] DocSachTaiCho docSachTaiCho)
+        public ActionResult Create([Bind(Include = "ID,HocSinhID,Ngay")] DocSachTaiCho docSachTaiCho)
         {
             if (ModelState.IsValid)
             {
                 if (docSachTaiCho.HocSinhID > 0)
                 {
-                    var kiemtra = from d in db.DocSachTaiCho   //.Where(d => d.HocSinhID == docSachTaiCho.HocSinhID).Where(d => d.Ngay.Day == DateTime.Now.Day && d.Ngay.Month == DateTime.Now.Month && d.Ngay.Year == DateTime.Now.Year);
-                                  where d.HocSinhID == docSachTaiCho.HocSinhID && (d.Ngay.Day == DateTime.Now.Day && d.Ngay.Month == DateTime.Now.Month && d.Ngay.Year == DateTime.Now.Year)
+                    // kiểm tra học sinh có đọc sách hôm nay chưa
+                    var kiemtra = from d in db.DocSachTaiCho
+                                  where d.HocSinhID == docSachTaiCho.HocSinhID &&
+                                  (d.Ngay.Day == DateTime.Now.Day && d.Ngay.Month == DateTime.Now.Month && d.Ngay.Year == DateTime.Now.Year)
                                   select d;
-                    if (kiemtra.Count() > 0)
+                    if (kiemtra.Count() > 0) // nếu kiểm tra có kết quả thì thông báo
                     {
                         string tenhs = db.HocSinh.Find(docSachTaiCho.HocSinhID).TenHS;
                         TempData["Message_Fa"] = "Học sinh " + tenhs + " đã đọc sách hôm nay.";
                         return RedirectToAction("TimHS");
                     }
-                    else
+                    else // nếu không có kết quả thì lưu vào database 
                     {
-                        docSachTaiCho.Ngay = DateTime.Now;
                         db.DocSachTaiCho.Add(docSachTaiCho);
                         db.SaveChanges();
-
-                        string tenhs = db.HocSinh.Find(docSachTaiCho.HocSinhID).TenHS;
+                        // thông báo
+                        string tenhs = db.HocSinh.Find(docSachTaiCho.HocSinhID).TenHS; // lấy tên học sinh
                         TempData["Message_Su"] = "Thêm thành công học sinh " + tenhs;
 
                         return RedirectToAction("TimHS");
                     }
                 }
-                else
+                else // nếu sách ID không có
                 {
+                    TempData["Error"] = "Sách không tồn tại";
                     return View("SthError");
                 }
             }

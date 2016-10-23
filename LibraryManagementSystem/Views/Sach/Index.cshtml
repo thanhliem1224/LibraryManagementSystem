@@ -5,47 +5,67 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="text-center">
-    <h2>Danh sách Sách trong thư viện</h2>
+<div class="row">
+    <div class="col-md-offset-2 col-md-8">
+        <h2 class="text-center">Danh sách Sách trong thư viện</h2>
+    </div>
+    <div class="col-md-2">
+        <br />
+    </div>
+    <div class="col-md-2">
+        <div class="text-right">
+            <div class="dropdown ">
+                <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
+                    Thêm sách
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>@Html.ActionLink("Nhập tay", "Create", "Sach")</li>
+                    <li>@Html.ActionLink("Thêm từ file", "ThemHocSinhTuFile", "Sach")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
 <br />
-@using (Html.BeginForm(FormMethod.Get))
-            {
-    <div class="row">
-        <div class="col-md-8">
+@using (Html.BeginForm("Index", "Sach", FormMethod.Get, new { @id = "form-search" }))
+{
+        <div class="col-md-2">
+            <label for="chuDeSach" class="control-label">Tìm chủ đề</label>
+            @Html.DropDownList("chuDeSach", null, "Tất cả chủ đề", new { @class = "form-control" })
+        </div>
+        <div class="col-md-2">
+            <label for="sachID" class="control-label">Tìm mã sách</label>
+            <input id="sachID" name="sachID" type="text" class="form-control" placeholder="Tìm Mã Sách" value="@ViewBag.CurrentMaSach">
+        </div>
+        <div class="col-md-2">
+            <label for="tenSach" class="control-label">Tìm tên sách</label>
+            <input id="tenSach" name="tenSach" type="text" class="form-control" placeholder="Tìm Tên Sách" value="@ViewBag.CurrentTenSach">
+        </div>
+        <div class="col-md-2">
+            <label for="trangThai" class="control-label">Tìm trạng thái</label>
+            @Html.DropDownList("trangThai", null, "Tất cả trạng thái", new { @class = "form-control" })
+        </div>
+        <div class="col-md-1">
+                <br />
+            <button type="submit" class="btn btn-primary">Tìm</button>
+        </div>
 
-            <div class="form-inline" role="form">
-                <div class="form-group">
-                    @Html.DropDownList("chuDeSach", null, "Chủ Đề", new { @class = "form-control" })
-                </div>
-                <div class="form-group">
-                    <input id="sachID" name="sachID" type="text" class="form-control" placeholder="Tìm Mã Sách" value="@ViewBag.CurrentMaSach">
-                </div>
-                <div class="form-group">
-                    <input id="tenSach" name="tenSach" type="text" class="form-control" placeholder="Tìm Tên Sách" value="@ViewBag.CurrentTenSach">
-                </div>
-                <button type="submit" class="btn btn-default">Tìm</button>
-                <div hidden>
-                    <input type="text" name="sortOrder" value="@ViewBag.CurrentSort" />
-                </div>
-            </div>
-
+        
+        <div hidden>
+            <input type="text" name="sortOrder" value="@ViewBag.CurrentSort" />
         </div>
-        <div class="col-md-4 text-right">
-            <div>
-                <a href="Sach/Create" class="btn btn-primary active" role="button">Thêm một sách</a>
-                <a href="Sach/ThemSachTuFile" class="btn btn-primary active" role="button">Thêm nhiều sách</a>
-            </div>
+        <div hidden>
+            <input id="page-size" type="text" name="pageSize" value="" />
         </div>
-    </div>
-    <br />
-    <div class="row">
-        <div class="col-md-offset-8 col-md-4 text-right form-inline">
-            <label class="control-label text-right">Số dòng trong 1 trang: </label>
-            @Html.DropDownList("pageSize", null, new { @class = "form-control", @onchange = "this.form.submit()" })
-        </div>
-    </div>
 }
+<br />
+<div class="row">
+    <div class="col-md-offset-8 col-md-4 text-right form-inline">
+        <label class="control-label text-right">Số dòng trong 1 trang: </label>
+        @Html.DropDownList("pageSize", null, new { @class = "form-control", id = "_page-size" })
+    </div>
+</div>
 <div class="table-responsive">
     <table class="table table-hover">
         <tr>
@@ -128,6 +148,17 @@ Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.Page
         jQuery(document).ready(function ($) {
             $(".clickable-row").click(function () {
                 window.document.location = $(this).data("href");
+            });
+            function getPageSize() {
+                var page = $("#_page-size").val();
+                $("#page-size").val(page);
+            }
+            $("#_page-size").change(function () {
+                getPageSize();
+                $("#form-search").submit();
+            });
+            $("#form-search").submit(function () {
+                getPageSize();
             });
         });
     </script>

@@ -114,33 +114,33 @@ namespace LibraryManagementSystem.Controllers
             }
             return View(chu_De);
         }
-        
-        //// GET: Chu_De/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    ChuDe chu_De = db.ChuDe.Find(id);
-        //    if (chu_De == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(chu_De);
-        //}
 
-        //// POST: Chu_De/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[Authorize]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    ChuDe chu_De = db.ChuDe.Find(id);
-        //    db.ChuDe.Remove(chu_De);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        // GET: Chu_De/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ChuDe chu_De = db.ChuDe.Find(id);
+            if (chu_De == null)
+            {
+                return HttpNotFound();
+            }
+            return View(chu_De);
+        }
+
+        // POST: Chu_De/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            ChuDe chu_De = db.ChuDe.Find(id);
+            db.ChuDe.Remove(chu_De);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
         protected override void Dispose(bool disposing)
         {

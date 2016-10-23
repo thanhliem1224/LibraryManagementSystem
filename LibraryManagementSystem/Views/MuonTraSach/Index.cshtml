@@ -4,99 +4,111 @@
 @{
     ViewBag.Title = TempData["Title"];
 }
-<h2 class="text-center">@TempData["Title"]</h2>
-<br />
 <div class="row">
-    <div class="col-md-8">
-        @Html.ActionLink("Lịch Sử Mượn Trả Sách", "LichSu")
+    <div class="col-md-2">
+        @Html.ActionLink("Lịch Sử Mượn Sách", "LichSu")
     </div>
-    <div class="col-md-4 text-right form-inline">
-        <a href="~/MuonTraSach/TimHocSinh" class="btn btn-primary active" role="button">Mượn Sách</a>
+    <div class="col-md-8">
+        <h2 class="text-center">@TempData["Title"]</h2>
+    </div>
+    <div class="col-md-2">
+        <br />
+    </div>
+    <div class="col-md-2">
+        <div class="text-right">
+            <a href="~/MuonTraSach/TimHocSinh" class="btn btn-success active" role="button">Mượn Sách</a>
+        </div>
     </div>
 </div>
 <br />
-@using (Html.BeginForm("Index", "MuonTraSach", FormMethod.Get))
-{
-    <div>
+<div class="row">
+    @using (Html.BeginForm("Index", "MuonTraSach", FormMethod.Get, new { @id = "form-search" }))
+    {
+        string dateTo = "";
+        string dateFrom = "";
+        if (ViewBag.CurrentNgayFrom != null)
+        {
+            string yearFrom = ViewBag.CurrentNgayFrom.Year.ToString();
+            string monthFrom = ViewBag.CurrentNgayFrom.Month.ToString();
+            string dayFrom = ViewBag.CurrentNgayFrom.Day.ToString();
 
-        <div class="row">
-            <div class="col-md-3">
+            dateFrom = yearFrom.PadLeft(4, '0') + "-" + monthFrom.PadLeft(2, '0') + "-" + dayFrom.PadLeft(2, '0');
+        }
+        if (ViewBag.CurrentNgayTo != null)
+        {
+            string yearTo = ViewBag.CurrentNgayTo.Year.ToString();
+            string monthTo = ViewBag.CurrentNgayTo.Month.ToString();
+            string dayTo = ViewBag.CurrentNgayTo.Day.ToString();
+
+            dateTo = yearTo.PadLeft(4, '0') + "-" + monthTo.PadLeft(2, '0') + "-" + dayTo.PadLeft(2, '0');
+
+        }
+        <div class="col-md-10">
+            <div class="col-md-4">
                 <div>
-                    <input id="lopHS" name="lopHS" type="text" class="form-control" placeholder="Tìm Lớp" value="@ViewBag.CurrentLopHS">
+                    <label for="lopHS" class="control-label">Lớp</label>
+                    @Html.DropDownList("lopHS", null, "Tất cả lớp", new { @class = "form-control", @id = "lopHS" })
                 </div>
                 <div>
+                    <label for="tenHS" class="control-label">Học sinh</label>
                     <input id="tenHS" name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh" value="@ViewBag.CurrentTenHS">
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div>
+                    <label for="maSach" class="control-label">Mã sách</label>
                     <input id="maSach" name="maSach" type="text" class="form-control" placeholder="Tìm Mã Sách" value="@ViewBag.CurrentMaSach">
                 </div>
                 <div>
+                    <label for="tenSach" class="control-label">Tên sách</label>
                     <input id="tenSach" name="tenSach" type="text" class="form-control" placeholder="Tìm Tên Sách" value="@ViewBag.CurrentTenSach">
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="form-horizontal">
-                    <div class="form-group">
-                        <label>ngày mượn</label>
-                        @{
-                            string dateFrom = "";
-                            if (ViewBag.CurrentNgayFrom != null)
-                            {
-                                string yearFrom = ViewBag.CurrentNgayFrom.Year.ToString();
-                                string monthFrom = ViewBag.CurrentNgayFrom.Month.ToString();
-                                string dayFrom = ViewBag.CurrentNgayFrom.Day.ToString();
-
-                                dateFrom = yearFrom.PadLeft(4, '0') + "-" + monthFrom.PadLeft(2, '0') + "-" + dayFrom.PadLeft(2, '0');
-                            }
-                        }
-                        <input name="ngayFrom" type="date" class="form-control" value="@dateFrom"/>
-                    </div>
-                    <div class="form-group">
-                        <label>đến ngày</label>
-                        @{
-                            string dateTo = "";
-                            if (ViewBag.CurrentNgayTo != null)
-                            {
-                                string yearTo = ViewBag.CurrentNgayTo.Year.ToString();
-                                string monthTo = ViewBag.CurrentNgayTo.Month.ToString();
-                                string dayTo = ViewBag.CurrentNgayTo.Day.ToString();
-
-                                dateTo = yearTo.PadLeft(4, '0') + "-" + monthTo.PadLeft(2, '0') + "-" + dayTo.PadLeft(2, '0');
-
-                            }
-                        }
-                        <input name="ngayTo" type="date" class="form-control" value="@dateTo" />
-                    </div>
+            <div class="col-md-4">
+                <div>
+                    <label for="ngayFrom" class="control-label">Ngày mượn</label>
+                    <input id="ngayFrom" name="ngayFrom" type="date" class="form-control" value="dateFrom" />
+                </div>
+                <div>
+                    <label for="ngayTo" class="control-label">Đến ngày</label>
+                    <input id="ngayTo" name="ngayTo" type="date" class="form-control" value="dateTo" />
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="form-horizontal">
-                    <div class="form-group">
-                        @Html.DropDownList("type", null, new { @class = "form-control" })
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-default col-md-6">Tìm</button>
-                    </div>
+
+        </div>
+
+        <div class="col-md-2">
+            <div class="col-md-12">
+                <div>
+                    <label for="type" class="control-label">Loại</label>
+                    @Html.DropDownList("type", null, new { @class = "form-control", @id = "type" })
+                </div>
+                <div>
+                    <br />
+                    <button type="submit" class="btn btn-primary col-md-12">Tìm</button>
                 </div>
             </div>
         </div>
         <div hidden>
             <input type="text" name="sortOrder" value="@ViewBag.CurrentSort" />
         </div>
-    </div>
-    <br />
-    <div class="row">
-        <div class="col-md-offset-8 col-md-4 text-right form-inline">
-            <label class="control-label text-right">Số dòng trong 1 trang: </label>
-            @Html.DropDownList("pageSize", null, new { @class = "form-control", @onchange = "this.form.submit()" })
+        <div hidden>
+            <input id="page-size" type="text" name="pageSize" value="" />
         </div>
+    }
+</div>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <p>Tổng số: @Model.TotalItemCount</p>
     </div>
-}
+    <div class="col-md-offset-4 col-md-4 text-right form-inline">
+        <label class="control-label text-right">Số dòng trong 1 trang: </label>
+        @Html.DropDownList("pageSize", null, new { @class = "form-control", @id = "_page-size" })
+    </div>
+</div>
 <div class="table-responsive">
     <table class="table table-hover">
-
         <tr>
             <th>
                 @Html.ActionLink("Lớp", "Index", new
@@ -110,7 +122,7 @@
                ngayFrom = ViewBag.CurrentNgayFrom,
                ngayTo = ViewBag.CurrentNgayTo,
                pageSize = ViewBag.CurrentPageSize
-                })
+           })
             </th>
             <th>
                 @Html.ActionLink("Tên Học Sinh", "Index", new
@@ -187,7 +199,7 @@
         </tr>
 
         @foreach (var item in Model)
-            {
+        {
             <tr>
                 <td>
                     @item.HocSinh.Lop
@@ -209,12 +221,12 @@
                 </td>
                 <td>
                     <div class="btn-group navbar-btn">
-                        @Html.ActionLink("Trả Sách", "TraSach", new { id = item.ID }, new { @class = "btn btn-default btn-xs" })
+                        @Html.ActionLink("Trả Sách", "TraSach", new { @id = item.ID }, new { @class = "btn btn-default btn-xs" })
                         <button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle"><span class="caret"></span></button>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Gia Hạn", "GiaHan", new { id = item.ID })</li>
-                            <li>@Html.ActionLink("Báo Mất", "BaoMat", new { id = item.ID })</li>
-                            <li>@Html.ActionLink("Sửa", "Edit", new { id = item.ID })</li>
+                            <li>@Html.ActionLink("Gia Hạn", "GiaHan", new { @id = item.ID })</li>
+                            <li>@Html.ActionLink("Báo Mất", "BaoMat", new { @id = item.ID })</li>
+                            <li>@Html.ActionLink("Sửa", "Edit", new { @id = item.ID })</li>
                         </ul>
                     </div>
                 </td>
@@ -223,11 +235,10 @@
     </table>
 </div>
 <br />
+<div>
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
 
-
-Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
-
-@Html.PagedListPager(Model, page => Url.Action("Index",
+    @Html.PagedListPager(@Model, page => Url.Action("Index",
     new
     {
         page,
@@ -241,3 +252,23 @@ Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.Page
         sortOrder = ViewBag.CurrentSort,
         pageSize = ViewBag.CurrentPageSize
     }))
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+
+            function getPageSize() {
+                var page = $("#_page-size").val();
+                $("#page-size").val(page);
+            }
+            $("#_page-size").change(function () {
+                getPageSize();
+                $("#form-search").submit();
+            });
+            $("#form-search").submit(function () {
+                getPageSize();
+            });
+        });
+    </script>
+}
+

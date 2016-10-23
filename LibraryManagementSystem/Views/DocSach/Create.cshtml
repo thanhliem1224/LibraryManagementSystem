@@ -4,45 +4,66 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Thêm Học Sinh Đọc Sách</h2>
-
-<div>
-    <h4>Xác nhận thông tin học sinh</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TenHS)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenHS)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Lop)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Lop)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NgaySinh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NgaySinh)
-        </dd>
-
-    </dl>
+<div class="row">
+    <div class="col-md-2">
+        @Html.ActionLink("Tìm Học Sinh Khác", "TimHS")
+    </div>
+    <div class="col-md-8">
+        <h2 class="text-center">Thêm Học Sinh Đọc Sách</h2>
+    </div>
+    <div class="col-md-2">
+        <br />
+    </div>
 </div>
 <div>
     @using (Html.BeginForm())
     {
-        <input name="HocSinhID" type="text" value="@Model.ID" hidden />
-        <input type="submit" value="Xác Nhận" class="btn btn-default" />
+        string date;
+        <div class="form-horizontal">
+            <div class="form-group hidden">
+                <label class="control-label col-md-2">ID học sinh</label>
+                <div>
+                    <input name="HocSinhID" type="text" value="@Model.ID" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Tên học sinh</label>
+                <div class="col-md-10 form-control-static">
+                    @Html.DisplayFor(model => model.TenHS)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Lớp</label>
+                <div class="col-md-10 form-control-static">
+                    @Html.DisplayFor(model => model.Lop)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Ngày sinh</label>
+                <div class="col-md-10 form-control-static">
+                    @Html.DisplayFor(model => model.NgaySinh)
+                </div>
+            </div>
 
-    }
+            <div class="form-group">
+                @{
+                    string year = DateTime.Now.Year.ToString();
+                    string month = DateTime.Now.Month.ToString();
+                    string day = DateTime.Now.Day.ToString();
+
+                    date = year.PadLeft(4, '0') + "-" + month.PadLeft(2, '0') + "-" + day.PadLeft(2, '0');
+                }
+                <label class="control-label col-md-2">Ngày đọc sách</label>
+                <div class="col-md-10">
+                    <input name="Ngay" class="form-control" type="date" value="@date" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Xác nhận" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+                    }
     @Html.ActionLink("Tìm Học Sinh", "Index")
 </div>

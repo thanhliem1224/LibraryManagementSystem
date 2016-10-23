@@ -5,42 +5,63 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2 class="text-center">Danh Sách Học Sinh</h2>
+<div class="row">
+    <div class="col-md-offset-2 col-md-8">
+        <h2 class="text-center">Danh Sách Học Sinh</h2>
+    </div>
+    <div class="col-md-2">
+        <br />
+    </div>
+    <div class="col-md-2">
+        <div class="text-right">
+            <div class="dropdown ">
+                <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
+                    Thêm học sinh
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>@Html.ActionLink("Nhập tay", "Create", "HocSinh")</li>
+                    <li>@Html.ActionLink("Thêm từ file", "ThemHocSinhTuFile", "HocSinh")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 <br />
-@using (Html.BeginForm("Index", "HocSinh", FormMethod.Get))
-{
-    <div class="row">
-        <div class="col-md-8">
-
-            <div class="form-inline" role="form">
-                <div class="form-group">
-                    <input id="tenHS" name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh" value="@ViewBag.CurrentTenHS">
-                </div>
-                <div class="form-group">
-                    <input id="lopHS" name="lopHS" type="text" class="form-control" placeholder="Tìm Lớp" value="@ViewBag.CurrentLopHS">
-                </div>
-                <button type="submit" class="btn btn-default">Tìm</button>
-            </div>
-            <div hidden>
-                <input type="text" name="sortOrder" value="@ViewBag.CurrentSort" />
-            </div>
-
+<div class="row">
+    @using (Html.BeginForm("Index", "HocSinh", FormMethod.Get, new { @id = "form-search" }))
+    {
+        <div class="col-md-3">
+            <label for="tenHS" class="control-label">Tìm học sinh</label>
+            <input id="tenHS" name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh" value="@ViewBag.CurrentTenHS">
         </div>
-        <div class="col-md-4 text-right form-inline">
-            <a href="HocSinh/Create" class="btn btn-primary active" role="button">Thêm Mới</a>
-            <a href="HocSinh/ThemHocSinhTuFile" class="btn btn-primary active" role="button">Thêm Từ File</a>
+        <div class="col-md-3">
+            <label for="lopHS" class="control-label">Tìm lớp</label>
+            @Html.DropDownList("lopHS", null, "Tất cả lớp", new { @class = "form-control", @id = "lopHS" })
         </div>
+        <div class="col-md-1">
+            <br />
+            <button type="submit" class="btn btn-primary form-control">Tìm</button>
+        </div>
+        <div hidden>
+            <input type="text" name="sortOrder" value="@ViewBag.CurrentSort" />
+        </div>
+        <div hidden>
+            <input id="page-size" type="text" name="pageSize" value="" />
+        </div>
+    }
+</div>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <p>Tổng số: @Model.TotalItemCount</p>
     </div>
-    <br />
-
-    <div class="row">
-        <div class="col-md-offset-8 col-md-4 text-right form-inline">
-            <label class="control-label text-right">Số dòng trong 1 trang: </label>
-            @Html.DropDownList("pageSize", null, new { @class = "form-control", @onchange = "this.form.submit()" })
-        </div>
+    <div class="col-md-offset-4 col-md-4 text-right form-inline">
+        <label class="control-label text-right">Số dòng trong 1 trang: </label>
+        @Html.DropDownList("pageSize", null, new { @class = "form-control", id = "_page-size" })
     </div>
-}
+</div>
+
 <div class="table-responsive">
     <table class="table table-hover">
         <tr>
@@ -109,6 +130,18 @@ Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.Page
             $(".clickable-row").click(function () {
                 window.document.location = $(this).data("href");
             });
+            function getPageSize() {
+                var page = $("#_page-size").val();
+                $("#page-size").val(page);
+            }
+            $("#_page-size").change(function () {
+                getPageSize();
+                $("#form-search").submit();
+            });
+            $("#form-search").submit(function () {
+                getPageSize();
+            });
         });
+
     </script>
 }

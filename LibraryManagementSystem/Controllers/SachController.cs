@@ -11,6 +11,7 @@ using LibraryManagementSystem.Models;
 using System.IO;
 using Excel;
 using PagedList;
+using System.ComponentModel.DataAnnotations;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -20,7 +21,7 @@ namespace LibraryManagementSystem.Controllers
 
         // GET: Saches
         [Authorize]
-        public ActionResult Index(string sachID, string tenSach, string chuDeSach, string sortOrder, int? page, int? pageSize)
+        public ActionResult Index(string sachID, string tenSach, string chuDeSach, string trangThai, string sortOrder, int? page, int? pageSize)
         {
             var sach = db.Sach.Include(s => s.ChuDe);
 
@@ -36,6 +37,11 @@ namespace LibraryManagementSystem.Controllers
             {
                 sach = sach.Where(x => x.ChuDe.TenChuDe == chuDeSach);
             }
+            if(!string.IsNullOrEmpty(trangThai))
+            {
+                TrangThai t = EnumHelper<TrangThai>.GetValueFromName(trangThai);
+                sach = sach.Where(s => s.TrangThai == t);
+            }
 
             //Tìm theo chủ đề sách
             var chude_list = new List<string>();
@@ -47,6 +53,9 @@ namespace LibraryManagementSystem.Controllers
             ViewBag.chuDeSach = new SelectList(chude_list);
             //Kết thúc tìm theo chủ đề
 
+            // tìm theo trạng thái
+            var list_t = EnumHelper<TrangThai>.GetDisplayValues(new TrangThai());  //Enum.GetValues(typeof(TrangThai)).Cast<TrangThai>(); // get list enum TrangThai
+            ViewBag.trangThai = new SelectList(list_t);
 
             ViewBag.sortTenSach = "tenSach_ascending";
             ViewBag.sortMaSach = "maSach_ascending";
@@ -146,7 +155,7 @@ namespace LibraryManagementSystem.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ChuDeID,SachID,TenSach,SoLuong,TrangThai")] Sach sach)
+        public ActionResult Create([Bind(Include = "ID,ChuDeID,SachID,TenSach,TrangThai,NgayNhap")] Sach sach)
         {
             if (ModelState.IsValid)
             {
@@ -222,12 +231,38 @@ namespace LibraryManagementSystem.Controllers
 
                         foreach (DataRow row in result.Tables[i].Rows)
                         {
+                            DateTime ngayNhap;
+                            // chuyển date từ số sang date nếu là file excel 97
+                            if (upload.FileName.EndsWith(".xls"))
+                            {
+                                try
+                                {
+                                    double dateNumber = double.Parse(row[2].ToString());
+                                    ngayNhap = DateTime.FromOADate(dateNumber);
+                                }
+                                catch
+                                {
+                                    ngayNhap = DateTime.Now;
+                                }
+                            }
+                            else // nếu là file xlsx thì giữ nguyên
+                            {
+                                try
+                                {
+                                    ngayNhap = DateTime.Parse(row[2].ToString());
+                                }
+                                catch
+                                {
+                                    ngayNhap = DateTime.Now;
+                                }
+                            }
+
                             Sach sach = new Sach
                             {
                                 ChuDeID = idcd,
                                 SachID = row[0].ToString(),
                                 TenSach = row[1].ToString(),
-                                SoLuong = Int32.Parse(row[2].ToString()),
+                                NgayNhap = ngayNhap,
                                 TrangThai = TrangThai.CoSan
                             };
 
@@ -242,32 +277,6 @@ namespace LibraryManagementSystem.Controllers
                             }
                         }
                     }
-
-                    /*
-                    foreach (DataRow row_chude in result.Tables[0].Rows)
-                    {
-                        foreach (DataRow row in result.Tables[row_chude["Tên chủ đề"].ToString()].Rows)
-                        {
-                            Sach sach = new Sach
-                            {
-                                ChuDeID = Int32.Parse(row_chude["ID"].ToString()),
-                                SachID = row[1].ToString(),
-                                TenSach = row[2].ToString(),
-                                SoLuong = Int32.Parse(row[3].ToString())
-                            };
-
-                            if (db.Sach.Any(n => n.SachID == sach.SachID && n.TenSach == sach.TenSach))
-                            {
-
-                            }
-                            else
-                            {
-                                db.Sach.Add(sach);
-                                db.SaveChanges();
-                            }
-                        }
-                    }
-                    */
 
                     reader.Close();
                     return RedirectToAction("Index");

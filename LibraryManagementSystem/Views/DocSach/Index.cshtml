@@ -4,83 +4,80 @@
 @{
     ViewBag.Title = "Lịch Sử Đọc Sách";
 }
-
-<h2 class="text-center">Lịch Sử Đọc Sách</h2>
-<br />
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-offset-2 col-md-8">
+        <h2 class="text-center">Lịch Sử Đọc Sách</h2>
     </div>
-    <div class="col-md-4 text-right form-inline">
-        <a href="~/DocSach/TimHS" class="btn btn-primary active" role="button">Thêm Học Sinh Đọc Sách</a>
+    <div class="col-md-2">
+        <br />
+    </div>
+    <div class="col-md-2 text-right">
+        @Html.ActionLink("Thêm Học Sinh Đọc Sách", "TimHS", "DocSach", null, new { @class = "btn btn-success" })
     </div>
 </div>
 <br />
-@using (Html.BeginForm("Index", "DocSach", FormMethod.Post))
-{
-    <div>
-        <div class="form-inline" role="form">
-            <div class="row">
-                <div class="col-md-5">
-                    <div>
-                        <input id="lopHS" name="lopHS" type="text" class="form-control" placeholder="Tìm Lớp" value="@ViewBag.CurrentLopHS">
-                    </div>
-                    <div>
-                        <input id="tenHS" name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh" value="@ViewBag.CurrentTenHS">
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="form-horizontal">
-                        <div>
-                            <label class="col-md-1">Từ Ngày</label>
-                            @{
-                                string dateFrom = "";
-                                if (ViewBag.CurrentNgayFrom != null)
-                                {
-                                    string yearFrom = ViewBag.CurrentNgayFrom.Year.ToString();
-                                    string monthFrom = ViewBag.CurrentNgayFrom.Month.ToString();
-                                    string dayFrom = ViewBag.CurrentNgayFrom.Day.ToString();
+<div class="row">
+    @using (Html.BeginForm("Index", "DocSach", FormMethod.Get, new { @id = "form-search" }))
+    {
+        string dateTo = "";
+        if (ViewBag.CurrentNgayTo != null)
+        {
+            string yearTo = ViewBag.CurrentNgayTo.Year.ToString();
+            string monthTo = ViewBag.CurrentNgayTo.Month.ToString();
+            string dayTo = ViewBag.CurrentNgayTo.Day.ToString();
 
-                                    dateFrom = yearFrom.PadLeft(4, '0') + "-" + monthFrom.PadLeft(2, '0') + "-" + dayFrom.PadLeft(2, '0');
-                                }
-                            }
-                            <input name="ngayFrom" type="date" class="form-control" value="@dateFrom" />
-                        </div>
-                        <div>
-                            <label class="col-md-1">Đến ngày</label>
-                            @{
-                                string dateTo = "";
-                                if (ViewBag.CurrentNgayTo != null)
-                                {
-                                    string yearTo = ViewBag.CurrentNgayTo.Year.ToString();
-                                    string monthTo = ViewBag.CurrentNgayTo.Month.ToString();
-                                    string dayTo = ViewBag.CurrentNgayTo.Day.ToString();
+            dateTo = yearTo.PadLeft(4, '0') + "-" + monthTo.PadLeft(2, '0') + "-" + dayTo.PadLeft(2, '0');
 
-                                    dateTo = yearTo.PadLeft(4, '0') + "-" + monthTo.PadLeft(2, '0') + "-" + dayTo.PadLeft(2, '0');
+        }
+        string dateFrom = "";
+        if (ViewBag.CurrentNgayFrom != null)
+        {
+            string yearFrom = ViewBag.CurrentNgayFrom.Year.ToString();
+            string monthFrom = ViewBag.CurrentNgayFrom.Month.ToString();
+            string dayFrom = ViewBag.CurrentNgayFrom.Day.ToString();
 
-                                }
-                            }
-                            <input name="ngayTo" type="date" class="form-control" value="@dateTo" />
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <button id="buttonSubmit" type="submit" class="btn btn-default">Tìm</button>
-                </div>
-                <div hidden>
-                    <input type="text" name="sortOrder" value="@ViewBag.CurrentSort" />
-                </div>
-            </div>
+            dateFrom = yearFrom.PadLeft(4, '0') + "-" + monthFrom.PadLeft(2, '0') + "-" + dayFrom.PadLeft(2, '0');
+        }
+        <div class="col-md-2">
+            <label for="tenHS" class="control-label">Tìm học sinh</label>
+            <input id="tenHS" name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh" value="@ViewBag.CurrentTenHS">
         </div>
-        <br />
 
-        <div class="row">
-            <div class="col-md-offset-8 col-md-4 text-right form-inline">
-                <label class="control-label text-right">Số dòng trong 1 trang: </label>
-                @Html.DropDownList("pageSize", null, new { @class = "form-control", @onchange = "this.form.submit()" })
-            </div>
+        <div class="col-md-2">
+            <label for="lopHS" class="control-label">Tìm lớp</label>
+            @Html.DropDownList("lopHS", null, "Tất cả lớp", new { @class = "form-control", @id = "lopHS" })
         </div>
+
+        <div class="col-md-3">
+            <label for="ngayFrom" class="control-label">Ngày mượn</label>
+            <input id="ngayFrom" name="ngayFrom" type="date" class="form-control" value="@dateFrom" />
+        </div>
+        <div class="col-md-3">
+            <label for="ngayTo" class="control-label">Đến ngày</label>
+            <input id="ngayTo" name="ngayTo" type="date" class="form-control" value="@dateTo" />
+        </div>
+        <div class="col-md-2">
+            <br />
+            <button type="submit" class="btn btn-primary col-md-12">Tìm</button>
+        </div>
+        <div hidden>
+            <input type="text" name="sortOrder" value="@ViewBag.CurrentSort" />
+        </div>
+        <div hidden>
+            <input id="page-size" type="text" name="pageSize" value="" />
+        </div>
+    }
+</div>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <p>Tổng số: @Model.TotalItemCount</p>
     </div>
-                                }
+    <div class="col-md-offset-4 col-md-4 text-right form-inline">
+        <label class="control-label text-right">Số dòng trong 1 trang: </label>
+        @Html.DropDownList("pageSize", null, new { @class = "form-control", id = "_page-size" })
+    </div>
+</div>
 <div class="table-responsive">
     <table class="table table-hover">
         <tr>
@@ -171,6 +168,17 @@ Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.Page
         jQuery(document).ready(function ($) {
             $(".clickable-row").click(function () {
                 window.document.location = $(this).data("href");
+            });
+            function getPageSize() {
+                var page = $("#_page-size").val();
+                $("#page-size").val(page);
+            }
+            $("#_page-size").change(function () {
+                getPageSize();
+                $("#form-search").submit();
+            });
+            $("#form-search").submit(function () {
+                getPageSize();
             });
         });
     </script>

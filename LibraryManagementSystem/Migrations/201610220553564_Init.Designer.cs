@@ -13,7 +13,7 @@ namespace LibraryManagementSystem.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201610140930089_Init"; }
+            get { return "201610220553564_Init"; }
         }
         
         string IMigrationMetadata.Source

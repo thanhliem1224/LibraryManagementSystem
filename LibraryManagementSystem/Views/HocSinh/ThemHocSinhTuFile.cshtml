@@ -9,12 +9,11 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
-
-    <div class="form-group">
-        <input type="file" id="dataFile" name="upload" />
-    </div>
-
-    <div class="form-group">
-        <input type="submit" value="Tải lên và Lưu" class="btn btn-default" />
-    </div>
+        <div class="form-group">
+            <input type="file" id="dataFile" name="upload" class="btn btn-info"/>
+        </div>
+        <div class="form-group">
+            @Html.ActionLink("Hủy", "Index", "HocSinh", null, new { @class = "btn btn-default" })
+            <input type="submit" value="Tải lên và Lưu" class="btn btn-success" />
+        </div>
 }

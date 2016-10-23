@@ -1,49 +1,53 @@
 ﻿@model LibraryManagementSystem.Models.DocSachTaiCho
 
 @{
-    ViewBag.Title = "Tìm Học Sinh Đọc Sách";
+    ViewBag.Title = "Thêm Học Sinh Đọc Sách";
 }
-
-<h2 class="text-center">Tìm Học Sinh Đọc Sách</h2>
-<br />
-<div>
-    <div class="form-horizontal">
-        <div class="form-group">
-            @using (Html.BeginForm("TimHS", "DocSach"))
-            {
-                <div class="form-inline">
-                    <div class="control-label col-md-4"><strong>Tên Học Sinh</strong></div>
-                    <div class="col-md-4">
-                        @Html.TextBox("tenHS", null, new { @class = "form-control" })
-                    </div>
-                    <div class="col-md-4">
-                        <input type="submit" value="Tìm" class="btn btn-default" />
-                    </div>
-                </div>
-            }
-        </div>
-        <div class="form-group">
-            @if (TempData["Message_Fa"] != null)
-            {
-                <p class="col-md-offset-4 col-md-8 text-danger">@TempData["Message_Fa"]</p>
-            }
-            @if (TempData["Message_Su"] != null)
-            {
-                <p class="col-md-offset-4 col-md-8 text-success">@TempData["Message_Su"]</p>
-            }
-        </div>
+<div class="row">
+    <div class="col-md-2">
+        @Html.ActionLink("Lịch Sử Đọc Sách", "Index")
     </div>
-
+    <div class="col-md-8">
+        <h2 class="text-center">Thêm Học Sinh Đọc Sách</h2>
+    </div>
+    <div class="col-md-2">
+        <br />
+    </div>
+    <div class="col-md-2">
+        <br />
+    </div>
 </div>
+<br />
+<div class="row">
+    @using (Html.BeginForm("TimHS", "DocSach", FormMethod.Get))
+    {
+        <div class="col-md-3">
+            <label for="tenHS" class="control-label">Tìm học sinh</label>
+            <input id="tenHS" name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh" value="@ViewBag.CurrentTenHS">
+        </div>
+        <div class="col-md-3">
+            <label for="lopHS" class="control-label">Tìm lớp</label>
+            @Html.DropDownList("lopHS", null, "Tất cả lớp", new { @class = "form-control", @id = "lopHS" })
+        </div>
+        <div class="col-md-1">
+            <br />
+            <button type="submit" class="btn btn-primary form-control">Tìm</button>
+        </div>
 
-<div>
-    @Html.ActionLink("Lịch Sử Đọc Sách", "Index")
+    }
 </div>
+@if (TempData["Message_Fa"] != null)
+            {
+    <p class="text-center text-danger">@TempData["Message_Fa"]</p>
+}
+@if (TempData["Message_Su"] != null)
+            {
+    <p class="text-center text-success">@TempData["Message_Su"]</p>
+}
+<br />
+<h3>@TempData["Title"]</h3>
 @if (ViewBag.DSTimKiem != null)
 {
-    <hr />
-    <h3>@TempData["Title"]</h3>
-    <br />
     <div class="table-responsive">
         <table class="table table-hover">
             <tr>

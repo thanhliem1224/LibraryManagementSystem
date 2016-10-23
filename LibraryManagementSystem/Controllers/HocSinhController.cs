@@ -27,15 +27,21 @@ namespace LibraryManagementSystem.Controllers
         {
             var hoc_sinh = from s in db.HocSinh
                            select s;
-
+            var lop = from l in db.HocSinh
+                      group l by l.Lop into g
+                      select g.Key;
+            ViewBag.lopHS = new SelectList(lop);
+                      
             if (!string.IsNullOrEmpty(tenHS))
             {
                 hoc_sinh = hoc_sinh.Where(s => s.TenHS.Contains(tenHS));
             }
             if (!string.IsNullOrEmpty(lopHS))
             {
-                hoc_sinh = hoc_sinh.Where(s => s.Lop.Contains(lopHS));
+                hoc_sinh = hoc_sinh.Where(s => s.Lop.Equals(lopHS));
             }
+
+
             #region Sort
             ViewBag.sortLop = "lop_ascending";
             ViewBag.sortTenHS = "tenHS_ascending";
@@ -112,8 +118,11 @@ namespace LibraryManagementSystem.Controllers
         */
         // GET: Hoc_Sinh/Create
         [Authorize]
-        public ActionResult Create()
+        public ActionResult Create(Lop? lop)
         {
+            // tạo dropdown lớp
+            ViewBag.Lop = new SelectList(EnumHelper<Lop>.GetDisplayValues(new Lop()));
+
             return View();
         }
 
