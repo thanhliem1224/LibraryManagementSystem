@@ -34,12 +34,18 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" role="button" aria-expanded="false" aria-haspopup="true" href="#" data-toggle="dropdown">Hoạt Động</a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Mượn/Trả Sách", "TimHocSinh", "MuonTraSach")</li>
-                            <li>@Html.ActionLink("Danh Sách Học Sinh Mượn Sách", "Index", "MuonTraSach")</li>
-                            <li>@Html.ActionLink("Lịch Sử Mượn Trả Sách", "LichSu", "MuonTraSach")</li>
-                            <li>@Html.ActionLink("Đọc Sách Tại Chỗ", "TimHS", "DocSach")</li>
-                            <li class="divider"></li>
+                            <li class="dropdown-header">Mượn Trả Sách</li>
+                            <li>@Html.ActionLink("Mượn Sách", "TimHocSinh", "MuonTraSach")</li>
+                            <li>@Html.ActionLink("Danh Sách Đang Mượn", "Index", "MuonTraSach")</li>
+                            <li>@Html.ActionLink("Lịch Sử", "LichSu", "MuonTraSach")</li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Đọc Sách Tại Thư Viện</li>
+                            <li>@Html.ActionLink("Thêm HS Đọc Sách", "TimHS", "DocSach")</li>
+                            <li>@Html.ActionLink("Lịch Sử Đọc Sách", "Index", "DocSach")</li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Thanh Lý Sách</li>
                             <li>@Html.ActionLink("Thanh Lý Sách", "Create", "ThanhLy")</li>
+                            <li>@Html.ActionLink("Lịch Sử Thanh Lý", "Index", "ThanhLy")</li>
                         </ul>
                     </li>
                     <li>@Html.ActionLink("Thống Kê", "Index", "BaoCao")</li>

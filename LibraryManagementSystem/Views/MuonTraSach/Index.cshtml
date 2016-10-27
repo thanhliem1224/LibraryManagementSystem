@@ -223,19 +223,16 @@
                     <div class="btn-group navbar-btn">
                         @Html.ActionLink("Trả Sách", "TraSach", new { @id = item.ID }, new { @class = "btn btn-default btn-xs" })
                         <button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle"><span class="caret"></span></button>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu dropdown-menu-right">
                             <li>@Html.ActionLink("Gia Hạn", "GiaHan", new { @id = item.ID })</li>
                             <li>@Html.ActionLink("Báo Mất", "BaoMat", new { @id = item.ID })</li>
-                            <li>@Html.ActionLink("Sửa", "Edit", new { @id = item.ID })</li>
                         </ul>
                     </div>
                 </td>
             </tr>
         }
     </table>
-</div>
-<br />
-<div>
+
     Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
 
     @Html.PagedListPager(@Model, page => Url.Action("Index",

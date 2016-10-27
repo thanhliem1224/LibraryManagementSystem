@@ -15,6 +15,7 @@ namespace LibraryManagementSystem.Controllers
     {
         private CNCFContext db = new CNCFContext();
         // GET: ThanhLy
+        [Authorize]
         public ActionResult Index(string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo, string sortOrder, int? page, int? pageSize)
         {
             var thanhLy = db.ThanhLy.Include(t => t.Sach);
@@ -135,7 +136,7 @@ namespace LibraryManagementSystem.Controllers
         {
             return RedirectToAction("Create", "ThanhLy", new { b = tenSach });
         }
-
+        [Authorize]
         // GET: ThanhLy/Create
         public ActionResult Create(string b)
         {
@@ -193,7 +194,8 @@ namespace LibraryManagementSystem.Controllers
             ViewBag.SachID = new SelectList(db.Sach, "ID", "SachID", thanhLy.SachID);
             return View(thanhLy);
         }
-
+        [Authorize]
+        [HttpPost]
         public ActionResult ConfirmCreate(int? id)
         {
             if (id == null)

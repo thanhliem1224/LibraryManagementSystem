@@ -4,6 +4,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
+            $("#e_bcds").ready(function () {
+                $("#t_bcds").hide();
+            })
             $("#e_bcds").click(function () {
                 $("#t_bcds").fadeToggle("slow");
             });
@@ -28,13 +31,18 @@
 </head>
 <body>
     <div>
-        <h4><a id="e_bcds">Bảng Thống Kê Hoạt Động Đọc Sách Tại Thư Viện (@ViewBag.date)</a></h4>
+        <h4><a id="e_bcds">Bảng Thống Kê Hoạt Động Đọc Sách Tại Thư Viện <span class="badge">@ViewBag.date</span></a></h4>
         @if (ViewBag.DocSachTaiCho_Count == 0)
         {
             <p>Không có hoạt động đọc sách</p>
         }
         else
         {
+            <div class="panel-heading">
+                Tổng cộng: 
+                <span class="badge">@ViewBag.DocSachTaiCho_Count</span>
+                 lượt đọc
+            </div>
             <div class="table-responsive" >
                 <table class="table" id="t_bcds">
                     <tr>
@@ -56,14 +64,6 @@
                             </td>
                         </tr>
                     }
-                    <tr>
-                        <td>
-                            <strong>Tổng Cộng</strong>
-                        </td>
-                        <td>
-                            <strong>@ViewBag.DocSachTaiCho_Count</strong>
-                        </td>
-                    </tr>
                 </table>  
             </div>
             <button class="btn btn-success" onclick="bcct_docsach()">

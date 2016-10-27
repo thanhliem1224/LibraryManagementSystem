@@ -7,15 +7,16 @@
     <div>
         <h4><u>Bảng Thống Kê Chi Tiết Hoạt Động Mượn Sách</u></h4>
         <div class="form-inline" role="form">
-            <div>
+            <div class="form-group">
                 <input id="lopHS" name="lopHS" type="text" class="form-control" placeholder="Tìm Lớp" value="@ViewBag.CurrentLopHS">
             </div>
-            <div>
+            <div class="form-group">
                 <input id="tenHS" name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh" value="@ViewBag.CurrentTenHS">
             </div>
-            <div>
+            <div class="form-group">
                 <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search" value="Search"></i></button>
             </div>
+            <br />
         </div>
         @if (ViewBag.MuonTraSach_Count == 0)
         {

@@ -231,9 +231,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201610220553564_Init.cs" />
-    <Compile Include="Migrations\201610220553564_Init.Designer.cs">
-      <DependentUpon>201610220553564_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201610270227008_Init.cs" />
+    <Compile Include="Migrations\201610270227008_Init.Designer.cs">
+      <DependentUpon>201610270227008_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -385,6 +385,7 @@
     <Content Include="Views\DocSach\TimHS.cshtml" />
     <Content Include="Views\BaoCao\BCCT_DocSach.cshtml" />
     <Content Include="Views\BaoCao\BCCT_MuonSach.cshtml" />
+    <Content Include="Views\Sach\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -394,8 +395,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610220553564_Init.resx">
-      <DependentUpon>201610220553564_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610270227008_Init.resx">
+      <DependentUpon>201610270227008_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

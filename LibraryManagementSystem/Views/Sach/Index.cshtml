@@ -21,15 +21,16 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
                     <li>@Html.ActionLink("Nhập tay", "Create", "Sach")</li>
-                    <li>@Html.ActionLink("Thêm từ file", "ThemHocSinhTuFile", "Sach")</li>
+                    <li>@Html.ActionLink("Thêm từ file", "ThemSachTuFile", "Sach")</li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
 <br />
-@using (Html.BeginForm("Index", "Sach", FormMethod.Get, new { @id = "form-search" }))
-{
+<div class="row">
+    @using (Html.BeginForm("Index", "Sach", FormMethod.Get, new { @id = "form-search" }))
+    {
         <div class="col-md-2">
             <label for="chuDeSach" class="control-label">Tìm chủ đề</label>
             @Html.DropDownList("chuDeSach", null, "Tất cả chủ đề", new { @class = "form-control" })
@@ -47,28 +48,37 @@
             @Html.DropDownList("trangThai", null, "Tất cả trạng thái", new { @class = "form-control" })
         </div>
         <div class="col-md-1">
-                <br />
+            <br />
             <button type="submit" class="btn btn-primary">Tìm</button>
         </div>
 
-        
+
         <div hidden>
             <input type="text" name="sortOrder" value="@ViewBag.CurrentSort" />
         </div>
         <div hidden>
             <input id="page-size" type="text" name="pageSize" value="" />
         </div>
-}
+    }
+    <br />
+</div>
 <br />
 <div class="row">
-    <div class="col-md-offset-8 col-md-4 text-right form-inline">
+    <div class="col-md-4">
+        <p>Tổng số: @Model.TotalItemCount</p>
+    </div>
+    <div class="col-md-offset-4 col-md-4 text-right form-inline">
         <label class="control-label text-right">Số dòng trong 1 trang: </label>
         @Html.DropDownList("pageSize", null, new { @class = "form-control", id = "_page-size" })
     </div>
 </div>
 <div class="table-responsive">
     <table class="table table-hover">
+        @{int count = ((Model.PageSize * (Model.PageNumber - 1)) + 1); }
         <tr>
+            <th>
+                #
+            </th>
             <th>
                 @Html.ActionLink("Tên chủ đề", "Index", new
            {
@@ -112,9 +122,13 @@
         </tr>
         @foreach (var item in Model)
         {
-            string url = "Sach/Edit/" + item.ID;
+            
+            string url = "Sach/Details/" + item.ID;
 
             <tr class='clickable-row' data-href='@url'>
+                <td>
+                    @count
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ChuDe.TenChuDe)
                 </td>
@@ -128,6 +142,7 @@
                     @Html.DisplayFor(modelItem => item.TrangThai)
                 </td>
             </tr>
+            count++;
         }
     </table>
 </div>

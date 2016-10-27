@@ -4,6 +4,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
+            $("#e_bcsm").ready(function () {
+                $("#t_bcsm").hide();
+            });
             $("#e_bcsm").click(function () {
                 $("#t_bcsm").fadeToggle("slow");
             });
@@ -25,13 +28,18 @@
 </head>
 <body>
     <div>
-        <h4><a id="e_bcsm">Danh Sách Học Sinh Làm Mất Sách</a></h4>
+        <h4><a id="e_bcsm">Danh Sách Sách Bị Mất</a></h4>
         @if (ViewBag.SachMat_Count == 0)
         {
             <p>Không có sách bị mất</p>
         }
         else
         {
+            <div class="panel-heading">
+                Tổng cộng:
+                <span class="badge">@ViewBag.SachMat_Count</span>
+                 sách
+            </div>
             <div class="table-responsive" id="t_bcsm">
                 <table class="table">
                     <tr>

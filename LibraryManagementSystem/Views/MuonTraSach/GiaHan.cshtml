@@ -32,15 +32,29 @@
         <div class="form-group">
             @Html.LabelFor(model => model.NgayMuon, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @{
-                    string _year_muon = Model.NgayMuon.Year.ToString();
-                    string _month_muon = Model.NgayMuon.Month.ToString();
-                    string _day_muon = Model.NgayMuon.Day.ToString();
+                @Html.DisplayFor(model => model.NgayMuon)
+            </div>
+        </div>
 
-                    string _date_muon = _day_muon.PadLeft(2, '0') + "-" + _month_muon.PadLeft(2, '0') + "-" + _year_muon.PadLeft(4, '0');
-
-                }
-                @_date_muon
+        <div class="form-group">
+            <label class="control-label col-md-2">Thời gian gia hạn</label>
+            <div class="col-md-10">
+                <select id="duration_time" class="form-control" onchange="setDate()">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                    <option>13</option>
+                    <option>14</option>
+                </select>
             </div>
         </div>
 
@@ -55,8 +69,9 @@
                     string _date_hantra = _year_hantra.PadLeft(4, '0') + "-" + _month_hantra.PadLeft(2, '0') + "-" + _day_hantra.PadLeft(2, '0');
 
                 }
-                <input class="form-control" name="HanTra" type="date" value="@_date_hantra" />
-                @Html.HiddenFor(model => model.HanTra, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="date" id="_hanTra" value="@_date_hantra" hidden />
+                <p id="showHanTra"></p>
+                <input class="form-control hidden" id="HanTra" name="HanTra" type="date" />
                 @Html.ValidationMessageFor(model => model.HanTra, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -71,9 +86,29 @@
             </div>
         </div>
     </div>
-                        }
+                    }
 
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            getDate();
+            function getDate() {
+                var hanTra = $("#_hanTra").val().split('-');
+                var duration = $("#duration_time").val();
+                var deadline = new Date(hanTra[0], hanTra[1], hanTra[2]);
+                deadline.setTime(deadline.getTime() + (duration * 86400000));
+                var dd = ("0" + deadline.getDate()).slice(-2);
+                var MM = ("0" + deadline.getMonth()).slice(-2);
+                var YYYY = deadline.getFullYear();
+                var newDate = YYYY + '-' + MM + '-' + dd;
+                $("#showHanTra").text(dd + '/' + MM + '/' + YYYY);
+                $("#HanTra").val(newDate);
+            };
+            $("#duration_time").change(function () {
+                getDate();
+            });
+        })
+    </script>
 }

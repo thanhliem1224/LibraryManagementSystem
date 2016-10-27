@@ -16,6 +16,7 @@
             <div class="form-group">
                 <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search" value="Search"></i></button>
             </div>
+            <br />
         </div>
         @if (ViewBag.DocSachTaiCho_Count == 0)
         {
@@ -26,9 +27,6 @@
             <div class="table-responsive">
                 <table class="table">
                     <tr>
-                        <th>
-                            ID
-                        </th>
                         <th>
                             @Html.ActionLink("Tên Học Sinh", "BCCT_DocSach", new {
                            lopHS = ViewBag.CurrentLopHS,
@@ -51,9 +49,6 @@
                     @foreach (var item in ViewBag.DocSachTaiCho)
                     {
                         <tr>
-                            <td>
-                                @item.GroupName1
-                            </td>
                             <td>
                                 @item.GroupName2
                             </td>

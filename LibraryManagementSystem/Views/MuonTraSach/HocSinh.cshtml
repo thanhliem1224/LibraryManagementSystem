@@ -1,7 +1,7 @@
 ﻿@model LibraryManagementSystem.Models.HocSinh
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.TenHS;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h2 class="text-center">Mượn Sách</h2>
@@ -130,172 +130,214 @@
     @Html.ActionLink("Danh Sách Học Sinh Đang Mượn Sách", "Index")
 </div>
 <br />
-<div>
-    @if (ViewBag.SachDangMuon != null)
-    {
-        <br />
-        <h3>Sách Đang Mượn</h3>
-        <div class="table-responsive">
-            <table class="table">
-                <tr>
-                    <th>
-                        Mã Sách
-                    </th>
-                    <th>
-                        Tên Sách
-                    </th>
-                    <th>
-                        Ngày Mượn
-                    </th>
-                    <th>
-                        Hạn Trả
-                    </th>
-                    <th></th>
-                </tr>
-                @foreach (var item in ViewBag.SachDangMuon)
-                {
+<ul class="nav nav-tabs nav-justified">
+    <li class="active"><a data-toggle="tab" href="#dang_muon"><h4>Sách Đang Mượn</h4></a></li>
+    <li><a data-toggle="tab" href="#qua_han"><h4>Sách Quá Hạn</h4></a></li>
+    <li><a data-toggle="tab" href="#da_muon"><h4>Sách Đã Mượn</h4></a></li>
+    <li><a data-toggle="tab" href="#mat"><h4>Sách Mất</h4></a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="dang_muon" class="tab-pane fade in active">
+        @if (ViewBag.SachDangMuon != null)
+        {
+            <div class="table-responsive">
+                <h3 class="text-center">Sách Đang Mượn</h3>
+                <table class="table">
                     <tr>
-                        <td>
-                            @item.Sach.SachID
-                        </td>
-                        <td>
-                            @item.Sach.TenSach
-                        </td>
-                        <td>
-                            @item.NgayMuon.ToShortDateString()
-                        </td>
-                        <td>
-                            @item.HanTra.ToShortDateString()
-                        </td>
-
-                        <td>
-                            @Html.ActionLink("Trả Sách", "TraSach", "MuonTraSach", new { id = item.ID }, null)
-                        </td>
+                        <th>
+                            Mã Sách
+                        </th>
+                        <th>
+                            Tên Sách
+                        </th>
+                        <th>
+                            Ngày Mượn
+                        </th>
+                        <th>
+                            Hạn Trả
+                        </th>
+                        <th></th>
                     </tr>
-                }
-            </table>
-        </div>
-    }
-    @if (ViewBag.SachQuaHan != null)
-    {
-        <br />
-        <h3>Sách Qúa Hạn</h3>
-        <div class="table-responsive">
-            <table class="table">
-                <tr>
-                    <th>
-                        Mã Sách
-                    </th>
-                    <th>
-                        Tên Sách
-                    </th>
-                    <th>
-                        Ngày Mượn
-                    </th>
-                    <th>
-                        Hạn Trả
-                    </th>
-                    <th></th>
-                </tr>
-                @foreach (var item in ViewBag.SachQuaHan)
+                    @foreach (var item in ViewBag.SachDangMuon)
                 {
+                        <tr>
+                            <td>
+                                @item.Sach.SachID
+                            </td>
+                            <td>
+                                @item.Sach.TenSach
+                            </td>
+                            <td>
+                                @item.NgayMuon.ToShortDateString()
+                            </td>
+                            <td>
+                                @item.HanTra.ToShortDateString()
+                            </td>
+
+                            <td>
+                                <div class="btn-group navbar-btn dropup">
+                                    @Html.ActionLink("Trả Sách", "TraSach", new { @id = item.ID }, new { @class = "btn btn-default btn-xs" })
+                                    <button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle"><span class="caret"></span></button>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li>@Html.ActionLink("Gia Hạn", "GiaHan", new { @id = item.ID })</li>
+                                        <li>@Html.ActionLink("Báo Mất", "BaoMat", new { @id = item.ID })</li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        }
+        else
+        {
+            <br />
+            <h4 class="text-center text-info">Không có sách đang mượn</h4>
+        }
+    </div>
+    <div id="qua_han" class="tab-pane fade">
+        @if (ViewBag.SachQuaHan != null)
+        {
+            <div class="table-responsive">
+                <h3 class="text-center">Sách Qúa Hạn</h3>
+                <table class="table">
                     <tr>
-                        <td>
-                            @item.Sach.SachID
-                        </td>
-                        <td>
-                            @item.Sach.TenSach
-                        </td>
-                        <td>
-                            @item.NgayMuon.ToShortDateString()
-                        </td>
-                        <td>
-                            @item.HanTra.ToShortDateString()
-                        </td>
-
-                        <td>
-                            @Html.ActionLink("Trả Sách", "TraSach", "MuonTraSach", new { id = item.ID }, null)
-                        </td>
+                        <th>
+                            Mã Sách
+                        </th>
+                        <th>
+                            Tên Sách
+                        </th>
+                        <th>
+                            Ngày Mượn
+                        </th>
+                        <th>
+                            Hạn Trả
+                        </th>
+                        <th></th>
                     </tr>
-                }
-            </table>
-        </div>
-    }
-
-    @if (ViewBag.SachDaMuon != null)
-    {
-        <br />
-        <h3>Sách Đã Mượn</h3>
-        <div class="table-responsive">
-            <table class="table">
-                <tr>
-                    <th>
-                        Mã Sách
-                    </th>
-                    <th>
-                        Tên Sách
-                    </th>
-                    <th>
-                        Ngày Mượn
-                    </th>
-                    <th>
-                        Ngày Trả
-                    </th>
-                </tr>
-                @foreach (var item in ViewBag.SachDaMuon)
+                    @foreach (var item in ViewBag.SachQuaHan)
                 {
-                    <tr>
-                        <td>
-                            @item.Sach.SachID
-                        </td>
-                        <td>
-                            @item.Sach.TenSach
-                        </td>
-                        <td>
-                            @item.NgayMuon.ToShortDateString()
-                        </td>
-                        <td>
-                            @item.NgayTra.ToShortDateString()
-                        </td>
-                    </tr>
-                }
-            </table>
-        </div>
-    }
+                        <tr>
+                            <td>
+                                @item.Sach.SachID
+                            </td>
+                            <td>
+                                @item.Sach.TenSach
+                            </td>
+                            <td>
+                                @item.NgayMuon.ToShortDateString()
+                            </td>
+                            <td>
+                                @item.HanTra.ToShortDateString()
+                            </td>
 
-    @if (ViewBag.SachMat != null)
-    {
-        <br />
-        <h3>Sách Làm Mất</h3>
-        <div class="table-responsive">
-            <table class="table">
-                <tr>
-                    <th>
-                        Mã Sách
-                    </th>
-                    <th>
-                        Tên Sách
-                    </th>
-                    <th>
-                        Ngày Báo Mất
-                    </th>
-                </tr>
-                @foreach (var item in ViewBag.SachMat)
+                            <td>
+                                <div class="btn-group navbar-btn dropup">
+                                    @Html.ActionLink("Trả Sách", "TraSach", new { @id = item.ID }, new { @class = "btn btn-default btn-xs" })
+                                    <button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle"><span class="caret"></span></button>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li>@Html.ActionLink("Gia Hạn", "GiaHan", new { @id = item.ID })</li>
+                                        <li>@Html.ActionLink("Báo Mất", "BaoMat", new { @id = item.ID })</li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        }
+        else
+        {
+            <br />
+            <h4 class="text-center text-info">Không có sách quá hạn</h4>
+        }
+    </div>
+    <div id="da_muon" class="tab-pane fade">
+        @if (ViewBag.SachDaMuon != null)
+        {
+            <h3 class="text-center">Sách Đã Mượn</h3>
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th>
+                            Mã Sách
+                        </th>
+                        <th>
+                            Tên Sách
+                        </th>
+                        <th>
+                            Ngày Mượn
+                        </th>
+                        <th>
+                            Ngày Trả
+                        </th>
+                    </tr>
+                    @foreach (var item in ViewBag.SachDaMuon)
                 {
+                        <tr>
+                            <td>
+                                @item.Sach.SachID
+                            </td>
+                            <td>
+                                @item.Sach.TenSach
+                            </td>
+                            <td>
+                                @item.NgayMuon.ToShortDateString()
+                            </td>
+                            <td>
+                                @item.NgayTra.ToShortDateString()
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        }
+        else
+        {
+            <br />
+            <h4 class="text-center text-info">Không có sách đã mượn</h4>
+        }
+    </div>
+    <div id="mat" class="tab-pane fade">
+        @if (ViewBag.SachMat != null)
+        {
+            <h3 class="text-center">Sách Làm Mất</h3>
+            <div class="table-responsive">
+                <table class="table">
                     <tr>
-                        <td>
-                            @item.Sach.SachID
-                        </td>
-                        <td>
-                            @item.Sach.TenSach
-                        </td>
-                        <td>
-                            @item.NgayTra.ToShortDateString()
-                        </td>
+                        <th>
+                            Mã Sách
+                        </th>
+                        <th>
+                            Tên Sách
+                        </th>
+                        <th>
+                            Ngày Báo Mất
+                        </th>
                     </tr>
-                }
-            </table>
-        </div>
-    }
-
+                    @foreach (var item in ViewBag.SachMat)
+                {
+                        <tr>
+                            <td>
+                                @item.Sach.SachID
+                            </td>
+                            <td>
+                                @item.Sach.TenSach
+                            </td>
+                            <td>
+                                @item.NgayTra.ToShortDateString()
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        }
+        else
+        {
+            <br />
+            <h4 class="text-center text-info">Không có sách làm mất</h4>
+        }
+    </div>
 </div>

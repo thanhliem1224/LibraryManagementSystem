@@ -4,6 +4,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
+            $("#e_bcsqh").ready(function () {
+                $("#t_bcsqh").hide();
+            });
             $("#e_bcsqh").click(function () {
                 $("#t_bcsqh").fadeToggle("slow");
             });
@@ -32,6 +35,11 @@
         }
         else
         {
+            <div class="panel-heading">
+                Tổng cộng:
+                <span class="badge">@ViewBag.MuonQuaHan_Count</span>
+                 học sinh
+            </div>
             <div class="table-responsive" id="t_bcsqh">
                 <table class="table">
                     <tr>

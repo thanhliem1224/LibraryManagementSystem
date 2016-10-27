@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using LibraryManagementSystem.DAL;
 using LibraryManagementSystem.Models;
 using LibraryManagementSystem.Models.ViewModel;
+using PagedList;
 using Novacode;
 using System.IO;
 using System.Drawing;
@@ -16,6 +19,13 @@ namespace LibraryManagementSystem.Controllers
 {
     public class BaoCaoController : Controller
     {
+        public enum LOAIBAOCAO
+        {
+            Thang,
+            Nam,
+            KhoanThoiGian
+        }
+
         public static LOAIBAOCAO thisistype;
         public static DateTime thisisD;
         public static DateTime thisisD_F;
@@ -656,8 +666,8 @@ namespace LibraryManagementSystem.Controllers
                                               where m.NgayMuon.Month == _month && m.NgayMuon.Year == _year
                                               group m by m.Sach.ChuDe into g
                                               select new BaoCaoVM { GroupName1 = g.Key.TenChuDe, GroupSoLuong = g.Count() };
-
-                        return theloaiyeuthich;
+                        return theloaiyeuthich.OrderByDescending(s => s.GroupSoLuong);
+                        
                     }
                     else // neu ko co du lieu thang
                     {
@@ -675,7 +685,7 @@ namespace LibraryManagementSystem.Controllers
                                               group m by m.Sach.ChuDe into g
                                               select new BaoCaoVM { GroupName1 = g.Key.TenChuDe, GroupSoLuong = g.Count() };
 
-                        return theloaiyeuthich;
+                        return theloaiyeuthich.OrderByDescending(s => s.GroupSoLuong);
                     }
                     else // neu ko co du lieu nam
                     {
@@ -694,7 +704,7 @@ namespace LibraryManagementSystem.Controllers
                                               where (m.NgayMuon.Month >= _month_s && m.NgayMuon.Year >= _year_s) && (m.NgayMuon.Month <= _month_f && m.NgayMuon.Year <= _year_f)
                                               group m by m.Sach.ChuDe into g
                                               select new BaoCaoVM { GroupName1 = g.Key.TenChuDe, GroupSoLuong = g.Count() };
-                        return theloaiyeuthich;
+                        return theloaiyeuthich.OrderByDescending(s => s.GroupSoLuong);
                     }
                     else // neu ko co du lieu khoang thoi gian
                     {
@@ -936,7 +946,7 @@ namespace LibraryManagementSystem.Controllers
             ///
             ///Bao cao muon sach
             ///
-            // Check neu muon tao bao cao Muon sach
+            #region BaoCao Muon Sach
             var bcMuonsach = BaoCaoMuonSach(thisistype, thisisD, thisisD_F);
             int value = 0;
             Dictionary<string, int> bc_muonsachFilter = new Dictionary<string, int>();
@@ -958,19 +968,7 @@ namespace LibraryManagementSystem.Controllers
 
             p_bcDocsach.AppendLine("Bảng kê số lượt mượn sách về nhà:").FontSize(13).Font(TNR).Bold();
             int CellIndex = bc_muonsachFilter.Count();
-
-            ///Check so sanh voi bcDocSach
-
-
-            //if (docsach != null)
-            //{
             CellIndex += 2;
-            //}
-            //else
-            //{
-            //    CellIndex += 1;
-            //}
-
             Table t_Muonsach = doc.AddTable(2, CellIndex);
             t_Muonsach.Design = TableDesign.TableGrid;
             int Row = 0;
@@ -1007,6 +1005,8 @@ namespace LibraryManagementSystem.Controllers
             //In ra file
             p_bcDocsach.InsertTableAfterSelf(t_Muonsach);
             p_bcDocsach.AppendLine("");
+            #endregion
+
             #region Bao Cao Sach Qua Han
             // Sach muon chua tra
             Paragraph heading2 = doc.InsertParagraph();

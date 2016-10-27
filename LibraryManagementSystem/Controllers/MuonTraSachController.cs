@@ -21,6 +21,7 @@ namespace LibraryManagementSystem.Controllers
         private DateTime _beginDayNow = CNCFClass.GoToBeginOfDay(DateTime.Now);
 
         // GET: MuonTraSach
+        [Authorize]
         public ActionResult Index(string lopHS, string tenHS, string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo, string sortOrder, string type, int? page, int? pageSize)
         {
             var muonTraSach = db.MuonTraSach.Include(m => m.HocSinh).Include(m => m.Sach).Where(m => m.NgayTra == null);
@@ -187,6 +188,7 @@ namespace LibraryManagementSystem.Controllers
             #endregion
             return View(muonTraSach.ToPagedList(pageNumber, thisPageSize));
         }
+        [Authorize]
         public ActionResult LichSu(string lopHS, string tenHS, string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo, string sortOrder, int? page, int? pageSize)
         {
             var muonTraSach = db.MuonTraSach.Include(m => m.HocSinh).Include(m => m.Sach);
@@ -335,7 +337,7 @@ namespace LibraryManagementSystem.Controllers
 
             return View(muonTraSach.ToPagedList(pageNumber, thisPageSize));
         }
-
+        [Authorize]
         public ActionResult TimHocSinh(string tenHS, string lopHS)
         {
             // load dropdow lớp
@@ -367,7 +369,7 @@ namespace LibraryManagementSystem.Controllers
             }
             return View();
         }
-
+        [Authorize]
         public ActionResult HocSinh(int? id, string tenSach, string maSach)
         {
             if (id == null)
@@ -516,6 +518,13 @@ namespace LibraryManagementSystem.Controllers
                             else // nếu sách có trong thư viện
                             {
                                 // cho mượn
+                                int _day = muonTraSach.NgayMuon.Day;
+                                int _month = muonTraSach.NgayMuon.Month;
+                                int _year = muonTraSach.NgayMuon.Year;
+                                int _hour = DateTime.Now.Hour;
+                                int _min = DateTime.Now.Minute;
+                                int _sec = DateTime.Now.Second;
+                                muonTraSach.NgayMuon = new DateTime(_year, _month, _day, _hour, _min, _sec);
                                 muonTraSach.HanTra = CNCFClass.GoToEndOfDay(muonTraSach.NgayMuon.AddDays(7));
                                 db.MuonTraSach.Add(muonTraSach);
                                 db.SaveChanges();
@@ -540,7 +549,7 @@ namespace LibraryManagementSystem.Controllers
                 return View("SthError");
             }
         }
-
+        [Authorize]
         // GET: MuonTraSach/Tra Sach/5
         public ActionResult TraSach(int? id)
         {
@@ -561,7 +570,7 @@ namespace LibraryManagementSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult TraSach([Bind(Include = "ID, SachID")] MuonTraSach muonTraSach)
+        public ActionResult TraSach([Bind(Include = "ID, SachID, NgayTra")] MuonTraSach muonTraSach)
         {
             if (ModelState.IsValid)
             {
@@ -582,23 +591,33 @@ namespace LibraryManagementSystem.Controllers
                     {
                         s.TrangThai = TrangThai.CoSan; // trả sách
                         db.SaveChanges(); // lưu
+
+                        // update muontrasach
+                        MuonTraSach mts = db.MuonTraSach.First(m => m.ID == muonTraSach.ID);
+                        int _day = muonTraSach.NgayTra.Value.Day;
+                        int _month = muonTraSach.NgayTra.Value.Month;
+                        int _year = muonTraSach.NgayTra.Value.Year;
+                        int _hour = DateTime.Now.Hour;
+                        int _min = DateTime.Now.Minute;
+                        int _sec = DateTime.Now.Second;
+
+                        mts.NgayTra = new DateTime(_year, _month, _day, _hour, _min, _sec);
+                        db.SaveChanges();
+
+                        // lấy id học sinh trả về trang thông tin học sinh
+
+                        int id = mts.HocSinhID;
+                        return RedirectToAction("HocSinh", "MuonTraSach", new { id = id });
                     }
                 }
-                // update muontrasach
-                MuonTraSach mts = db.MuonTraSach.First(m => m.ID == muonTraSach.ID);
-                mts.NgayTra = DateTime.Now;
-                db.SaveChanges();
 
-                // lấy id học sinh trả về trang thông tin học sinh
-
-                int id = mts.HocSinhID;
-                return RedirectToAction("HocSinh", "MuonTraSach", new { id = id });
                 //return RedirectToAction("Index");
             }
             return View(muonTraSach);
         }
 
         // GET: MuonTraSach/BaoMat/5
+        [Authorize]
         public ActionResult BaoMat(int? id)
         {
             if (id == null)
@@ -642,6 +661,7 @@ namespace LibraryManagementSystem.Controllers
 
 
         // GET: MuonTraSach/GiaHan/5
+        [Authorize]
         public ActionResult GiaHan(int? id)
         {
             if (id == null)
@@ -674,40 +694,40 @@ namespace LibraryManagementSystem.Controllers
             return View(muonTraSach);
         }
 
-        // GET: MuonTraSach/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MuonTraSach muonTraSach = db.MuonTraSach.Find(id);
-            if (muonTraSach == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.HocSinhID = new SelectList(db.HocSinh, "ID", "TenHS", muonTraSach.HocSinhID);
-            ViewBag.SachID = new SelectList(db.Sach, "ID", "SachID", muonTraSach.SachID);
-            return View(muonTraSach);
-        }
+        //// GET: MuonTraSach/Edit/5
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    MuonTraSach muonTraSach = db.MuonTraSach.Find(id);
+        //    if (muonTraSach == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    ViewBag.HocSinhID = new SelectList(db.HocSinh, "ID", "TenHS", muonTraSach.HocSinhID);
+        //    ViewBag.SachID = new SelectList(db.Sach, "ID", "SachID", muonTraSach.SachID);
+        //    return View(muonTraSach);
+        //}
 
-        // POST: MuonTraSach/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,SachID,HocSinhID,NgayMuon,HanTra,NgayTra")] MuonTraSach muonTraSach)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(muonTraSach).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.HocSinhID = new SelectList(db.HocSinh, "ID", "TenHS", muonTraSach.HocSinhID);
-            ViewBag.SachID = new SelectList(db.Sach, "ID", "SachID", muonTraSach.SachID);
-            return View(muonTraSach);
-        }
+        //// POST: MuonTraSach/Edit/5
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "ID,SachID,HocSinhID,NgayMuon,HanTra,NgayTra")] MuonTraSach muonTraSach)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(muonTraSach).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewBag.HocSinhID = new SelectList(db.HocSinh, "ID", "TenHS", muonTraSach.HocSinhID);
+        //    ViewBag.SachID = new SelectList(db.Sach, "ID", "SachID", muonTraSach.SachID);
+        //    return View(muonTraSach);
+        //}
 
         /*
         // GET: MuonTraSach/Details/5

@@ -37,7 +37,7 @@ namespace LibraryManagementSystem.Controllers
             {
                 sach = sach.Where(x => x.ChuDe.TenChuDe == chuDeSach);
             }
-            if(!string.IsNullOrEmpty(trangThai))
+            if (!string.IsNullOrEmpty(trangThai))
             {
                 TrangThai t = EnumHelper<TrangThai>.GetValueFromName(trangThai);
                 sach = sach.Where(s => s.TrangThai == t);
@@ -127,20 +127,39 @@ namespace LibraryManagementSystem.Controllers
         }
 
 
-        //// GET: Saches/Details/5
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Sach sach = db.Sach.Find(id);
-        //    if (sach == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(sach);
-        //}
+        // GET: Saches/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Sach sach = db.Sach.Find(id);
+            if (sach == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                if (sach.TrangThai == TrangThai.DangMuon)
+                {
+                    var moreInfo = db.MuonTraSach.Where(m => m.SachID == id).Where(m => m.NgayTra == null);
+                    ViewBag.InfoMuon = moreInfo;
+                }
+                else if (sach.TrangThai == TrangThai.Mat)
+                {
+                    var moreInfo = db.MuonTraSach.Where(m => m.SachID == id).Where(m => m.Mat == true);
+                    ViewBag.InfoMat = moreInfo;
+                }
+                else if (sach.TrangThai == TrangThai.ThanhLy)
+                {
+                    var moreInfo = db.ThanhLy.Where(m => m.SachID == id);
+                    ViewBag.InfoThanhLy = moreInfo;
+                }
+
+            }
+            return View(sach);
+        }
 
         // GET: Saches/Create
         public ActionResult Create()
@@ -313,7 +332,7 @@ namespace LibraryManagementSystem.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ChuDeID,SachID,TenSach,SoLuong,TrangThai")] Sach sach)
+        public ActionResult Edit([Bind(Include = "ID,ChuDeID,SachID,TenSach,NgayNhap,TrangThai")] Sach sach)
         {
             if (ModelState.IsValid)
             {

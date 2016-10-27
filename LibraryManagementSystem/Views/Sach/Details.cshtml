@@ -36,12 +36,88 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.SoLuong)
+            @Html.DisplayNameFor(model => model.NgayNhap)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SoLuong)
+            @Html.DisplayFor(model => model.NgayNhap)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrangThai)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TrangThai)
+        </dd>
+
+        @if (ViewBag.InfoMuon != null)
+        {
+            foreach (var item in ViewBag.InfoMuon)
+            {
+                <dt>
+                    Tên Học Sinh
+                </dt>
+
+                <dd>
+                    @item.HocSinh.TenHS
+                </dd>
+                <dt>
+                    Ngày mượn
+                </dt>
+
+                <dd>
+                    @item.NgayMuon
+                </dd>
+                <dt>
+                    Hạn Trả
+                </dt>
+
+                <dd>
+                    @item.HanTra
+                </dd>
+            }
+        }
+        @if (ViewBag.InfoMat != null)
+        {
+            foreach (var item in ViewBag.InfoMuon)
+            {
+                <dt>
+                    Tên Học Sinh
+                </dt>
+
+                <dd>
+                    @item.HocSinh.TenHS
+                </dd>
+                <dt>
+                    Ngày mượn
+                </dt>
+
+                <dd>
+                    @item.NgayMuon
+                </dd>
+                <dt>
+                    Ngày Báo Mất
+                </dt>
+
+                <dd>
+                    @item.NgayTra
+                </dd>
+            }
+        }
+        @if (ViewBag.InfoThanhLy != null)
+        {
+            foreach (var item in ViewBag.InfoThanhLy)
+            {
+                <dt>
+                    Ngày Thanh Lý
+                </dt>
+
+                <dd>
+                    @item.Ngay
+                </dd>
+
+            }
+        }
 
     </dl>
 </div>

@@ -4,6 +4,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
+            $("#e_bcstl").ready(function () {
+                $("#t_bcstl").hide();
+            });
             $("#e_bcstl").click(function () {
                 $("#t_bcstl").fadeToggle("slow");
             });
@@ -25,13 +28,18 @@
 </head>
 <body>
     <div>
-        <h4><a id="e_bcstl">Danh Sách Sách Đã Thanh Lý (@ViewBag.date)</a></h4>
+        <h4><a id="e_bcstl">Danh Sách Sách Đã Thanh Lý <span class="badge">@ViewBag.date</span></a></h4>
         @if (ViewBag.ThanhLy_Count == 0)
         {
             <p>Không có sach thanh lý</p>
         }
         else
         {
+            <div class="panel-heading">
+                Tổng cộng:
+                <span class="badge">@ViewBag.ThanhLy_Count</span>
+                sách
+            </div>
             <div class="table-responsive" id="t_bcstl">
                 <table class="table">
                     <tr>

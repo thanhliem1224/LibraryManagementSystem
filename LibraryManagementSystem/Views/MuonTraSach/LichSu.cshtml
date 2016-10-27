@@ -20,8 +20,8 @@
         </div>
     </div>
 </div>
-
-<br />
+<div class="row">
+    <br />
     @using (Html.BeginForm("Index", "MuonTraSach", FormMethod.Get, new { @id = "form-search" }))
     {
         string dateTo = "";
@@ -92,10 +92,13 @@
             <input id="page-size" type="text" name="pageSize" value="" />
         </div>
     }
-<br />
+</div>
 <br />
 <div class="row">
-    <div class="col-md-offset-8 col-md-4 text-right form-inline">
+    <div class="col-md-4">
+        <p>Tổng số: @Model.TotalItemCount</p>
+    </div>
+    <div class="col-md-offset-4 col-md-4 text-right form-inline">
         <label class="control-label text-right">Số dòng trong 1 trang: </label>
         @Html.DropDownList("pageSize", null, new { @class = "form-control", id = "_page-size" })
     </div>
