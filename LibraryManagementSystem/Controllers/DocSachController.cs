@@ -213,13 +213,6 @@ namespace LibraryManagementSystem.Controllers
                     }
                     else // nếu không có kết quả thì lưu vào database 
                     {
-                        int _day = docSachTaiCho.Ngay.Day;
-                        int _month = docSachTaiCho.Ngay.Month;
-                        int _year = docSachTaiCho.Ngay.Year;
-                        int _hour = DateTime.Now.Hour;
-                        int _min = DateTime.Now.Minute;
-                        int _sec = DateTime.Now.Second;
-                        docSachTaiCho.Ngay = new DateTime(_year, _month, _day, _hour, _min, _sec);
                         db.DocSachTaiCho.Add(docSachTaiCho);
                         db.SaveChanges();
                         // thông báo

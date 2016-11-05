@@ -2,17 +2,25 @@
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Danh sách Sách trong thư viện";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<!-- modal placeholder-->
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-offset-2 col-md-8">
-        <h2 class="text-center">Danh sách Sách trong thư viện</h2>
+        <h2 class="text-center">@ViewBag.Title</h2>
     </div>
     <div class="col-md-2">
         <br />
-    </div>
-    <div class="col-md-2">
         <div class="text-right">
             <div class="dropdown ">
                 <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
@@ -20,7 +28,7 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <li>@Html.ActionLink("Nhập tay", "Create", "Sach")</li>
+                    <li>@Html.ActionLink("Nhập tay", "Create", "Sach", null, new { data_modal = "" })</li>
                     <li>@Html.ActionLink("Thêm từ file", "ThemSachTuFile", "Sach")</li>
                 </ul>
             </div>
@@ -29,39 +37,36 @@
 </div>
 <br />
 <div class="row">
-    @using (Html.BeginForm("Index", "Sach", FormMethod.Get, new { @id = "form-search" }))
-    {
-        <div class="col-md-2">
-            <label for="chuDeSach" class="control-label">Tìm chủ đề</label>
-            @Html.DropDownList("chuDeSach", null, "Tất cả chủ đề", new { @class = "form-control" })
-        </div>
-        <div class="col-md-2">
-            <label for="sachID" class="control-label">Tìm mã sách</label>
-            <input id="sachID" name="sachID" type="text" class="form-control" placeholder="Tìm Mã Sách" value="@ViewBag.CurrentMaSach">
-        </div>
-        <div class="col-md-2">
-            <label for="tenSach" class="control-label">Tìm tên sách</label>
-            <input id="tenSach" name="tenSach" type="text" class="form-control" placeholder="Tìm Tên Sách" value="@ViewBag.CurrentTenSach">
-        </div>
-        <div class="col-md-2">
-            <label for="trangThai" class="control-label">Tìm trạng thái</label>
-            @Html.DropDownList("trangThai", null, "Tất cả trạng thái", new { @class = "form-control" })
-        </div>
-        <div class="col-md-1">
-            <br />
-            <button type="submit" class="btn btn-primary">Tìm</button>
-        </div>
-
-
-        <div hidden>
-            <input type="text" name="sortOrder" value="@ViewBag.CurrentSort" />
-        </div>
-        <div hidden>
-            <input id="page-size" type="text" name="pageSize" value="" />
-        </div>
-    }
-    <br />
-</div>
+@using (Html.BeginForm("Index", "Sach", FormMethod.Get, new { @id = "form-search" }))
+{
+    <div class="col-md-2">
+        <label for="chuDeSach" class="control-label">Tìm chủ đề</label>
+        @Html.DropDownList("chuDeSach", null, "Tất cả chủ đề", new { @class = "form-control" })
+    </div>
+    <div class="col-md-2">
+        <label for="sachID" class="control-label">Tìm mã sách</label>
+        <input id="sachID" name="sachID" type="text" class="form-control" placeholder="Tìm Mã Sách" value="@ViewBag.CurrentMaSach">
+    </div>
+    <div class="col-md-2">
+        <label for="tenSach" class="control-label">Tìm tên sách</label>
+        <input id="tenSach" name="tenSach" type="text" class="form-control" placeholder="Tìm Tên Sách" value="@ViewBag.CurrentTenSach">
+    </div>
+    <div class="col-md-2">
+        <label for="trangThai" class="control-label">Tìm trạng thái</label>
+        @Html.DropDownList("trangThai", null, "Tất cả trạng thái", new { @class = "form-control" })
+    </div>
+    <div class="col-md-1">
+        <br />
+        <button type="submit" class="btn btn-primary">Tìm</button>
+    </div>
+    <div hidden>
+        <input type="text" name="sortOrder" value="@ViewBag.CurrentSort" />
+    </div>
+    <div hidden>
+        <input id="page-size" type="text" name="pageSize" value="" />
+    </div>
+}
+    </div>
 <br />
 <div class="row">
     <div class="col-md-4">
@@ -74,76 +79,72 @@
 </div>
 <div class="table-responsive">
     <table class="table table-hover">
-        @{int count = ((Model.PageSize * (Model.PageNumber - 1)) + 1); }
-        <tr>
-            <th>
-                #
-            </th>
-            <th>
-                @Html.ActionLink("Tên chủ đề", "Index", new
-           {
-               sortOrder = ViewBag.sortChuDe,
-               sachID = ViewBag.CurrentMaSach,
-               tenSach = ViewBag.CurrentTenSach,
-               chuDeSach = ViewBag.CurrentChuDeSach,
-               pageSize = ViewBag.CurrentPageSize
-           })
-            </th>
-            <th>
-                @Html.ActionLink("Mã số sách", "Index", new
-           {
-               sortOrder = ViewBag.sortMaSach,
-               sachID = ViewBag.CurrentMaSach,
-               tenSach = ViewBag.CurrentTenSach,
-               chuDeSach = ViewBag.CurrentChuDeSach,
-               pageSize = ViewBag.CurrentPageSize
-           })
-            </th>
-            <th>
-                @Html.ActionLink("Tên sách", "Index", new
-           {
-               sortOrder = ViewBag.sortTenSach,
-               sachID = ViewBag.CurrentMaSach,
-               tenSach = ViewBag.CurrentTenSach,
-               chuDeSach = ViewBag.CurrentChuDeSach,
-               pageSize = ViewBag.CurrentPageSize
-           })
-            </th>
-            <th>
-                @Html.ActionLink("Trạng Thái", "Index", new
-           {
-               sortOrder = ViewBag.sortTrangThai,
-               sachID = ViewBag.CurrentMaSach,
-               tenSach = ViewBag.CurrentTenSach,
-               chuDeSach = ViewBag.CurrentChuDeSach,
-               pageSize = ViewBag.CurrentPageSize
-           })
-            </th>
-        </tr>
-        @foreach (var item in Model)
-        {
-            
-            string url = "Sach/Details/" + item.ID;
-
-            <tr class='clickable-row' data-href='@url'>
-                <td>
-                    @count
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ChuDe.TenChuDe)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SachID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TenSach)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TrangThai)
-                </td>
+        <thead>
+            <tr>
+                <th>
+                    @Html.ActionLink("Tên chủ đề", "Index", new
+               {
+                   sortOrder = ViewBag.sortChuDe,
+                   sachID = ViewBag.CurrentMaSach,
+                   tenSach = ViewBag.CurrentTenSach,
+                   chuDeSach = ViewBag.CurrentChuDeSach,
+                   pageSize = ViewBag.CurrentPageSize
+               })
+                </th>
+                <th>
+                    @Html.ActionLink("Mã số sách", "Index", new
+               {
+                   sortOrder = ViewBag.sortMaSach,
+                   sachID = ViewBag.CurrentMaSach,
+                   tenSach = ViewBag.CurrentTenSach,
+                   chuDeSach = ViewBag.CurrentChuDeSach,
+                   pageSize = ViewBag.CurrentPageSize
+               })
+                </th>
+                <th>
+                    @Html.ActionLink("Tên sách", "Index", new
+               {
+                   sortOrder = ViewBag.sortTenSach,
+                   sachID = ViewBag.CurrentMaSach,
+                   tenSach = ViewBag.CurrentTenSach,
+                   chuDeSach = ViewBag.CurrentChuDeSach,
+                   pageSize = ViewBag.CurrentPageSize
+               })
+                </th>
+                <th>
+                    @Html.ActionLink("Trạng Thái", "Index", new
+               {
+                   sortOrder = ViewBag.sortTrangThai,
+                   sachID = ViewBag.CurrentMaSach,
+                   tenSach = ViewBag.CurrentTenSach,
+                   chuDeSach = ViewBag.CurrentChuDeSach,
+                   pageSize = ViewBag.CurrentPageSize
+               })
+                </th>
             </tr>
-            count++;
-        }
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class='clickable-row'>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ChuDe.TenChuDe)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SachID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenSach)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TrangThai)
+                    </td>
+                    <td class="hidden">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { data_modal = " ", @id = "editActionLink" })
+                    </td>
+                </tr>
+            }
+        </tbody>
     </table>
 </div>
 Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
@@ -162,7 +163,7 @@ Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.Page
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
             $(".clickable-row").click(function () {
-                window.document.location = $(this).data("href");
+                $(this).find("#editActionLink").click();
             });
             function getPageSize() {
                 var page = $("#_page-size").val();
@@ -177,4 +178,6 @@ Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.Page
             });
         });
     </script>
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/modalform")
 }

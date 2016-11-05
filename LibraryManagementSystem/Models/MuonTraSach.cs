@@ -9,14 +9,14 @@ namespace LibraryManagementSystem.Models
         public int SachID { get; set; }
         public int HocSinhID { get; set; }
 
-        [Display(Name = "Ngày Mượn"), DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm:ss}")]
+        [Display(Name = "Ngày Mượn"), DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         [Required(ErrorMessage = "Bạn cần nhập Ngày Mượn")]
         public DateTime NgayMuon { get; set; }
 
-        [Display(Name = "Hạn Trả Sách"), DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm:ss}")]
+        [Display(Name = "Hạn Trả Sách"), DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime HanTra { get; set; }
 
-        [Display(Name = "Ngày Trả Sách"), DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm:ss}", NullDisplayText = "Chưa trả")]
+        [Display(Name = "Ngày Trả Sách"), DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", NullDisplayText = "Chưa trả")]
         public DateTime? NgayTra { get; set; }
 
         [Display(Name ="Bị Mất")]

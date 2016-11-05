@@ -8,7 +8,7 @@
         @Html.ActionLink("Lịch Sử Đọc Sách", "Index")
     </div>
     <div class="col-md-8">
-        <h2 class="text-center">Thêm Học Sinh Đọc Sách</h2>
+        <h2 class="text-center">@ViewBag.Title</h2>
     </div>
     <div class="col-md-2">
         <br />
@@ -24,6 +24,14 @@
         <div class="col-md-3">
             <label for="tenHS" class="control-label">Tìm học sinh</label>
             <input id="tenHS" name="tenHS" type="text" class="form-control" placeholder="Tìm Học Sinh" value="@ViewBag.CurrentTenHS">
+            @if (TempData["Message_Fa"] != null)
+            {
+                <p class="text-center text-danger">@TempData["Message_Fa"]</p>
+            }
+            @if (TempData["Message_Su"] != null)
+            {
+                <p class="text-center text-success">@TempData["Message_Su"]</p>
+            }
         </div>
         <div class="col-md-3">
             <label for="lopHS" class="control-label">Tìm lớp</label>
@@ -36,14 +44,7 @@
 
     }
 </div>
-@if (TempData["Message_Fa"] != null)
-            {
-    <p class="text-center text-danger">@TempData["Message_Fa"]</p>
-}
-@if (TempData["Message_Su"] != null)
-            {
-    <p class="text-center text-success">@TempData["Message_Su"]</p>
-}
+
 <br />
 <h3>@TempData["Title"]</h3>
 @if (ViewBag.DSTimKiem != null)

@@ -2,12 +2,23 @@
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Danh Sách Học Sinh";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<!-- modal placeholder-->
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+
+
 <div class="row">
     <div class="col-md-offset-2 col-md-8">
-        <h2 class="text-center">Danh Sách Học Sinh</h2>
+        <h2 class="text-center">@ViewBag.Title</h2>
     </div>
     <div class="col-md-2">
         <br />
@@ -20,7 +31,7 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <li>@Html.ActionLink("Nhập tay", "Create", "HocSinh")</li>
+                    <li>@Html.ActionLink("Nhập tay", "Create", "HocSinh", null, new { data_modal = "" })</li>
                     <li>@Html.ActionLink("Thêm từ file", "ThemHocSinhTuFile", "HocSinh")</li>
                 </ul>
             </div>
@@ -64,51 +75,56 @@
 
 <div class="table-responsive">
     <table class="table table-hover">
-        <tr>
-            <th>
-                @Html.ActionLink("Tên học sinh", "Index", new
-           {
-               sortOrder = ViewBag.sortTenHS,
-               lopHS = ViewBag.CurrentLopHS,
-               tenHS = ViewBag.CurrentTenHS,
-               pageSize = ViewBag.CurrentPageSize
-           })
-            </th>
-            <th>
-                @Html.ActionLink("Lớp", "Index", new
-           {
-               sortOrder = ViewBag.sortLop,
-               lopHS = ViewBag.CurrentLopHS,
-               tenHS = ViewBag.CurrentTenHS,
-               pageSize = ViewBag.CurrentPageSize
-           })
-            </th>
-            <th>
-                @Html.ActionLink("Ngày Sinh", "Index", new
-           {
-               sortOrder = ViewBag.sortNgaySinh,
-               lopHS = ViewBag.CurrentLopHS,
-               tenHS = ViewBag.CurrentTenHS,
-               pageSize = ViewBag.CurrentPageSize
-           })
-            </th>
-        </tr>
-        @foreach (var item in Model)
-        {
-            string url = "HocSinh/Edit/" + item.ID;
-
-            <tr class='clickable-row' data-href='@url'>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TenHS)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Lop)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NgaySinh)
-                </td>
+        <thead>
+            <tr>
+                <th>
+                    @Html.ActionLink("Tên học sinh", "Index", new
+               {
+                   sortOrder = ViewBag.sortTenHS,
+                   lopHS = ViewBag.CurrentLopHS,
+                   tenHS = ViewBag.CurrentTenHS,
+                   pageSize = ViewBag.CurrentPageSize
+               })
+                </th>
+                <th>
+                    @Html.ActionLink("Lớp", "Index", new
+               {
+                   sortOrder = ViewBag.sortLop,
+                   lopHS = ViewBag.CurrentLopHS,
+                   tenHS = ViewBag.CurrentTenHS,
+                   pageSize = ViewBag.CurrentPageSize
+               })
+                </th>
+                <th>
+                    @Html.ActionLink("Ngày Sinh", "Index", new
+               {
+                   sortOrder = ViewBag.sortNgaySinh,
+                   lopHS = ViewBag.CurrentLopHS,
+                   tenHS = ViewBag.CurrentTenHS,
+                   pageSize = ViewBag.CurrentPageSize
+               })
+                </th>
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class='clickable-row'>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenHS)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Lop)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NgaySinh)
+                    </td>
+                    <td class="hidden">
+                        @Html.ActionLink("Sửa", "Edit", new { id = item.ID }, new { data_modal = " ", @id = "editActionLink" })
+                    </td>
+                </tr>
+            }
+        </tbody>
     </table>
 </div>
 <br />
@@ -128,7 +144,7 @@ Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.Page
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
             $(".clickable-row").click(function () {
-                window.document.location = $(this).data("href");
+                $(this).find("#editActionLink").click();
             });
             function getPageSize() {
                 var page = $("#_page-size").val();
@@ -144,4 +160,7 @@ Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.Page
         });
 
     </script>
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/modalform")
+
 }

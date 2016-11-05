@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using LibraryManagementSystem.DAL;
 using LibraryManagementSystem.Models;
+using System.Threading.Tasks;
+using PagedList;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -17,11 +19,16 @@ namespace LibraryManagementSystem.Controllers
 
         // GET: Chu_De
         [Authorize]
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index(string sortOrder, string chuDeSach, int? page, int? pageSize)
         {
             //lấy danhh sách chủ đề
             var chuDe = from c in db.ChuDe
                         select c;
+
+            if (!string.IsNullOrEmpty(chuDeSach))
+            {
+                chuDe = chuDe.Where(c => c.TenChuDe.Contains(chuDeSach));
+            }
 
             ViewBag.SortTen = "ten_ascending";
             switch(sortOrder)
@@ -41,7 +48,20 @@ namespace LibraryManagementSystem.Controllers
                     ViewBag.SortTen = "ten_descending";
                     break;
             }
-            return View(chuDe);
+
+            ViewBag.CurrentChuDeSach = chuDeSach;
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.CurrentPageSize = pageSize;
+
+            // setup page size
+            List<int> listpagesize = new List<int>() { 20, 50, 100, 150, 200 };
+            ViewBag.pageSize = new SelectList(listpagesize);
+
+            // setup page
+            int thisPageSize = (pageSize ?? 20); // số dòng trong 1 trang
+            int pageNumber = (page ?? 1);
+
+            return View(chuDe.ToPagedList(pageNumber, thisPageSize));
         }
         /*
         // GET: Chu_De/Details/5
@@ -62,7 +82,7 @@ namespace LibraryManagementSystem.Controllers
         // GET: Chu_De/Create
         public ActionResult Create()
         {
-            return View();
+            return PartialView("_Create");
         }
 
         // POST: Chu_De/Create
@@ -71,31 +91,31 @@ namespace LibraryManagementSystem.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,TenChuDe")] ChuDe chu_De)
+        public async Task<ActionResult> Create([Bind(Include = "ID,TenChuDe")] ChuDe chu_De)
         {
             if (ModelState.IsValid)
             {
                 db.ChuDe.Add(chu_De);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                await db.SaveChangesAsync();
+                return Json(new { success = true });
             }
 
-            return View(chu_De);
+            return PartialView("_Create",chu_De);
         }
 
         // GET: Chu_De/Edit/5
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ChuDe chu_De = db.ChuDe.Find(id);
+            ChuDe chu_De = await db.ChuDe.FindAsync(id);
             if (chu_De == null)
             {
                 return HttpNotFound();
             }
-            return View(chu_De);
+            return PartialView("_Edit",chu_De);
         }
 
         // POST: Chu_De/Edit/5
@@ -104,15 +124,15 @@ namespace LibraryManagementSystem.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,TenChuDe")] ChuDe chu_De)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,TenChuDe")] ChuDe chu_De)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(chu_De).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                await db.SaveChangesAsync();
+                return Json(new { success = true });
             }
-            return View(chu_De);
+            return PartialView("_Edit",chu_De);
         }
 
         // GET: Chu_De/Delete/5

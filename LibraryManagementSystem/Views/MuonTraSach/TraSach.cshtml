@@ -1,23 +1,22 @@
 ﻿@model LibraryManagementSystem.Models.MuonTraSach
+
 @{
     ViewBag.Title = "Trả Sách";
 }
+
 <h2 class="text-center">Trả Sách</h2>
 <br />
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    string date;
-    string year = DateTime.Now.Year.ToString();
-    string month = DateTime.Now.Month.ToString();
-    string day = DateTime.Now.Day.ToString();
-    date = year.PadLeft(4, '0') + "-" + month.PadLeft(2, '0') + "-" + day.PadLeft(2, '0');
 
     <div class="form-horizontal">
         <h4>Xác nhận thông tin trả sách</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ID)
+
         <div class="form-group">
             @Html.LabelFor(model => model.Sach.TenSach, "Tên Sách", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -25,30 +24,28 @@
                 @Html.HiddenFor(model => model.SachID)
             </div>
         </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.HocSinh.TenHS, "Tên Học Sinh", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.ValueFor(model => model.HocSinh.TenHS)
             </div>
         </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.NgayMuon, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.ValueFor(model => model.NgayMuon)
             </div>
         </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.HanTra, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.ValueFor(model => model.HanTra)
             </div>
         </div>
-        <div class="form-group">
-                <label class="control-label col-md-2">Ngày Trả</label>
-            <div class="col-md-10">
-                <input class="form-control" name="NgayTra" type="date" value="@date" />
-            </div>
-        </div>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Xác Nhận Trả" class="btn btn-success" />
@@ -56,6 +53,7 @@
         </div>
     </div>
 }
+
 <div>
     @Html.ActionLink("Danh Sách Học Sinh Đang Mượn Sách", "Index")
 </div>

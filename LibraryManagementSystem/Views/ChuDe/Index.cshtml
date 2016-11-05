@@ -1,52 +1,116 @@
-﻿@model IEnumerable<LibraryManagementSystem.Models.ChuDe>
+﻿@model PagedList.IPagedList<LibraryManagementSystem.Models.ChuDe>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Danh Sách Chủ Đề";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<!-- modal placeholder-->
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
 
+<!-- Title -->
 <div class="row">
     <div class="col-md-offset-2 col-md-8">
-        <h2 class="text-center">Danh Sách Chủ Đề</h2>
+        <h2 class="text-center">@ViewBag.Title</h2>
     </div>
     <div class="col-md-2">
         <br />
     </div>
     <div class="col-md-2">
         <div class="text-right">
-            @Html.ActionLink("Thêm Chủ Đề", "Create", "ChuDe", null, new { @class = "btn btn-success" })
+            @Html.ActionLink("Thêm Chủ Đề", "Create", "ChuDe", null, new { @class = "btn btn-success", data_modal = "" })
         </div>
     </div>
 </div>
 <br />
+<div class="row">
+    @using (Html.BeginForm("Index", "ChuDe", FormMethod.Get, new { @id = "form-search" }))
+    {
+        <div class="col-md-4">
+            <label for="chuDeSach" class="control-label">Tìm chủ đề</label>
+            <input id="chuDeSach" name="chuDeSach" type="text" class="form-control" placeholder="Tên chủ đề" value="@ViewBag.CurrentChuDeSach">
+        </div>
+        <div class="col-md-2">
+            <br />
+            <button type="submit" class="btn btn-primary">Tìm</button>
+        </div>
+        <div hidden>
+            <input type="text" name="sortOrder" value="@ViewBag.CurrentSort" />
+        </div>
+        <div hidden>
+            <input id="page-size" type="text" name="pageSize" value="" />
+        </div>
+    }
+</div>
 <br />
+<div class="row">
+    <div class="col-md-4">
+        <p>Tổng số: @Model.TotalItemCount</p>
+    </div>
+    <div class="col-md-offset-4 col-md-4 text-right form-inline">
+        <label class="control-label text-right">Số dòng trong 1 trang: </label>
+        @Html.DropDownList("pageSize", null, new { @class = "form-control", id = "_page-size" })
+    </div>
+</div>
 <div class="table-responsive">
     <table class="table table-hover">
-        <tr>
-            <th>
-                @Html.ActionLink("Tên Chủ Đề", "Index", new
-           {
-               sortOrder = ViewBag.SortTen
-           })
-            </th>
-        </tr>
-        @foreach (var item in Model)
-        {
-            string url = "ChuDe/Edit/" + item.ID;
-
-            <tr class='clickable-row' data-href='@url'>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TenChuDe)
-                </td>
+        <thead>
+            <tr>
+                <th>
+                    @Html.ActionLink("Tên Chủ Đề", "Index", new { sortOrder = ViewBag.SortTen, chuDeSach = ViewBag.CurrentChuDeSach, pageSize = ViewBag.CurrentPageSize })
+                </th>
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class='clickable-row'>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenChuDe)
+                    </td>
+                    <td class="hidden">
+                        @Html.ActionLink("Sửa", "Edit", new { id = item.ID }, new { data_modal = " ", @id = "editActionLink" })
+                    </td>
+                </tr>
+            }
+        </tbody>
     </table>
 </div>
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new
+    {
+        page,
+        chuDeSach = ViewBag.CurrentChuDeSach,
+        sortOrder = ViewBag.CurrentSort,
+        pageSize = ViewBag.CurrentPageSize
+    }))
 @section Scripts{
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
             $(".clickable-row").click(function () {
-                window.document.location = $(this).data("href");
+                $(this).find("#editActionLink").click();
+            });
+            function getPageSize() {
+                var page = $("#_page-size").val();
+                $("#page-size").val(page);
+            }
+            $("#_page-size").change(function () {
+                getPageSize();
+                $("#form-search").submit();
+            });
+            $("#form-search").submit(function () {
+                getPageSize();
             });
         });
     </script>
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/modalform")
 }

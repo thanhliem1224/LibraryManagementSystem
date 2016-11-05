@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using Forloop.HtmlHelpers;
+using System.Web;
 using System.Web.Optimization;
 
 namespace LibraryManagementSystem
@@ -26,6 +27,18 @@ namespace LibraryManagementSystem
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            ScriptContext.ScriptPathResolver = System.Web.Optimization.Scripts.Render;
+
+
+            bundles.Add(new ScriptBundle("~/bundles/gmap").Include(
+                       "~/Scripts/jquery.gmap.js",
+                       "~/Scripts/jquery.gmap_init.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/modalform").Include(
+                        "~/Scripts/modalform.js"));
+
+            BundleTable.EnableOptimizations = true;
         }
     }
 }

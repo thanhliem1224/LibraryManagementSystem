@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#e_bcsn").ready(function () {
+                $("#t_bcsn").hide();
+            });
+            $("#e_bcsn").click(function () {
+                $("#t_bcsn").fadeToggle("slow");
+            });
+        });
+    </script>
+    <style>
+        a:link {
+            color: black;
+        }
+
+        a:visited {
+            color: hotpink;
+        }
+
+        a:active {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h4><a id="e_bcsn">Danh Sách Nhập Sách <span class="badge">@ViewBag.date</span></a></h4>
+        @if (ViewBag.SachNhap_Count == 0)
+        {
+            <p>Không có sách mới</p>
+        }
+        else
+        {
+            <div class="panel-heading">
+                Tổng cộng:
+                <span class="badge">@ViewBag.SachNhap_Count</span>
+                sách
+            </div>
+            <div class="table-responsive" id="t_bcsn">
+                <table class="table">
+                    <tr>
+                        <th>
+                            Mã Sách
+                        </th>
+                        <th>
+                            Tên Sách
+                        </th>
+                        <th>
+                            Thể Loại
+                        </th>
+                        <th>
+                            Ngày Nhập
+                        </th>
+                    </tr>
+                    @foreach (var item in ViewBag.SachNhap)
+                {
+                        <tr>
+                            <td>
+                                @item.SachID
+                            </td>
+                            <td>
+                                @item.TenSach
+                            </td>
+                            <td>
+                                @item.ChuDe.TenChuDe
+                            </td>
+                            <td>
+                                @item.NgayNhap.ToShortDateString()
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        }
+    </div>
+</body>
+</html>

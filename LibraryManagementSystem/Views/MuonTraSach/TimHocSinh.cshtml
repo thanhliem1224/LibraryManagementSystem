@@ -50,35 +50,37 @@
 {
     <div class="table-responsive">
         <table class="table table-hover">
-            <tr>
-                <th>
-                    Tên học sinh
-                </th>
-                <th>
-                    Lớp
-                </th>
-                <th>
-                    Ngày Sinh
-                </th>
-            </tr>
-
-            @foreach (var item in ViewBag.DSTimKiem)
-            {
-                string url = "/MuonTraSach/HocSinh/" + item.ID;
-
-                <tr class='clickable-row' data-href='@url'>
-                    <td>
-                        @item.TenHS
-                    </td>
-                    <td>
-                        @item.Lop
-                    </td>
-                    <td>
-                        @item.NgaySinh.ToShortDateString()
-                    </td>
+            <thead>
+                <tr>
+                    <th>
+                        Tên học sinh
+                    </th>
+                    <th>
+                        Lớp
+                    </th>
+                    <th>
+                        Ngày Sinh
+                    </th>
                 </tr>
-            }
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.DSTimKiem)
+                {
+                    string url = "/MuonTraSach/HocSinh/" + item.ID;
 
+                    <tr class='clickable-row' data-href='@url'>
+                        <td>
+                            @item.TenHS
+                        </td>
+                        <td>
+                            @item.Lop
+                        </td>
+                        <td>
+                            @item.NgaySinh.ToShortDateString()
+                        </td>
+                    </tr>
+                }
+            </tbody>
         </table>
     </div>
 }

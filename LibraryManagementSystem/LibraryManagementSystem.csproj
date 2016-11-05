@@ -56,6 +56,10 @@
       <HintPath>..\packages\ExcelDataReader.2.1.2.3\lib\net45\Excel.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Forloop.HtmlHelpers, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Forloop.HtmlHelpers.1.2.0.0\lib\net45\Forloop.HtmlHelpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
@@ -231,9 +235,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201610270227008_Init.cs" />
-    <Compile Include="Migrations\201610270227008_Init.Designer.cs">
-      <DependentUpon>201610270227008_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201610220553564_Init.cs" />
+    <Compile Include="Migrations\201610220553564_Init.Designer.cs">
+      <DependentUpon>201610220553564_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -303,6 +307,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\LoginModal.js" />
+    <Content Include="Scripts\modalform.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
@@ -343,13 +349,14 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\HocSinh\Create.cshtml" />
-    <Content Include="Views\HocSinh\Edit.cshtml" />
+    <Content Include="Views\HocSinh\_Create.cshtml" />
+    <Content Include="Views\HocSinh\_Edit.cshtml" />
     <Content Include="Views\HocSinh\Index.cshtml" />
-    <Content Include="Views\ChuDe\Edit.cshtml" />
+    <Content Include="Views\ChuDe\_Create.cshtml" />
+    <Content Include="Views\ChuDe\_Edit.cshtml" />
     <Content Include="Views\ChuDe\Index.cshtml" />
-    <Content Include="Views\Sach\Create.cshtml" />
-    <Content Include="Views\Sach\Edit.cshtml" />
+    <Content Include="Views\Sach\_Create.cshtml" />
+    <Content Include="Views\Sach\_Edit.cshtml" />
     <Content Include="Views\Sach\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
     <Content Include="Views\MuonTraSach\Index.cshtml" />
@@ -384,8 +391,11 @@
     <Content Include="Views\DocSach\TimHS.cshtml" />
     <Content Include="Views\BaoCao\BCCT_DocSach.cshtml" />
     <Content Include="Views\BaoCao\BCCT_MuonSach.cshtml" />
-    <Content Include="Views\Sach\Details.cshtml" />
-    <Content Include="Views\ChuDe\Create.cshtml" />
+    <Content Include="Views\Shared\LoginModal.cshtml" />
+    <Content Include="Views\Shared\_LayoutModal.cshtml" />
+    <Content Include="Views\Shared\_LoginPartialForm.cshtml" />
+    <Content Include="Views\MuonTraSach\TimThaySachMat.cshtml" />
+    <Content Include="Views\BaoCao\BaoCaoSachNhap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -393,10 +403,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="fonts\FontAwesome\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610270227008_Init.resx">
-      <DependentUpon>201610270227008_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610220553564_Init.resx">
+      <DependentUpon>201610220553564_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

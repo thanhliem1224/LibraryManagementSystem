@@ -35,7 +35,7 @@ namespace LibraryManagementSystem.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult LuaChon(LOAIBAOCAO type, DateTime? date, DateTime? date_finish, bool? thanhly_status, bool? muonsach_status, bool? docsach_status, bool? theloaiyeuthich_status, bool? sachyeuthich_status, bool? sachmat_status, bool? muonsachquahan_status, bool? sachthuvien_status)
+        public ActionResult LuaChon(LOAIBAOCAO type, DateTime? date, DateTime? date_finish, bool? thanhly_status, bool? muonsach_status, bool? docsach_status, bool? theloaiyeuthich_status, bool? sachyeuthich_status, bool? sachmat_status, bool? muonsachquahan_status, bool? sachthuvien_status, bool? sachnhap_status)
         {
             thisistype = type;
             thisisD = date.Value;
@@ -44,12 +44,12 @@ namespace LibraryManagementSystem.Controllers
                 thisisD_F = date_finish.Value;
             }
 
-            return RedirectToAction("Index", "BaoCao", new { type = type, d = date, d_f = date_finish, tl = thanhly_status, ms = muonsach_status, ds = docsach_status, tlyt = theloaiyeuthich_status, syt = sachyeuthich_status, sm = sachmat_status, msqh = muonsachquahan_status, stv = sachthuvien_status });
+            return RedirectToAction("Index", "BaoCao", new { type = type, d = date, d_f = date_finish, tl = thanhly_status, ms = muonsach_status, ds = docsach_status, tlyt = theloaiyeuthich_status, syt = sachyeuthich_status, sm = sachmat_status, msqh = muonsachquahan_status, stv = sachthuvien_status, sn = sachnhap_status });
         }
 
         // GET: BaoCao
         [Authorize]
-        public ActionResult Index(LOAIBAOCAO? type, DateTime? d, DateTime? d_f, bool? tl, bool? ms, bool? ds, bool? tlyt, bool? sm, bool? syt, bool? msqh, bool? stv)
+        public ActionResult Index(LOAIBAOCAO? type, DateTime? d, DateTime? d_f, bool? tl, bool? ms, bool? ds, bool? tlyt, bool? sm, bool? syt, bool? msqh, bool? stv, bool? sn)
         {
 
             if (type.HasValue)
@@ -267,7 +267,30 @@ namespace LibraryManagementSystem.Controllers
                         ViewBag.sachmat_stt = false;
                     }
                     #endregion
-
+                    #region Sách nhập
+                    // Báo cáo Nhập Sách
+                    if (sn.HasValue)
+                    {
+                        ViewBag.sachnhap_stt = sn;
+                        if (sn.Value)
+                        {
+                            var danhsachsachnhap = BaoCaoSachNhap(type, d, d_f);
+                            if (danhsachsachnhap.Count() > 0)
+                            {
+                                ViewBag.SachNhap_Count = danhsachsachnhap.Count();
+                                ViewBag.SachNhap = danhsachsachnhap;
+                            }
+                            else
+                            {
+                                ViewBag.SachNhap_Count = 0;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.sachnhap_stt = false;
+                    }
+                    #endregion
                     return View();
                 }
                 else
@@ -667,7 +690,7 @@ namespace LibraryManagementSystem.Controllers
                                               group m by m.Sach.ChuDe into g
                                               select new BaoCaoVM { GroupName1 = g.Key.TenChuDe, GroupSoLuong = g.Count() };
                         return theloaiyeuthich.OrderByDescending(s => s.GroupSoLuong);
-                        
+
                     }
                     else // neu ko co du lieu thang
                     {
@@ -891,6 +914,74 @@ namespace LibraryManagementSystem.Controllers
                                           where (dstl.Ngay.Month >= _month_s && dstl.Ngay.Year >= _year_s) && (dstl.Ngay.Month <= _month_f && dstl.Ngay.Year <= _year_f)
                                           select dstl;
                         return danhsachthanhly;
+                    }
+                    else // neu ko co du lieu khoang thoi gian
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private IQueryable<Sach> BaoCaoSachNhap(LOAIBAOCAO? type, DateTime? d, DateTime? d_f)
+        {
+            if (type.HasValue)
+            {
+                var danhsachsachnhap = from t in db.Sach
+                                      select t;
+
+                if (type == LOAIBAOCAO.Thang)
+                {
+                    if (d.HasValue) // neu du lieu thang co
+                    {
+                        int _month = d.Value.Month;
+                        int _year = d.Value.Year;
+
+                        danhsachsachnhap = from dssn in danhsachsachnhap
+                                           where dssn.NgayNhap.Month == _month && dssn.NgayNhap.Year == _year
+                                          select dssn;
+                        return danhsachsachnhap;
+                    }
+                    else // neu ko co du lieu thang
+                    {
+                        return null;
+                    }
+                }
+                else if (type == LOAIBAOCAO.Nam)
+                {
+                    if (d.HasValue) // neu co du lieu nam
+                    {
+                        int _year = d.Value.Year;
+                        danhsachsachnhap = from dssn in danhsachsachnhap
+                                           where dssn.NgayNhap.Year == _year
+                                          select dssn;
+                        return danhsachsachnhap;
+                    }
+                    else // neu ko co du lieu nam
+                    {
+                        return null;
+                    }
+                }
+                else if (type == LOAIBAOCAO.KhoanThoiGian)
+                {
+                    if ((d.HasValue) && (d_f.HasValue)) // neu co du lieu khoang thoi gian
+                    {
+                        int _month_s = d.Value.Month;
+                        int _year_s = d.Value.Year;
+                        int _month_f = d_f.Value.Month;
+                        int _year_f = d_f.Value.Year;
+                        danhsachsachnhap = from dssn in danhsachsachnhap
+                                           where (dssn.NgayNhap.Month >= _month_s && dssn.NgayNhap.Year >= _year_s) && (dssn.NgayNhap.Month <= _month_f && dssn.NgayNhap.Year <= _year_f)
+                                          select dssn;
+                        return danhsachsachnhap;
                     }
                     else // neu ko co du lieu khoang thoi gian
                     {

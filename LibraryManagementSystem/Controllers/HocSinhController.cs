@@ -14,6 +14,7 @@ using System.Data.Entity.Validation;
 using System.Diagnostics;
 using PagedList;
 using System.Globalization;
+using System.Threading.Tasks;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -123,7 +124,7 @@ namespace LibraryManagementSystem.Controllers
             // tạo dropdown lớp
             ViewBag.Lop = new SelectList(EnumHelper<Lop>.GetDisplayValues(new Lop()));
 
-            return View();
+            return PartialView("_Create");
         }
 
         // POST: Hoc_Sinh/Create
@@ -132,16 +133,16 @@ namespace LibraryManagementSystem.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,MaHS,TenHS,Lop,NgaySinh")] HocSinh hoc_Sinh)
+        public async Task<ActionResult> Create([Bind(Include = "ID,MaHS,TenHS,Lop,NgaySinh")] HocSinh hoc_Sinh)
         {
             if (ModelState.IsValid)
             {
                 db.HocSinh.Add(hoc_Sinh);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                await db.SaveChangesAsync();
+                return Json(new { success = true });
             }
 
-            return View(hoc_Sinh);
+            return PartialView("_Create",hoc_Sinh);
         }
 
         public ActionResult ThemHocSinhTuFile()
@@ -242,18 +243,18 @@ namespace LibraryManagementSystem.Controllers
         
         // GET: Hoc_Sinh/Edit/5
         [Authorize]
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            HocSinh hoc_Sinh = db.HocSinh.Find(id);
+            HocSinh hoc_Sinh = await db.HocSinh.FindAsync(id);
             if (hoc_Sinh == null)
             {
                 return HttpNotFound();
             }
-            return View(hoc_Sinh);
+            return PartialView("_edit",hoc_Sinh);
         }
 
         // POST: Hoc_Sinh/Edit/5
@@ -262,15 +263,15 @@ namespace LibraryManagementSystem.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,MaHS,TenHS,Lop,NgaySinh")] HocSinh hoc_Sinh)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,MaHS,TenHS,Lop,NgaySinh")] HocSinh hoc_Sinh)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(hoc_Sinh).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                await db.SaveChangesAsync();
+                return Json(new { success = true });
             }
-            return View(hoc_Sinh);
+            return PartialView("_Edit",hoc_Sinh);
         }
         /*
         // GET: Hoc_Sinh/Delete/5

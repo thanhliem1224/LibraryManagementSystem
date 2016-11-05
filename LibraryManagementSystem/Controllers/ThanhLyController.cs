@@ -15,7 +15,6 @@ namespace LibraryManagementSystem.Controllers
     {
         private CNCFContext db = new CNCFContext();
         // GET: ThanhLy
-        [Authorize]
         public ActionResult Index(string maSach, string tenSach, DateTime? ngayFrom, DateTime? ngayTo, string sortOrder, int? page, int? pageSize)
         {
             var thanhLy = db.ThanhLy.Include(t => t.Sach);
@@ -132,31 +131,35 @@ namespace LibraryManagementSystem.Controllers
         */
         [HttpPost]
         [Authorize]
-        public ActionResult TimSach(string tenSach)
+        public ActionResult TimSach(string tenSach, string maSach)
         {
-            return RedirectToAction("Create", "ThanhLy", new { b = tenSach });
+            return RedirectToAction("Create", "ThanhLy", new { b = tenSach, m = maSach });
         }
-        [Authorize]
+
         // GET: ThanhLy/Create
-        public ActionResult Create(string b)
+        public ActionResult Create(string b, string m)
         {
-            if (b != null)
+            if (b != null || m != null)
             {
                 var ds = db.Sach.Where(s => s.TrangThai == TrangThai.CoSan);
-                ds = ds.Where(s => s.TenSach.Contains(b));
-
+                if (b != null)
+                {
+                    ds = ds.Where(s => s.TenSach.Contains(b));
+                }
+                
+                if (m != null)
+                {
+                    ds = ds.Where(s => s.SachID.Contains(m));
+                }
                 if (ds.Count() > 0)
                 {
                     ViewBag.SachID = ds;
                 }
                 else
                 {
-                    TempData["Message_Fa"] = "Không có sách tên " + b;
+                    TempData["Message_Fa"] = "Không có sách \"" + b + "\" với mã \"" + m + "\"";
                 }
-
-
             }
-
             return View();
         }
 
@@ -194,8 +197,7 @@ namespace LibraryManagementSystem.Controllers
             ViewBag.SachID = new SelectList(db.Sach, "ID", "SachID", thanhLy.SachID);
             return View(thanhLy);
         }
-        [Authorize]
-        [HttpPost]
+
         public ActionResult ConfirmCreate(int? id)
         {
             if (id == null)

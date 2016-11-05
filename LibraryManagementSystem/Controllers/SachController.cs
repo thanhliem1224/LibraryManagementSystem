@@ -12,6 +12,7 @@ using System.IO;
 using Excel;
 using PagedList;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -37,7 +38,7 @@ namespace LibraryManagementSystem.Controllers
             {
                 sach = sach.Where(x => x.ChuDe.TenChuDe == chuDeSach);
             }
-            if (!string.IsNullOrEmpty(trangThai))
+            if(!string.IsNullOrEmpty(trangThai))
             {
                 TrangThai t = EnumHelper<TrangThai>.GetValueFromName(trangThai);
                 sach = sach.Where(s => s.TrangThai == t);
@@ -127,45 +128,26 @@ namespace LibraryManagementSystem.Controllers
         }
 
 
-        // GET: Saches/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Sach sach = db.Sach.Find(id);
-            if (sach == null)
-            {
-                return HttpNotFound();
-            }
-            else
-            {
-                if (sach.TrangThai == TrangThai.DangMuon)
-                {
-                    var moreInfo = db.MuonTraSach.Where(m => m.SachID == id).Where(m => m.NgayTra == null);
-                    ViewBag.InfoMuon = moreInfo;
-                }
-                else if (sach.TrangThai == TrangThai.Mat)
-                {
-                    var moreInfo = db.MuonTraSach.Where(m => m.SachID == id).Where(m => m.Mat == true);
-                    ViewBag.InfoMat = moreInfo;
-                }
-                else if (sach.TrangThai == TrangThai.ThanhLy)
-                {
-                    var moreInfo = db.ThanhLy.Where(m => m.SachID == id);
-                    ViewBag.InfoThanhLy = moreInfo;
-                }
-
-            }
-            return View(sach);
-        }
+        //// GET: Saches/Details/5
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Sach sach = db.Sach.Find(id);
+        //    if (sach == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(sach);
+        //}
 
         // GET: Saches/Create
         public ActionResult Create()
         {
             ViewBag.ChuDeID = new SelectList(db.ChuDe, "ID", "TenChuDe");
-            return View();
+            return PartialView("_Create");
         }
 
         // POST: Saches/Create
@@ -174,17 +156,17 @@ namespace LibraryManagementSystem.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ChuDeID,SachID,TenSach,TrangThai,NgayNhap")] Sach sach)
+        public async Task<ActionResult> Create([Bind(Include = "ID,ChuDeID,SachID,TenSach,TrangThai,NgayNhap")] Sach sach)
         {
             if (ModelState.IsValid)
             {
                 db.Sach.Add(sach);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                await db.SaveChangesAsync();
+                return Json(new { success = true });
             }
 
             ViewBag.ChuDeID = new SelectList(db.ChuDe, "ID", "TenChuDe", sach.ChuDeID);
-            return View(sach);
+            return PartialView("_Create",sach);
         }
         public ActionResult ThemSachTuFile()
         {
@@ -310,20 +292,20 @@ namespace LibraryManagementSystem.Controllers
         }
 
         // GET: Saches/Edit/5
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sach sach = db.Sach.Find(id);
+            Sach sach = await db.Sach.FindAsync(id);
             if (sach == null)
             {
                 return HttpNotFound();
             }
             ViewBag.ChuDeID = new SelectList(db.ChuDe, "ID", "TenChuDe", sach.ChuDeID);
 
-            return View(sach);
+            return PartialView("_Edit",sach);
         }
 
         // POST: Saches/Edit/5
@@ -332,16 +314,16 @@ namespace LibraryManagementSystem.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ChuDeID,SachID,TenSach,NgayNhap,TrangThai")] Sach sach)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,ChuDeID,SachID,TenSach,SoLuong,TrangThai")] Sach sach)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(sach).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                await db.SaveChangesAsync();
+                return Json(new { success = true });
             }
             ViewBag.ChuDeID = new SelectList(db.ChuDe, "ID", "TenChuDe", sach.ChuDeID);
-            return View(sach);
+            return PartialView("_Edit",sach);
         }
 
         //// GET: Saches/Delete/5

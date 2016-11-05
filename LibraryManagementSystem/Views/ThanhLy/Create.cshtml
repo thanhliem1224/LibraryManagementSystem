@@ -3,80 +3,88 @@
 @{
     ViewBag.Title = "Thanh Lý Sách";
 }
-
-<h2 class="text-center">Thanh Lý Sách</h2>
-<br />
-<div>
-    <div class="form-horizontal">
-        <div class="form-group">
-            @using (Html.BeginForm("TimSach", "ThanhLy"))
-            {
-                <div class="form-inline">
-
-                    <div class="control-label col-md-4"><strong>Tìm Tên Sách</strong></div>
-                    <div class="col-md-4">
-                        @Html.TextBox("tenSach", null, new { @class = "form-control" })
-                    </div>
-
-                    <div class="col-md-4">
-                        <input type="submit" value="Tìm" class="btn btn-default" />
-                    </div>
-
-                </div>
-            }
-            <div>
-                @if (TempData["Message_Fa"] != null)
-                {
-                    <p class="col-md-offset-4 col-md-8 text-danger">@TempData["Message_Fa"]</p>
-                }
-                @if (TempData["Message_Su"] != null)
-                {
-                    <p class="col-md-offset-4 col-md-8 text-success">@TempData["Message_Su"]</p>
-                }
-            </div>
-        </div>
-    </div>
-    <div>
+<div class="row">
+    <div class="col-md-2">
         @Html.ActionLink("Lịch Sử Thanh Lý", "Index")
     </div>
-
+    <div class="col-md-8">
+        <h2 class="text-center">@ViewBag.Title</h2>
+    </div>
+    <div class="col-md-2">
+        <br />
+    </div>
+    <div class="col-md-2">
+        <br />
+    </div>
 </div>
+<br />
+
+<div class="row">
+    @using (Html.BeginForm("TimSach", "ThanhLy", FormMethod.Post))
+    {
+        <div class="col-md-3">
+            <label for="maSach" class="control-label">Tìm Mã Sách</label>
+            <input id="maSach" name="maSach" type="text" class="form-control" placeholder="Mã Sách" value="@ViewBag.CurrentTenHS">
+        </div>
+        <div class="col-md-3">
+            <label for="tenSach" class="control-label">Tìm Tên Sách</label>
+            <input id="tenSach" name="tenSach" type="text" class="form-control" placeholder="Tên Sách" value="@ViewBag.CurrentTenHS">
+
+        </div>
+        <div class="col-md-1">
+            <br />
+            <button type="submit" class="btn btn-primary form-control">Tìm</button>
+        </div>
+    }
+    <div class="col-md-12">
+        @if (TempData["Message_Fa"] != null)
+        {
+            <p class="text-danger">@TempData["Message_Fa"]</p>
+        }
+        @if (TempData["Message_Su"] != null)
+        {
+            <p class="text-success">@TempData["Message_Su"]</p>
+        }
+    </div>
+</div>
+
 @if (ViewBag.SachID != null)
 {
     <h3>Kết quả tìm kếm</h3>
     <br />
     <div class="table-responsive">
         <table class="table table-hover">
-
-            <tr>
-                <th>
-                    Mã Sách
-                </th>
-                <th>
-                    Tên Sách
-                </th>
-                <th>
-                    Chủ Đề
-                </th>
-            </tr>
-
-            @foreach (var item in ViewBag.SachID)
-            {
-                string url = "/ThanhLy/ConfirmCreate/" + item.ID;
-
-                <tr class='clickable-row' data-href='@url'>
-                    <td>
-                        @item.SachID
-                    </td>
-                    <td>
-                        @item.TenSach
-                    </td>
-                    <td>
-                        @item.ChuDe.TenChuDe
-                    </td>
+            <thead>
+                <tr>
+                    <th>
+                        Mã Sách
+                    </th>
+                    <th>
+                        Tên Sách
+                    </th>
+                    <th>
+                        Chủ Đề
+                    </th>
                 </tr>
-            }
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.SachID)
+                {
+                    string url = "/ThanhLy/ConfirmCreate/" + item.ID;
 
+                    <tr class='clickable-row' data-href='@url'>
+                        <td>
+                            @item.SachID
+                        </td>
+                        <td>
+                            @item.TenSach
+                        </td>
+                        <td>
+                            @item.ChuDe.TenChuDe
+                        </td>
+                    </tr>
+                }
+            </tbody>
         </table>
     </div>
 }

@@ -2,13 +2,11 @@
 <br />
 <div class="row">
     <hr />
-    <div class="col-md-10">
-        <h3 class="text-center">Báo Cáo @ViewBag.date</h3>
-    </div>
-    <div class="col-md-2 text-right">
+    <div>
+        
         @using (Html.BeginForm("XuatBaoCao", "BaoCao"))
         {
-
+            <h3 class="text-center">Báo Cáo @ViewBag.date <input type="submit" value="Tải Về" class="btn btn-success" /></h3>
             <div hidden>
                 <input type="text" name="docsach" value="@ViewBag.docsach_stt" />
                 <input type="checkbox" name="muonsach" value="@ViewBag.muonsach_stt" />
@@ -22,7 +20,7 @@
             </div>
 
 
-            <input type="submit" value="Tải Về" class="btn btn-success" />
+            
 
         }
     </div>
@@ -84,3 +82,9 @@
     <br />
 }
 
+@if (ViewBag.sachnhap_stt == true)
+{
+    <hr />
+    @Html.Partial("~/Views/BaoCao/BaoCaoSachNhap.cshtml")
+    <br />
+}

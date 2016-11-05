@@ -4,7 +4,7 @@
     ViewBag.Title = "Gia Hạn Mượn Sách";
 }
 
-<h2 class="text-center">Gia Hạn Mượn Sách</h2>
+<h2 class="text-center">@ViewBag.Title</h2>
 <br />
 @using (Html.BeginForm())
 {
@@ -62,16 +62,16 @@
             @Html.LabelFor(model => model.HanTra, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @*{
-                    string _year_hantra = Model.HanTra.Year.ToString();
-                    string _month_hantra = Model.HanTra.Month.ToString();
-                    string _day_hantra = Model.HanTra.Day.ToString();
+                        string _year_hantra = Model.HanTra.Year.ToString();
+                        string _month_hantra = Model.HanTra.Month.ToString();
+                        string _day_hantra = Model.HanTra.Day.ToString();
 
-                    string _date_hantra = _year_hantra.PadLeft(4, '0') + "-" + _month_hantra.PadLeft(2, '0') + "-" + _day_hantra.PadLeft(2, '0');
+                        string _date_hantra = _year_hantra.PadLeft(4, '0') + "-" + _month_hantra.PadLeft(2, '0') + "-" + _day_hantra.PadLeft(2, '0');
 
-                }
-                <input type="date" id="_hanTra" value="@_date_hantra" hidden />
-                <p id="showHanTra"></p>*@
-                <input class="form-control" id="HanTra" name="HanTra" type="datetime" value="@Model.HanTra" readonly/>
+                    }
+                    <input type="date" id="_hanTra" value="@_date_hantra" hidden />
+                    <p id="showHanTra"></p>*@
+                <input class="form-control" id="HanTra" name="HanTra" type="datetime" value="@Model.HanTra" readonly />
                 <p id="HanTraFake" hidden>@Model.HanTra</p>
                 @Html.ValidationMessageFor(model => model.HanTra, "", new { @class = "text-danger" })
             </div>
@@ -87,7 +87,7 @@
             </div>
         </div>
     </div>
-                    }
+}
 
 
 @section Scripts {
@@ -98,7 +98,7 @@
             var hanTraDatePart = hanTra[0].split('/');
             getDate();
             function getDate() {
-                
+
                 var duration = $("#duration_time").val();
                 var deadline = new Date(hanTraDatePart[2], hanTraDatePart[1]-1, hanTraDatePart[0]);
                 deadline.setTime(deadline.getTime() + (duration * 86400000));
