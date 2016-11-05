@@ -346,7 +346,6 @@
     <Content Include="Views\HocSinh\Create.cshtml" />
     <Content Include="Views\HocSinh\Edit.cshtml" />
     <Content Include="Views\HocSinh\Index.cshtml" />
-    <Content Include="Views\ChuDe\Create.cshtml" />
     <Content Include="Views\ChuDe\Edit.cshtml" />
     <Content Include="Views\ChuDe\Index.cshtml" />
     <Content Include="Views\Sach\Create.cshtml" />
@@ -386,6 +385,7 @@
     <Content Include="Views\BaoCao\BCCT_DocSach.cshtml" />
     <Content Include="Views\BaoCao\BCCT_MuonSach.cshtml" />
     <Content Include="Views\Sach\Details.cshtml" />
+    <Content Include="Views\ChuDe\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

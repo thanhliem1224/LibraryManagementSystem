@@ -61,7 +61,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.HanTra, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @{
+                @*{
                     string _year_hantra = Model.HanTra.Year.ToString();
                     string _month_hantra = Model.HanTra.Month.ToString();
                     string _day_hantra = Model.HanTra.Day.ToString();
@@ -70,8 +70,9 @@
 
                 }
                 <input type="date" id="_hanTra" value="@_date_hantra" hidden />
-                <p id="showHanTra"></p>
-                <input class="form-control hidden" id="HanTra" name="HanTra" type="date" />
+                <p id="showHanTra"></p>*@
+                <input class="form-control" id="HanTra" name="HanTra" type="datetime" value="@Model.HanTra" readonly/>
+                <p id="HanTraFake" hidden>@Model.HanTra</p>
                 @Html.ValidationMessageFor(model => model.HanTra, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -93,18 +94,18 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
         $(document).ready(function () {
+            var hanTra = $("#HanTraFake").text().split(' ');
+            var hanTraDatePart = hanTra[0].split('/');
             getDate();
             function getDate() {
-                var hanTra = $("#_hanTra").val().split('-');
+                
                 var duration = $("#duration_time").val();
-                var deadline = new Date(hanTra[0], hanTra[1], hanTra[2]);
+                var deadline = new Date(hanTraDatePart[2], hanTraDatePart[1]-1, hanTraDatePart[0]);
                 deadline.setTime(deadline.getTime() + (duration * 86400000));
                 var dd = ("0" + deadline.getDate()).slice(-2);
-                var MM = ("0" + deadline.getMonth()).slice(-2);
+                var MM = ("0" + (deadline.getMonth()+1)).slice(-2);
                 var YYYY = deadline.getFullYear();
-                var newDate = YYYY + '-' + MM + '-' + dd;
-                $("#showHanTra").text(dd + '/' + MM + '/' + YYYY);
-                $("#HanTra").val(newDate);
+                $("#HanTra").val(dd + '-' + MM + '-' + YYYY + " 23:59:59");
             };
             $("#duration_time").change(function () {
                 getDate();
